@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<!-- thymeleaf 프라그먼트 -->
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="layout/default_layout">
+
+<th:block layout:fragment="content">
+  <p>여행 계획 추가</p>
+  <form action="/plan/plan_insert" method="post">
+    시작 날:<input type="text" id="startDate" name="startDate" autocomplete='off'><br>
+    마지막 날:<input type="text" id="endDate" name="endDate" autocomplete='off'><br>
+    <button type="submit">확인</button>
+  </form>
+  <button onclick="calculateDays()">일수 계산</button>
+  <p id="result"></p>
+
+  <div>
+    <label for="regionDropdown">지역 선택:</label>
+    <select id="regionDropdown" onchange="loadBuildings()">
+      <option value="서울특별시" selected>서울</option>
+      <option value="제주특별자치도">제주</option>
+      <!-- 다른 지역 옵션들 추가 -->
+    </select>
+  </div>
+
+  <a href="/plan/make_plan?companyCtprvn=서울특별시">서울</a>
+  <a href="/plan/make_plan?companyCtprvn=제주특별자치도">제주</a>
+
+    <table>
+      <tr>
+        <th>시설 번호</th>
+        <th>시설 이름</th>
+        <th>시설 카테고리</th>
+        <th>시설 지역</th>
+      </tr>
+      <tr th:each="comp: ${companyList}">
+        <td th:text="${comp.companyCode}"></td>
+        <td th:text="${comp.companyName}"></td>
+        <td th:text="${comp.companyClassi}"></td>
+        <td th:text="${comp.companyCtprvn}"></td>
+      </tr>
+    </table>
+
+    <div class="paging">
+      <span th:if="${paging.page le 1}"> [이전] </span>
+      <a th:if="${paging.page > 1}" th:href="@{/plan/make_plan(companyCtprvn=${companyCtprvn},companyClassi=${companyClassi},page=${paging.page-1})}"> [이전] </a>
+
+      <span th:each="i : ${#numbers.sequence(paging.startPage, paging.endPage)}">
+        <span th:if="${i eq paging.page}">
+            <b th:text="${i}"></b>
+        </span>
+        <a th:unless="${i eq paging.page}" th:href="@{/plan/make_plan(companyCtprvn=${companyCtprvn},companyClassi=${companyClassi},page=${i})}" th:text="${i}"></a>
+    </span>
+
+      <span th:if="${paging.page ge paging.maxPage}"> [다음] </span>
+      <a th:if="${paging.page < paging.maxPage}" th:href="@{/plan/make_plan(companyCtprvn=${companyCtprvn},companyClassi=${companyClassi},page=${paging.page+1})}"> [다음] </a>
+    </div>
+  </div>
+  <script>
+    $.datepicker.setDefaults({
+      dateFormat: 'yy-mm-dd',
+      prevText: '이전 달',
+      nextText: '다음 달',
+      monthNames: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
+      monthNamesShort: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
+      dayNames: ['일', '월', '화', '수', '목', '금', '토'],
+      dayNamesShort: ['일', '월', '화', '수', '목', '금', '토'],
+      dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'],
+      showMonthAfterYear: true,
+      yearSuffix: '년'
+    });
+
+    $(function() {
+      // 출발일은 오늘 이상만 선택 가능
+      $("#startDate").datepicker({
+        minDate: 0
+      });
+
+      // 도착일은 출발일 이상만 선택 가능
+      $("#endDate").datepicker({
+        minDate: 0
+      });
+    })
+
+    function calculateDays() {
+      // 출발일과 도착일 입력값 가져오기
+      var startDateStr = $("#startDate").val();
+      var endDateStr = $("#endDate").val();
+
+      // Date 객체로 변환
+      var startDate = new Date(startDateStr);
+      var endDate = new Date(endDateStr);
+
+      // 두 날짜 간의 차이 계산 (밀리초로 반환)
+      var timeDiff = endDate - startDate;
+
+      // 일수로 변환 (밀리초 -> 초 -> 분 -> 시간 -> 일)
+      var daysDiff = Math.floor(timeDiff / (1000 * 60 * 60 * 24) + 1);
+
+      // 결과 표시
+      $("#result").text("출발일과 도착일 사이의 일수: " + daysDiff + "일");
+    }
+
+  </script>
+</th:block>

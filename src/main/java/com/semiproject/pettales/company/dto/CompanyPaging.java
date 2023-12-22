@@ -1,4 +1,4 @@
-package com.semiproject.pettales.company.paging;
+package com.semiproject.pettales.company.dto;
 
 public class CompanyPaging {
     private int page; // 현재 페이지 번호
