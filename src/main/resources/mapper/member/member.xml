@@ -12,7 +12,7 @@
         <result property="userStatus" column="USER_STATUS"/>
         <result property="userAuth" column="USER_AUTH"/>
         <result property="petCode" column="PET_CODELIST"/>
-<!--        <result property="companyCode" column="COMPANY_CODELIST"/>-->
+        <result property="companyCode" column="COMPANY_CODELIST"/>
         <result property="registDate" column="REGIST_DATE"/>
         <result property="updateDate" column="UPDATE_DATE"/>
     </resultMap>
@@ -25,7 +25,7 @@
             USER_AUTH,
             USER_STATUS,
             PET_CODELIST,
-<!--            COMPANY_CODELIST,-->
+            COMPANY_CODELIST,
             REGIST_DATE,
             UPDATE_DATE
           FROM USER_TABLE

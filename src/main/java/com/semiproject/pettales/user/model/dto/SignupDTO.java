@@ -11,14 +11,14 @@ public class SignupDTO {
     private String password;
     private String userStatus;
     private String auth;
-    private String petCode;
+    private int petCode;
     private Date registDate;
     private Date updateDate;
 
     public SignupDTO() {
     }
 
-    public SignupDTO(String userEmail, String userNickName, String password, String userStatus, String auth, String petCode, Date registDate, Date updateDate) {
+    public SignupDTO(String userEmail, String userNickName, String password, String userStatus, String auth, int petCode, Date registDate, Date updateDate) {
         this.userEmail = userEmail;
         this.userNickName = userNickName;
         this.password = password;
@@ -69,11 +69,11 @@ public class SignupDTO {
         this.auth = auth;
     }
 
-    public String getPetCode() {
+    public int getPetCode() {
         return petCode;
     }
 
-    public void setPetCode(String petCode) {
+    public void setPetCode(int petCode) {
         this.petCode = petCode;
     }
 
