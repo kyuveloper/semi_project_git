@@ -4,18 +4,24 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-
+    <!-- 구글 아이콘 -->
     <script src="https://kit.fontawesome.com/e8f09b5de5.js" crossorigin="anonymous"></script>
-
-
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <!-- 부트스트랩 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
-    <!-- 메뉴 css -->
-    <link rel="stylesheet" href="/css/style.css">
+    <!-- 메인 css -->
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
+    <!-- 메인 js-->
+    <script defer th:src="@{/js/main.js}"></script>
+
+    <!-- plan css -->
+    <link rel="stylesheet" th:href="@{/css/comInfo.css}" />
+    <!-- plan js -->
+
+
+    <script defer src="/js/comInfo.js"></script>
 
     <!-- 유저 css-->
     <link rel="stylesheet" href="/css/jihoCss.css">
@@ -30,7 +36,7 @@
     <link rel="stylesheet" href="/css/datepicker.css" />
 
     <script defer src="/js/main.js"></script>
-    <script defer src="/js/comInfo.js"></script>
+
     <title>Semi Project Main Page</title>
   </head>
 
