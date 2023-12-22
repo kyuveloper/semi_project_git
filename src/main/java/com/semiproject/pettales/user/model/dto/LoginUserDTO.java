@@ -16,6 +16,7 @@ public class LoginUserDTO {
     private String password;
     private String userStatus;
     private int petCode;
+    private String companyCode;
     private Date registDate;
     private Date updateDate;
     private UserAuth userAuth;
@@ -33,13 +34,6 @@ public class LoginUserDTO {
         this.registDate = registDate;
         this.updateDate = updateDate;
         this.userAuth = userAuth;
-    }
-    public List<String> getAuth(){
-        System.out.println(this.userAuth.getAuth());
-        if(this.userAuth.getAuth().length()>0){
-            return Arrays.asList(this.userAuth.getAuth().split(","));
-        }
-        return new ArrayList<>();
     }
 
     public int getUserCode() {
@@ -127,5 +121,13 @@ public class LoginUserDTO {
                 ", updateDate=" + updateDate +
                 ", userAuth=" + userAuth +
                 '}';
+    }
+
+    public List<String> getAuth(){
+        System.out.println(this.userAuth.getAuth());
+        if(this.userAuth.getAuth().length()>0){
+            return Arrays.asList(this.userAuth.getAuth().split(","));
+        }
+        return new ArrayList<>();
     }
 }
