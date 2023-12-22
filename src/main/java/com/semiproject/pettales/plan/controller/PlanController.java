@@ -1,7 +1,7 @@
 package com.semiproject.pettales.plan.controller;
 
 import com.semiproject.pettales.company.dto.CompanyDTO;
-import com.semiproject.pettales.company.paging.CompanyPaging;
+import com.semiproject.pettales.company.dto.CompanyPaging;
 import com.semiproject.pettales.company.service.CompanyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,21 +21,21 @@ public class PlanController {
     @GetMapping("/make_plan")
     public String makePlanView(Model model,
                                @RequestParam(value="page", required=false, defaultValue="1") int page,
-                               @RequestParam(value = "companyCtprvn", required = false) String companyCtprvn){
-        List<CompanyDTO> companyList = companyService.selectAllCompany(page);
-        //List<CompanyDTO> companyListByCtprvn = companyService.selectAllCompanyByCtprvn(page, companyCtprvn);
-        CompanyPaging paging = companyService.pagingParam(page);
-        //CompanyPaging paging = companyService.pagingParamByCtprvn(page, companyCtprvn);
+                               @RequestParam(value = "companyCtprvn", required = false) String companyCtprvn,
+                               @RequestParam(value = "companyClassi", required = false) String companyClassi){
+        List<CompanyDTO> companyListByCtprvn = companyService.selectAllCompanyByCtprvn(page, companyCtprvn, companyClassi);
+        CompanyPaging paging = companyService.pagingParamByCtprvn(page, companyCtprvn, companyClassi);
 
+        model.addAttribute("companyCtprvn", companyCtprvn);
+        model.addAttribute("companyClassi", companyClassi);
         model.addAttribute("paging", paging);
-        //model.addAttribute("paging2", paging2);
-        model.addAttribute("companyList", companyList);
-        //model.addAttribute("CompanyByCtprvn", companyListByCtprvn);
+
+        model.addAttribute("companyList", companyListByCtprvn);
 
         System.out.println("page: " + page);
         System.out.println("companyCtprvn: " + companyCtprvn);
 
-        return "plan/planview";
+        return "plan/planView";
     }
 
 }
