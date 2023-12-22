@@ -3,7 +3,7 @@ package com.semiproject.pettales.auth.model;
 // 권한 받을 사용자의 변수명을 지정해주는 기능
 
 public enum UserAuth {
-    USER("유저"), // 유저
+    유저("유저"), // 유저
     ADMIN("운영자"); // 관리자
     private String auth;
 
