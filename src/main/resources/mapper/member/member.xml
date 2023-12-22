@@ -18,18 +18,18 @@
     </resultMap>
     <select id="findByUserNickName" resultMap="login">
         SELECT
-        USER_CODE,
-        USER_EMAIL,
-        USER_NICKNAME,
-        USER_PASSWORD,
-        USER_AUTH
-<!--        USER_STATUS,-->
-<!--        PET_CODELIST,-->
-<!--        COMPANY_CODELIST,-->
-<!--        REGIST_DATE,-->
-<!--        UPDATE_DATE-->
-        FROM USER_TABLE
-        WHERE USER_EMAIL=#{userEmail}
+            USER_CODE,
+            USER_EMAIL,
+            USER_NICKNAME,
+            USER_PASSWORD,
+            USER_AUTH,
+            USER_STATUS,
+            PET_CODELIST,
+            COMPANY_CODELIST,
+            REGIST_DATE,
+            UPDATE_DATE
+          FROM USER_TABLE
+         WHERE USER_EMAIL=#{userEmail}
     </select>
 
     <insert id="regist" parameterType="com.semiproject.pettales.user.model.dto.SignupDTO">
