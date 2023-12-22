@@ -6,12 +6,13 @@
 
     <resultMap id="login" type="com.semiproject.pettales.user.model.dto.LoginUserDTO">
         <id property="userCode" column="USER_CODE"/>
-        <result property="userEmail" column="USER_EMAIL"/>
         <result property="userNickName" column="USER_NICKNAME"/>
+        <result property="userEmail" column="USER_EMAIL"/>
         <result property="password" column="USER_PASSWORD"/>
-        <result property="userAuth" column="USER_AUTH"/>
         <result property="userStatus" column="USER_STATUS"/>
-        <result property="petCode" column="PET_CODE"/>
+        <result property="userAuth" column="USER_AUTH"/>
+        <result property="petCode" column="PET_CODELIST"/>
+        <result property="companyCode" column="COMPANY_CODELIST"/>
         <result property="registDate" column="REGIST_DATE"/>
         <result property="updateDate" column="UPDATE_DATE"/>
     </resultMap>
@@ -21,11 +22,12 @@
         USER_EMAIL,
         USER_NICKNAME,
         USER_PASSWORD,
-        USER_AUTH,
-        USER_STATUS,
-        PET_CODE,
-        REGIST_DATE,
-        UPDATE_DATE
+        USER_AUTH
+<!--        USER_STATUS,-->
+<!--        PET_CODELIST,-->
+<!--        COMPANY_CODELIST,-->
+<!--        REGIST_DATE,-->
+<!--        UPDATE_DATE-->
         FROM USER_TABLE
         WHERE USER_EMAIL=#{userEmail}
     </select>
@@ -37,16 +39,14 @@
         USER_PASSWORD,
         USER_AUTH,
         USER_STATUS,
-        PET_CODE,
         REGIST_DATE,
         UPDATE_DATE
         )VALUES(
         #{userEmail},
         #{userNickName},
         #{password},
-        'USER',
+        '유저',
         '기본',
-        '1',
         now(),
         now()
         )

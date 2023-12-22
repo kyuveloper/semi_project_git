@@ -35,6 +35,7 @@ public class LoginUserDTO {
         this.userAuth = userAuth;
     }
     public List<String> getAuth(){
+        System.out.println(this.userAuth.getAuth());
         if(this.userAuth.getAuth().length()>0){
             return Arrays.asList(this.userAuth.getAuth().split(","));
         }
