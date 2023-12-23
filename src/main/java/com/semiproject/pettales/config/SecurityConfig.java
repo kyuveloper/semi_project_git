@@ -44,7 +44,7 @@ public class SecurityConfig {
                     // permitAll : 어떠한 사용자든 해당 경로에 접근 할 수 있도록 허용하는 역할
                     auth.requestMatchers("/admin/*").hasAnyAuthority(UserAuth.ADMIN.getAuth());
                     // /admin/* 은 ADMIN에 속한 자가 가질 수 있는 권한임
-                    auth.requestMatchers("/user/*").hasAnyAuthority(UserAuth.유저.getAuth());
+                    auth.requestMatchers("/user/*").hasAnyAuthority(UserAuth.USER.getAuth());
                     // /user/* 는 USER에 속한 자가 가질 수 있는 권한임
                     auth.anyRequest().authenticated(); //anyRequest:모든 요청 authenticated:인증된
                     //인증된 사용자는 전부 사용 가능
