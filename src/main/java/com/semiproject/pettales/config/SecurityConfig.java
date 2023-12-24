@@ -62,6 +62,10 @@ public class SecurityConfig {
                     // JSESSIONID는 톰캣에서 세션을 유지하기 위해 발급하는 키
                     logout.invalidateHttpSession(true); // 세션을 소멸하도록 허용하는 것
                     logout.logoutSuccessUrl("/"); // 로그아웃 성공 시 이동할 페이지 설정
+                }).oauth2Login(httpSecurityOAuth2LoginConfigurer -> {
+                    httpSecurityOAuth2LoginConfigurer.loginPage("/auth/login");
+                    httpSecurityOAuth2LoginConfigurer.defaultSuccessUrl("/comInfo");
+                    httpSecurityOAuth2LoginConfigurer.failureHandler(authFailHandler);
                 })
                 .sessionManagement(session ->{ // 세션 관리
                     session.maximumSessions(1); //session의 허용 개수를 제한, 동시접속 제한

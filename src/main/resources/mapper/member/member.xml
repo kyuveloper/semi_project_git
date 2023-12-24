@@ -63,7 +63,7 @@
     <!--          FROM USER_TABLE-->
     <!--         WHERE USER_EMAIL = #{userEmail}-->
     <!--    </select>-->
-    <select id="emailCheck" parameterType="com.semiproject.pettales.user.model.dto.SignupDTO">
+    <select id="checkEmail" parameterType="com.semiproject.pettales.user.model.dto.LoginUserDTO">
         SELECT
         COUNT(*)
         FROM USER_TABLE

@@ -3,6 +3,7 @@ package com.semiproject.pettales.user.dao;
 import com.semiproject.pettales.user.model.dto.LoginUserDTO;
 import com.semiproject.pettales.user.model.dto.SignupDTO;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Select;
 
 // 데이터베이스와 연동해줌
 
@@ -12,9 +13,8 @@ public interface UserMapper {
 
     int regist(SignupDTO signupDTO); //회원가입
 
-//    LoginUserDTO findByUserEmail(String userEmail);
+    int emailCheck(String userEmail);
 
-    int emailCheck(String userEmail); //이메일체크 아직 미구현
 
     //이넘에 정지기능 로그인실패시 정지유저라고 알람
 }
