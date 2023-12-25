@@ -8,19 +8,17 @@
 <body>
 <h1>회원가입</h1>
 
-<form th:action="@{/user/signup}" method="post" modelAttribute="signupDTO" id="signupForm">
+<form th:action="@{/user/signup}" method="post">
 
-    <img th:src="@{/image/userImgs/envelope-solid.svg}">
-    <!--이메일 입력-->
+    <!--        이메일 입력-->
     <label for="inputUserEmail">이메일</label>
-    <input type="email" id="inputUserEmail" name="userEmail">
-    <!--이메일 중복 체크-->
-    <button class="emailCheck" type="button" id="emailCheck" onclick="fn_emailCheck()">중복 체크</button> <br>
+    <input type="text" id="inputUserEmail" name="inputUserEmail">
 
-    <!--    <input type="email" id="inputUserEmail" name="userEmail" placeholder="이메일" size="60">-->
-    <!--    <button type="button" onclick="fn_emailCheck()" name="emailCheck" class="emailCheck">중복체크</button>-->
-    <!--    <input type="email" name="userEmail" placeholder="이메일" size="60" id="userEmail" onblur="emailDuplicate()">-->
-    <!--    <span id="email-dup-result"></span>-->
+    <button class="emailCheck" type="button" id="emailCheck"
+            onclick="fn_emailCheck();">
+        중복확인
+    </button>
+
     <input type="text" name="userNickName" placeholder="닉네임" size="60"> <br>
     <input type="password" name="password" placeholder="비밀번호" id="password1" size="60"> <br>
     <input type="password" name="checkPassword" placeholder="비밀번호 확인" id="password2" size="60"> <br>
@@ -40,61 +38,28 @@
     }
 </script>
 <script type="text/javascript">
-
     // 이메일 중복 확인
-    // function fn_emailCheck() {
-    //     console.log("123")
-    //     $.ajax({
-    //         url: "/user/emailCheck", <!--경로 설정-->
-    //         type: "POST",
-    //         dataType: "JSON",
-    //         data : {"userEmail" : $("#inputUserEmail").val()}, <!---->
-    //         success: function (data) {
-    //             console.log(data.userEmail)
-    //             console.log("456")
-    //
-    //             if (data == 1) {
-    //                 alert("중복된 이메일입니다.");
-    //             } else if (data == 0) {
-    //                 $("#emailCheck").attr("value", "Y");
-    //                 alert("사용 가능한 이메일입니다.")
-    //             }
-    //
-    //         },
-    //         error: function (data){
-    //             console.log(data.userEmail)
-    //
-    //             console.log("777")
-    //         }
-    //
-    //     })
-    //     console.log("789")
-    // }
-    function fn_emailCheck(){
-        var email = $('userEmail').val();
-        console.log("1")
+    function fn_emailCheck() {
         $.ajax({
-            url: "/user/emailCheck",
-            type: 'post',
-            data: {email:email},
-            success:function (cnt){
-                console.log("2")
-                if(cnt == 0){
-                    console.log("3")
-                    alert("사용 가능한 이메일 입니다.")
-                }else{
-                    console.log("4")
-                    alert("사용 불가능한 이메일 입니다.")
+            url : "/user/emailCheck",
+            type : "POST",
+            dataType :"JSON",
+            data : {"userEmail" : $("#inputUserEmail").val()},
+            success : function (data) {
+                if(data == 1) {
+                    alert("중복된 이메일입니다.");
+                } else if (data == 0) {
+                    $("#emailCheck").attr("value", "Y");
+                    alert("사용 가능한 이메일입니다.")
+
                 }
             },
-            error:function (){
-                console.log("5")
-                alert("에러입니다");
+            error: function (){
+                alert("에러");
             }
-        })
-        console.log("6")
-    }
 
+        })
+    }
 
     <!--입력한 비밀번호와 입력한 비밀번호 확인이 일치할 시 회원가입 버튼이 활성화되고 그렇지 않으면 활성화가 안됨-->
     function test(){
@@ -117,30 +82,6 @@
     function back(){
         history.back();
     } <!--뒤로 가기-->
-    // const emailDuplicate = () => {
-    //     const email = document.getElementById("userEmail").value;
-    //     const checkResult = document.getElementById("email-dup-result");
-    //     $.ajax({
-    //         type: "post",
-    //         url: "user/emailCheck",
-    //         dataType: "email",
-    //         data: {
-    //             "userEmail": email
-    //         },
-    //         success: function (result) {
-    //             if (result == "ok"){
-    //                 checkResult.innerHTML = "사용가능합니다.";
-    //                 checkResult.style.color = "green";
-    //             }else{
-    //                 checkResult.innerHTML = "이미 사용중인 이메일 입니다.";
-    //                 checkResult.style.color = "red";
-    //             }
-    //         },
-    //         error: function () {
-    //             alert("ajax 실패");
-    //         }
-    //     })
-    // }
 </script>
 
 </body>

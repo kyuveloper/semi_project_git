@@ -15,7 +15,8 @@ public class LoginUserDTO {
     private String userNickName;
     private String password;
     private String userStatus;
-    private int petCode;
+    private String petCode;
+    private String companyCode;
     private Date registDate;
     private Date updateDate;
     private UserAuth userAuth;
@@ -23,23 +24,17 @@ public class LoginUserDTO {
     public LoginUserDTO() {
     }
 
-    public LoginUserDTO(int userCode, String userEmail, String userNickName, String password, String userStatus, int petCode, Date registDate, Date updateDate, UserAuth userAuth) {
+    public LoginUserDTO(int userCode, String userEmail, String userNickName, String password, String userStatus, String petCode, String companyCode, Date registDate, Date updateDate, UserAuth userAuth) {
         this.userCode = userCode;
         this.userEmail = userEmail;
         this.userNickName = userNickName;
         this.password = password;
         this.userStatus = userStatus;
         this.petCode = petCode;
+        this.companyCode = companyCode;
         this.registDate = registDate;
         this.updateDate = updateDate;
         this.userAuth = userAuth;
-    }
-    public List<String> getAuth(){
-        System.out.println(this.userAuth.getAuth());
-        if(this.userAuth.getAuth().length()>0){
-            return Arrays.asList(this.userAuth.getAuth().split(","));
-        }
-        return new ArrayList<>();
     }
 
     public int getUserCode() {
@@ -82,12 +77,20 @@ public class LoginUserDTO {
         this.userStatus = userStatus;
     }
 
-    public int getPetCode() {
+    public String getPetCode() {
         return petCode;
     }
 
-    public void setPetCode(int petCode) {
+    public void setPetCode(String petCode) {
         this.petCode = petCode;
+    }
+
+    public String getCompanyCode() {
+        return companyCode;
+    }
+
+    public void setCompanyCode(String companyCode) {
+        this.companyCode = companyCode;
     }
 
     public Date getRegistDate() {
@@ -122,10 +125,19 @@ public class LoginUserDTO {
                 ", userNickName='" + userNickName + '\'' +
                 ", password='" + password + '\'' +
                 ", userStatus='" + userStatus + '\'' +
-                ", petCode=" + petCode +
+                ", petCode='" + petCode + '\'' +
+                ", companyCode='" + companyCode + '\'' +
                 ", registDate=" + registDate +
                 ", updateDate=" + updateDate +
                 ", userAuth=" + userAuth +
                 '}';
+    }
+
+    public List<String> getAuth(){
+        System.out.println(this.userAuth.getAuth());
+        if(this.userAuth.getAuth().length()>0){
+            return Arrays.asList(this.userAuth.getAuth().split(","));
+        }
+        return new ArrayList<>();
     }
 }
