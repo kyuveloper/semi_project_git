@@ -13,9 +13,18 @@ spring:
       client:
         registration:
           google:
-            client-id: 872355310097-us4s0i239pm42eog5c78dc7qcg6hc00k.apps.googleusercontent.com
-            client-secret: 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
-            scope: email, profile
+            client-id:
+            client-secret:
+            redirectUri: "{baseUrl}/login/oauth2/code/{registrationId}"
+            scope:
+              - email
+              - profile
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
+    hibernate:
+      ddl-auto: update
 
 #mybatis:
 #  mapper-locations: mapper/*.xml

@@ -1,6 +1,7 @@
 package com.semiproject.pettales.config;
 
 import com.semiproject.pettales.auth.model.UserAuth;
+import com.semiproject.pettales.auth.service.PrincipalOauth2UserService;
 import com.semiproject.pettales.config.handler.AuthFailHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
@@ -65,6 +66,7 @@ public class SecurityConfig {
                 }).oauth2Login(httpSecurityOAuth2LoginConfigurer -> {
                     httpSecurityOAuth2LoginConfigurer.loginPage("/auth/login");
                     httpSecurityOAuth2LoginConfigurer.defaultSuccessUrl("/comInfo");
+                    httpSecurityOAuth2LoginConfigurer.failureUrl("/auth/login");
                     httpSecurityOAuth2LoginConfigurer.failureHandler(authFailHandler);
                 })
                 .sessionManagement(session ->{ // 세션 관리

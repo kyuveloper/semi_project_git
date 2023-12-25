@@ -1,15 +1,19 @@
 package com.semiproject.pettales.auth.model;
 
 import com.semiproject.pettales.user.model.dto.LoginUserDTO;
+import com.semiproject.pettales.user.model.entity.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Map;
+import java.util.Objects;
 
 // 사용자 세부 정보
 
-public class AuthDetails implements UserDetails {
+public class AuthDetails implements UserDetails, OAuth2User {
     private LoginUserDTO loginUserDTO;
 
     public AuthDetails() {
@@ -17,6 +21,10 @@ public class AuthDetails implements UserDetails {
 
     public AuthDetails(LoginUserDTO loginUserDTO) {
         this.loginUserDTO = loginUserDTO;
+    }
+
+    public AuthDetails(User user, Map<String, Object> attributes) {
+        this.attributes = attributes;
     }
 
     public LoginUserDTO getLoginUserDTO() {
@@ -34,6 +42,7 @@ public class AuthDetails implements UserDetails {
 
         return authorities;
     }
+
 
     /**
      * 사용자의 비밀번호를 반환하는 메서드이다.
@@ -92,5 +101,23 @@ public class AuthDetails implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    // 구글 로그인
+    private Map<String, Object> attributes;
+
+    public AuthDetails(LoginUserDTO loginUserDTO, Map<String, Object> attributes){
+        this.loginUserDTO = loginUserDTO;
+        this.attributes = attributes;
+    }
+
+    @Override
+    public String getName() {
+        return null;
+    }
+
+    @Override
+    public Map<String, Object> getAttributes() {
+        return attributes;
     }
 }
