@@ -36,13 +36,20 @@ public class AuthDetails implements UserDetails /*OAuth2User*/ {
         this.loginUserDTO = loginUserDTO;
     }
 
+//    @Override
+//    public Collection<? extends GrantedAuthority> getAuthorities() {
+//        Collection<GrantedAuthority> authorities = new ArrayList<>();
+//
+//        if (loginUserDTO != null) {
+//            loginUserDTO.getAuth().forEach(role -> authorities.add(() -> role));
+//        }
+//
+//        return authorities;
+//    }
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         Collection<GrantedAuthority> authorities = new ArrayList<>();
-
-        if (loginUserDTO != null) {
-            loginUserDTO.getAuth().forEach(role -> authorities.add(() -> role));
-        }
+        loginUserDTO.getAuth().forEach(role -> authorities.add(() -> role));
 
         return authorities;
     }
