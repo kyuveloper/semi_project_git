@@ -32,19 +32,6 @@ public class MemberService {
         }
     }
 
-//    public LoginUserDTO findByUserEmail(String userEmail){
-//
-//        LoginUserDTO login = userMapper.findByUserEmail(userEmail);
-//        System.out.println(login);
-//        if(!Objects.isNull(login)){
-//            System.out.println("있");
-//            return login;
-//        }else{
-//            System.out.println("없");
-//            return null;
-//        }
-//    }
-
     @Transactional
     public int regist(SignupDTO signupDTO){ // 회원가입
         signupDTO.setPassword(encoder.encode(signupDTO.getPassword()));
@@ -53,13 +40,8 @@ public class MemberService {
         return result;
     }
 
-//    public String emailCheck(String userEmail) {
-//        String result = String.valueOf(userMapper.findByUserEmail(userEmail));
-//        return result;
-//    }
 
-    public int emailCheck(String userEmail) { // 이메일 중복체크 아직 실패함
-        System.out.println("서비스 체크");
+    public int emailCheck(String userEmail) {
         int result = userMapper.emailCheck(userEmail);
         return result;
     }

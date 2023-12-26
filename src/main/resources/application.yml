@@ -8,6 +8,14 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: pettales
     password: pettales
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: 872355310097-us4s0i239pm42eog5c78dc7qcg6hc00k.apps.googleusercontent.com
+            client-secret: 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
+            scope: email, profile
 
 #mybatis:
 #  mapper-locations: mapper/*.xml
