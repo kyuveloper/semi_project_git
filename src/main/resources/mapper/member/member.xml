@@ -45,7 +45,7 @@
         #{userEmail},
         #{userNickName},
         #{password},
-        '유저',
+        'USER',
         '기본',
         now(),
         now()
