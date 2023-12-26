@@ -1,6 +1,7 @@
 package com.semiproject.pettales.user.model.dto;
 
 import com.semiproject.pettales.auth.model.UserAuth;
+//import com.semiproject.pettales.user.model.entity.User;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -36,6 +37,19 @@ public class LoginUserDTO {
         this.updateDate = updateDate;
         this.userAuth = userAuth;
     }
+
+//    public LoginUserDTO(User user) {
+//        this.userCode = user.getUserCode();
+//        this.userEmail = user.getUserEmail();
+//        this.userNickName = user.getUserNickname();
+//        this.password = user.getPassword();
+//        this.userStatus = user.getUserStatus();
+//        this.petCode = user.getPetCode();
+//        this.companyCode = user.getCompanyCode();
+////        this.registDate = user.getRegistDate();
+////        this.updateDate = user.getUpdateDate();
+//        this.userAuth = UserAuth.valueOf(user.getUserAuth());
+//    }
 
     public int getUserCode() {
         return userCode;
@@ -133,8 +147,14 @@ public class LoginUserDTO {
                 '}';
     }
 
+//    public List<String> getAuth(){
+//        System.out.println(this.userAuth.getAuth());
+//        if(this.userAuth != null && this.userAuth.getAuth() != null && this.userAuth.getAuth().length()>0){
+//            return Arrays.asList(this.userAuth.getAuth().split(","));
+//        }
+//        return new ArrayList<>();
+//    }
     public List<String> getAuth(){
-        System.out.println(this.userAuth.getAuth());
         if(this.userAuth.getAuth().length()>0){
             return Arrays.asList(this.userAuth.getAuth().split(","));
         }

@@ -19,12 +19,12 @@ spring:
             scope:
               - email
               - profile
-  jpa:
-    properties:
-      hibernate:
-        dialect: org.hibernate.dialect.MySQLDialect
-    hibernate:
-      ddl-auto: update
+#  jpa:
+#    properties:
+#      hibernate:
+#        dialect: org.hibernate.dialect.MySQLDialect
+#    hibernate:
+#      ddl-auto: none
 
 #mybatis:
 #  mapper-locations: mapper/*.xml

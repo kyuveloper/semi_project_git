@@ -1,7 +1,7 @@
 package com.semiproject.pettales.auth.model;
 
 import com.semiproject.pettales.user.model.dto.LoginUserDTO;
-import com.semiproject.pettales.user.model.entity.User;
+//import com.semiproject.pettales.user.model.entity.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.oauth2.core.user.OAuth2User;
@@ -13,7 +13,7 @@ import java.util.Objects;
 
 // 사용자 세부 정보
 
-public class AuthDetails implements UserDetails, OAuth2User {
+public class AuthDetails implements UserDetails /*OAuth2User*/ {
     private LoginUserDTO loginUserDTO;
 
     public AuthDetails() {
@@ -23,9 +23,10 @@ public class AuthDetails implements UserDetails, OAuth2User {
         this.loginUserDTO = loginUserDTO;
     }
 
-    public AuthDetails(User user, Map<String, Object> attributes) {
-        this.attributes = attributes;
-    }
+//    public AuthDetails(User user, Map<String, Object> attributes) {
+//        this.loginUserDTO = new LoginUserDTO(user);
+//        this.attributes = attributes;
+//    }
 
     public LoginUserDTO getLoginUserDTO() {
         return loginUserDTO;
@@ -38,7 +39,10 @@ public class AuthDetails implements UserDetails, OAuth2User {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         Collection<GrantedAuthority> authorities = new ArrayList<>();
-        loginUserDTO.getAuth().forEach(role -> authorities.add(() -> role));
+
+        if (loginUserDTO != null) {
+            loginUserDTO.getAuth().forEach(role -> authorities.add(() -> role));
+        }
 
         return authorities;
     }
@@ -102,22 +106,22 @@ public class AuthDetails implements UserDetails, OAuth2User {
     public boolean isEnabled() {
         return true;
     }
+//
+//    // 구글 로그인
+//    private Map<String, Object> attributes;
+//
+//    public AuthDetails(LoginUserDTO loginUserDTO, Map<String, Object> attributes){
+//        this.loginUserDTO = loginUserDTO;
+//        this.attributes = attributes;
+//    }
+//
+//    @Override
+//    public String getName() {
+//        return loginUserDTO.getUserNickName();
+//    }
 
-    // 구글 로그인
-    private Map<String, Object> attributes;
-
-    public AuthDetails(LoginUserDTO loginUserDTO, Map<String, Object> attributes){
-        this.loginUserDTO = loginUserDTO;
-        this.attributes = attributes;
-    }
-
-    @Override
-    public String getName() {
-        return null;
-    }
-
-    @Override
-    public Map<String, Object> getAttributes() {
-        return attributes;
-    }
+//    @Override
+//    public Map<String, Object> getAttributes() {
+//        return attributes;
+//    }
 }
