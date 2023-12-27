@@ -40,7 +40,7 @@ public class SecurityConfig {
     public SecurityFilterChain configure(HttpSecurity http) throws Exception {
 
         http.authorizeHttpRequests(auth ->{ //서버의 리소스에 접근 가능한 권한을 설정함
-                    auth.requestMatchers("/auth/login","/user/signup","/auth/fail","/","/image/**","/js/**","/css/**").permitAll();
+                    auth.requestMatchers("/auth/login","/user/signup","/user/email-check","/auth/fail","/","/image/**","/js/**","/css/**").permitAll();
                     // permitAll : 어떠한 사용자든 해당 경로에 접근 할 수 있도록 허용하는 역할
                     // /admin/* 은 ADMIN에 속한 자가 가질 수 있는 권한임
 

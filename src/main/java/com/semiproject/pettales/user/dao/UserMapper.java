@@ -13,8 +13,6 @@ public interface UserMapper {
 
     int regist(SignupDTO signupDTO); //회원가입
 
-    int emailCheck(String userEmail);
-
 
     //이넘에 정지기능 로그인실패시 정지유저라고 알람
 }

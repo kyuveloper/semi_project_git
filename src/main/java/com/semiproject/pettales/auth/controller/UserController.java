@@ -42,11 +42,5 @@ public class UserController {
 
         return mv;
     }
-    // CheckEmail
-    @ResponseBody
-    @PostMapping("/emailCheck")
-    public int emailCheck(@RequestParam("userEmail") String userEmail){
-        int result = memberService.emailCheck(userEmail);
-        return result;
-    }
+
 }

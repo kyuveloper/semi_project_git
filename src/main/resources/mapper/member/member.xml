@@ -10,6 +10,8 @@
         <result property="userEmail" column="USER_EMAIL"/>
         <result property="password" column="USER_PASSWORD"/>
         <result property="userStatus" column="USER_STATUS"/>
+        <result property="provider" column="PROVIDER"/>
+        <result property="providerId" column="PROVIDER_ID"/>
         <result property="userAuth" column="USER_AUTH"/>
         <result property="petCode" column="PET_CODELIST"/>
         <result property="companyCode" column="COMPANY_CODELIST"/>
@@ -22,6 +24,8 @@
             USER_EMAIL,
             USER_NICKNAME,
             USER_PASSWORD,
+            PROVIDER,
+            PROVIDER_ID,
             USER_AUTH,
             USER_STATUS,
             PET_CODELIST,

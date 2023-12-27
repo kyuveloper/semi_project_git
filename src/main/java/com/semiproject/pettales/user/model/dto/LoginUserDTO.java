@@ -1,6 +1,11 @@
 package com.semiproject.pettales.user.model.dto;
 
 import com.semiproject.pettales.auth.model.UserAuth;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import lombok.Builder;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -9,11 +14,15 @@ import java.util.List;
 
 //로그인 한 사용자의 정보
 
+
 public class LoginUserDTO {
-    private int userCode;
+
+    private Integer userCode;
     private String userEmail;
     private String userNickName;
-    private String password;
+    private String provider; //google이 들어갈 자리
+    private String providerId; //google 고유 아이디가 들어갈 자리
+    private String userPassword;
     private String userStatus;
     private String petCode;
     private String companyCode;
@@ -24,11 +33,13 @@ public class LoginUserDTO {
     public LoginUserDTO() {
     }
 
-    public LoginUserDTO(int userCode, String userEmail, String userNickName, String password, String userStatus, String petCode, String companyCode, Date registDate, Date updateDate, UserAuth userAuth) {
+    public LoginUserDTO(int userCode, String userEmail, String userNickName, String provider, String providerId, String userPassword, String userStatus, String petCode, String companyCode, Date registDate, Date updateDate, UserAuth userAuth) {
         this.userCode = userCode;
         this.userEmail = userEmail;
         this.userNickName = userNickName;
-        this.password = password;
+        this.provider = provider;
+        this.providerId = providerId;
+        this.userPassword = userPassword;
         this.userStatus = userStatus;
         this.petCode = petCode;
         this.companyCode = companyCode;
@@ -61,12 +72,28 @@ public class LoginUserDTO {
         this.userNickName = userNickName;
     }
 
-    public String getPassword() {
-        return password;
+    public String getProvider() {
+        return provider;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setProvider(String provider) {
+        this.provider = provider;
+    }
+
+    public String getProviderId() {
+        return providerId;
+    }
+
+    public void setProviderId(String providerId) {
+        this.providerId = providerId;
+    }
+
+    public String getPassword() {
+        return userPassword;
+    }
+
+    public void setPassword(String userPassword) {
+        this.userPassword = userPassword;
     }
 
     public String getUserStatus() {
@@ -85,11 +112,11 @@ public class LoginUserDTO {
         this.petCode = petCode;
     }
 
-    public String getCompanyCode() {
+    public String getCompanyCodeList() {
         return companyCode;
     }
 
-    public void setCompanyCode(String companyCode) {
+    public void setCompanyCodeList(String companyCodeList) {
         this.companyCode = companyCode;
     }
 
@@ -123,7 +150,9 @@ public class LoginUserDTO {
                 "userCode=" + userCode +
                 ", userEmail='" + userEmail + '\'' +
                 ", userNickName='" + userNickName + '\'' +
-                ", password='" + password + '\'' +
+                ", provider='" + provider + '\'' +
+                ", providerId='" + providerId + '\'' +
+                ", password='" + userPassword + '\'' +
                 ", userStatus='" + userStatus + '\'' +
                 ", petCode='" + petCode + '\'' +
                 ", companyCode='" + companyCode + '\'' +

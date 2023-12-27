@@ -41,8 +41,13 @@ public class MemberService {
     }
 
 
-    public int emailCheck(String userEmail) {
-        int result = userMapper.emailCheck(userEmail);
-        return result;
+    public int emailCheck(String memberEmail) {
+//        userMapper.findByUserNickName(memberEmail);
+        LoginUserDTO loginUserDTO = userMapper.findByUserNickName(memberEmail);
+        if (loginUserDTO == null) {
+            return 1;
+        } else {
+            return 0;
+        }
     }
 }
