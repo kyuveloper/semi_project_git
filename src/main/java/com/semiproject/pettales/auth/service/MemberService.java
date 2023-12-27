@@ -40,14 +40,24 @@ public class MemberService {
         return result;
     }
 
-
+    //이메일체크
     public int emailCheck(String memberEmail) {
 //        userMapper.findByUserNickName(memberEmail);
-        LoginUserDTO loginUserDTO = userMapper.findByUserNickName(memberEmail);
+        LoginUserDTO loginUserDTO = userMapper.findByUserEmail(memberEmail);
         if (loginUserDTO == null) {
             return 1;
         } else {
             return 0;
         }
     }
+    //닉네임 체크
+    public int nickNameCheck(String memberNickName) {
+        LoginUserDTO loginUserDTO = userMapper.findByUserNickName(memberNickName);
+        if (loginUserDTO == null){
+            return 1;
+        } else {
+            return 0;
+        }
+    }
+
 }

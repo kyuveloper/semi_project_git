@@ -19,4 +19,14 @@ public class SignupController {
 
         return checkResult;
     }
+    // 닉네임 중복체크
+    @PostMapping("/nickName-check")
+    public int nickNameCheck(@RequestParam("memberNickName") String memberNickName){
+        System.out.println(memberNickName);
+        System.out.println("memberNickName = " + memberNickName);
+
+        int checkResult = memberService.nickNameCheck(memberNickName);
+
+        return checkResult;
+    }
 }

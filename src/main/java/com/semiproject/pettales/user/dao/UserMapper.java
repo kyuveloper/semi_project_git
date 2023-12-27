@@ -11,6 +11,8 @@ import org.apache.ibatis.annotations.Select;
 public interface UserMapper {
     LoginUserDTO findByUserNickName(String userNickName); //닉네임에 해당하는 사용자 찾기
 
+    LoginUserDTO findByUserEmail(String userEmail);
+
     int regist(SignupDTO signupDTO); //회원가입
 
 
