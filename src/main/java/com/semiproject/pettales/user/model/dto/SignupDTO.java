@@ -1,5 +1,7 @@
 package com.semiproject.pettales.user.model.dto;
 
+import jakarta.validation.constraints.Size;
+
 import java.util.Date;
 
 //회원가입 할 사용자의 정보
@@ -8,6 +10,7 @@ public class SignupDTO {
 
     private String userEmail;
     private String userNickName;
+    @Size(min = 6, max = 14)
     private String password;
     private String userStatus;
     private String auth;

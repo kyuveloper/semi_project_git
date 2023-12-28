@@ -18,7 +18,7 @@
         <result property="registDate" column="REGIST_DATE"/>
         <result property="updateDate" column="UPDATE_DATE"/>
     </resultMap>
-    <select id="findByUserNickName" resultMap="login">
+    <select id="findByUserNickName">
         SELECT
             USER_CODE,
             USER_EMAIL,
@@ -85,10 +85,10 @@
     <!--          FROM USER_TABLE-->
     <!--         WHERE USER_EMAIL = #{userEmail}-->
     <!--    </select>-->
-    <select id="checkEmail" parameterType="com.semiproject.pettales.user.model.dto.LoginUserDTO">
-        SELECT
-        COUNT(*)
-        FROM USER_TABLE
-        WHERE USER_EMAIL = #{userEmail}
-    </select>
+<!--    <select id="checkEmail" parameterType="com.semiproject.pettales.user.model.dto.LoginUserDTO">-->
+<!--        SELECT-->
+<!--        COUNT(*)-->
+<!--        FROM USER_TABLE-->
+<!--        WHERE USER_EMAIL = #{userEmail}-->
+<!--    </select>-->
 </mapper>

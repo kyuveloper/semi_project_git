@@ -21,7 +21,7 @@ public class AuthService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        LoginUserDTO login = memberService.findByUserNickName(username);
+        LoginUserDTO login = memberService.findByUserEmail(username);
         if(Objects.isNull(login)){
             System.out.println("존재 안함");
             throw new UsernameNotFoundException("회원정보가 존재하지 않습니다.");

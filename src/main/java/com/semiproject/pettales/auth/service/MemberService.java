@@ -60,4 +60,15 @@ public class MemberService {
         }
     }
 
+    public LoginUserDTO findByUserEmail(String userEmail) {
+        LoginUserDTO login = userMapper.findByUserEmail(userEmail);
+        System.out.println(login);
+        if(!Objects.isNull(login)){
+            System.out.println("있");
+            return login;
+        }else{
+            System.out.println("없");
+            return null;
+        }
+    }
 }
