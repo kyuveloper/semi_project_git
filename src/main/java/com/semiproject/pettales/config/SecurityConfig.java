@@ -40,11 +40,16 @@ public class SecurityConfig {
     public SecurityFilterChain configure(HttpSecurity http) throws Exception {
 
         http.authorizeHttpRequests(auth ->{ //서버의 리소스에 접근 가능한 권한을 설정함
-                    auth.requestMatchers("/auth/login","/user/signup","/auth/fail","/","/image/**","/js/**","/css/**").permitAll();
+                    auth.requestMatchers("/auth/login","/user/signup","/user/email-check","/auth/fail","/","/image/**","/js/**","/css/**","/user/nickName-check").permitAll();
+                    // 접근 권한에 "/user/email-check" 없어서 시큐리티가 막아서 값이 안들어 가던거였음
                     // permitAll : 어떠한 사용자든 해당 경로에 접근 할 수 있도록 허용하는 역할
-                    auth.requestMatchers("/admin/*").hasAnyAuthority(UserAuth.ADMIN.getAuth());
                     // /admin/* 은 ADMIN에 속한 자가 가질 수 있는 권한임
-                    auth.requestMatchers("/user/*").hasAnyAuthority(UserAuth.USER.getAuth());
+
+                    auth.requestMatchers("/admin/**").hasAnyAuthority(UserAuth.ADMIN.getAuth());
+                    auth.requestMatchers("/user/**").hasAnyAuthority(UserAuth.USER.getAuth(), UserAuth.ADMIN.getAuth());
+                    // (2023-12-24 권한 설정 변경)
+                    // (2023-12-25 유저 페이지에 어드민 권한 접근 불가한 오류 수정)
+
                     // /user/* 는 USER에 속한 자가 가질 수 있는 권한임
                     auth.anyRequest().authenticated(); //anyRequest:모든 요청 authenticated:인증된
                     //인증된 사용자는 전부 사용 가능
@@ -62,6 +67,10 @@ public class SecurityConfig {
                     // JSESSIONID는 톰캣에서 세션을 유지하기 위해 발급하는 키
                     logout.invalidateHttpSession(true); // 세션을 소멸하도록 허용하는 것
                     logout.logoutSuccessUrl("/"); // 로그아웃 성공 시 이동할 페이지 설정
+//                }).oauth2Login(httpSecurityOAuth2LoginConfigurer -> {
+//                    httpSecurityOAuth2LoginConfigurer.loginPage("/auth/login");
+//                    httpSecurityOAuth2LoginConfigurer.defaultSuccessUrl("/comInfo");
+//                    httpSecurityOAuth2LoginConfigurer.failureHandler(authFailHandler);
                 })
                 .sessionManagement(session ->{ // 세션 관리
                     session.maximumSessions(1); //session의 허용 개수를 제한, 동시접속 제한

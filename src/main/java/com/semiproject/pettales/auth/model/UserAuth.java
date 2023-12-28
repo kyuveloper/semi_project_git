@@ -4,7 +4,8 @@ package com.semiproject.pettales.auth.model;
 
 public enum UserAuth {
     USER("USER"), // 유저
-    ADMIN("ADMIN"); // 관리자
+    ADMIN("ADMIN"), // 관리자
+    STOPUSER("STOPUSER"); // (2023-12-24 정지 권한 추가)
     private String auth;
 
     UserAuth(String auth) {

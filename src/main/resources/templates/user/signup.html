@@ -3,25 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <title>회원가입</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script
+            src="https://code.jquery.com/jquery-3.7.1.min.js"
+            integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+            crossorigin="anonymous"></script>
 </head>
 <body>
 <h1>회원가입</h1>
 
-<form th:action="@{/user/signup}" method="post" modelAttribute="signupDTO" id="signupForm">
-
-    <img th:src="@{/image/userImgs/envelope-solid.svg}">
+<form th:action="@{/user/signup}" method="post">
     <!--이메일 입력-->
-    <label for="inputUserEmail">이메일</label>
-    <input type="email" id="inputUserEmail" name="userEmail">
-    <!--이메일 중복 체크-->
-    <button class="emailCheck" type="button" id="emailCheck" onclick="fn_emailCheck()">중복 체크</button> <br>
-
-    <!--    <input type="email" id="inputUserEmail" name="userEmail" placeholder="이메일" size="60">-->
-    <!--    <button type="button" onclick="fn_emailCheck()" name="emailCheck" class="emailCheck">중복체크</button>-->
-    <!--    <input type="email" name="userEmail" placeholder="이메일" size="60" id="userEmail" onblur="emailDuplicate()">-->
-    <!--    <span id="email-dup-result"></span>-->
-    <input type="text" name="userNickName" placeholder="닉네임" size="60"> <br>
+    <input type="email" name="userEmail" placeholder="이메일" id="userEmail" onblur="emailCheck()" size="60">
+    <p id="check-result1"></p> <!--처리결과 보여주는 곳-->
+    <input type="text" name="userNickName" placeholder="닉네임" id="userNickName" onblur="nickNameCheck()" size="60">
+    <p id="check-result2"></p>
     <input type="password" name="password" placeholder="비밀번호" id="password1" size="60"> <br>
     <input type="password" name="checkPassword" placeholder="비밀번호 확인" id="password2" size="60"> <br>
     <input type="button" onclick="test()" value="확인하기"> <br> <!--비밀번호가 같은지 확인-->
@@ -40,61 +35,68 @@
     }
 </script>
 <script type="text/javascript">
-
-    // 이메일 중복 확인
-    // function fn_emailCheck() {
-    //     console.log("123")
-    //     $.ajax({
-    //         url: "/user/emailCheck", <!--경로 설정-->
-    //         type: "POST",
-    //         dataType: "JSON",
-    //         data : {"userEmail" : $("#inputUserEmail").val()}, <!---->
-    //         success: function (data) {
-    //             console.log(data.userEmail)
-    //             console.log("456")
-    //
-    //             if (data == 1) {
-    //                 alert("중복된 이메일입니다.");
-    //             } else if (data == 0) {
-    //                 $("#emailCheck").attr("value", "Y");
-    //                 alert("사용 가능한 이메일입니다.")
-    //             }
-    //
-    //         },
-    //         error: function (data){
-    //             console.log(data.userEmail)
-    //
-    //             console.log("777")
-    //         }
-    //
-    //     })
-    //     console.log("789")
-    // }
-    function fn_emailCheck(){
-        var email = $('userEmail').val();
-        console.log("1")
+    <!--중복체크-->
+    //이메일 입력값을 가져오고,
+    //입력값을 서버로 전송하고 똑같은 이메일이 있는지 체크한 후
+    //사용 가능 여부를 이메일 입력창 아래에 표시
+    const emailCheck = () => {
+        const email = document.getElementById("userEmail").value; // 입력값을 가져오는 내용
+        const checkResult = document.getElementById("check-result1"); // <p id="check-result"></p> 이거 가져오는 요소
+        console.log("입력한 이메일",email); // 확인용 콘솔
         $.ajax({
-            url: "/user/emailCheck",
-            type: 'post',
-            data: {email:email},
-            success:function (cnt){
-                console.log("2")
-                if(cnt == 0){
-                    console.log("3")
-                    alert("사용 가능한 이메일 입니다.")
-                }else{
-                    console.log("4")
-                    alert("사용 불가능한 이메일 입니다.")
+            //요청방식 post,url: "email-check",데이터: 이메일
+            type: "post", //post방식으로
+            url: "/user/email-check", //이주소에 보내겠다
+            data: {
+                "memberEmail": email //보내고자하는 데이터의 내용 memberEmail이 파라미터이름 email은 사용자가 입력한 이메일 값
+            },
+            success: function (res){ //요청 성공시
+                console.log("요청성공", res); //콘솔 확잉용
+                if (res === 1){
+                    console.log("사용가능한 이메일");
+                    checkResult.style.color = "green";
+                    checkResult.innerHTML = "사용 가능한 이메일입니다.";
+                } else {
+                    console.log("이미 사용중인 이메일");
+                    checkResult.style.color = "red";
+                    checkResult.innerHTML = "사용 중인 이메일입니다."
                 }
             },
-            error:function (){
-                console.log("5")
-                alert("에러입니다");
+            error: function (err){
+                console.log("에러발생", err);
             }
         })
-        console.log("6")
     }
-
+</script>
+<script type="text/javascript">
+    <!--닉네임 중복체크-->
+    const nickNameCheck = () => {
+        const nickName = document.getElementById("userNickName").value;
+        const checkResult2 = document.getElementById("check-result2");
+        console.log("입력한 닉네임",nickName);
+        $.ajax({
+            type: "post",
+            url: "/user/nickName-check",
+            data: {
+                "memberNickName":nickName
+            },
+            success:function (res){
+                console.log("요청성공",res);
+                if (res === 1){
+                    console.log("사용가능한 닉네임");
+                    checkResult2.style.color = "green";
+                    checkResult2.innerHTML = "사용 가능한 닉네임입니다."
+                } else {
+                    console.log("이미 사용중인 닉네임");
+                    checkResult2.style.color = "red";
+                    checkResult2.innerHTML = "사용 중인 닉네임입니다."
+                }
+            },
+            error:function (err){
+                console.log("에러발생",err);
+            }
+        })
+    }
 
     <!--입력한 비밀번호와 입력한 비밀번호 확인이 일치할 시 회원가입 버튼이 활성화되고 그렇지 않으면 활성화가 안됨-->
     function test(){
@@ -117,30 +119,6 @@
     function back(){
         history.back();
     } <!--뒤로 가기-->
-    // const emailDuplicate = () => {
-    //     const email = document.getElementById("userEmail").value;
-    //     const checkResult = document.getElementById("email-dup-result");
-    //     $.ajax({
-    //         type: "post",
-    //         url: "user/emailCheck",
-    //         dataType: "email",
-    //         data: {
-    //             "userEmail": email
-    //         },
-    //         success: function (result) {
-    //             if (result == "ok"){
-    //                 checkResult.innerHTML = "사용가능합니다.";
-    //                 checkResult.style.color = "green";
-    //             }else{
-    //                 checkResult.innerHTML = "이미 사용중인 이메일 입니다.";
-    //                 checkResult.style.color = "red";
-    //             }
-    //         },
-    //         error: function () {
-    //             alert("ajax 실패");
-    //         }
-    //     })
-    // }
 </script>
 
 </body>

@@ -2,6 +2,8 @@ package com.semiproject.pettales.auth.service;
 
 import com.semiproject.pettales.auth.model.AuthDetails;
 import com.semiproject.pettales.user.model.dto.LoginUserDTO;
+import groovyjarjarantlr4.v4.runtime.misc.NotNull;
+import groovyjarjarantlr4.v4.runtime.misc.Nullable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -19,7 +21,7 @@ public class AuthService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        LoginUserDTO login = memberService.findByUserNickName(username);
+        LoginUserDTO login = memberService.findByUserEmail(username);
         if(Objects.isNull(login)){
             System.out.println("존재 안함");
             throw new UsernameNotFoundException("회원정보가 존재하지 않습니다.");

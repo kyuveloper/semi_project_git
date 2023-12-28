@@ -2,22 +2,39 @@
 server:
   port: 8080
 
-#spring:
-#  datasource:
-#    url: jdbc:mysql://222.112.124.237:3306/pettales
-#    driver-class-name: com.mysql.cj.jdbc.Driver
-#    username: pettales
-#    password: pettales
-#
+spring:
+  datasource:
+    url: jdbc:mysql://222.112.124.237:3306/pettales
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: pettales
+    password: pettales
+#  security:
+#    oauth2:
+#      client:
+#        registration:
+#          google:
+#            client-id:
+#            client-secret:
+#            redirectUri: "{baseUrl}/login/oauth2/code/{registrationId}"
+#            scope:
+#              - email
+#              - profile
+#  jpa:
+#    properties:
+#      hibernate:
+#        dialect: org.hibernate.dialect.MySQLDialect
+#    hibernate:
+#      ddl-auto: none
+
 #mybatis:
 #  mapper-locations: mapper/*.xml
 
-spring:
-  datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/petales
-    username: petales
-    password: petales
+#spring:
+#  datasource:
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+#    url: jdbc:mysql://localhost:3306/petales
+#    username: petales
+#    password: petales
 
 
 mybatis:

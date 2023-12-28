@@ -1,5 +1,7 @@
 package com.semiproject.pettales.user.model.dto;
 
+import jakarta.validation.constraints.Size;
+
 import java.util.Date;
 
 //회원가입 할 사용자의 정보
@@ -8,17 +10,18 @@ public class SignupDTO {
 
     private String userEmail;
     private String userNickName;
+    @Size(min = 6, max = 14)
     private String password;
     private String userStatus;
     private String auth;
-    private int petCode;
+    private String petCode;
     private Date registDate;
     private Date updateDate;
 
     public SignupDTO() {
     }
 
-    public SignupDTO(String userEmail, String userNickName, String password, String userStatus, String auth, int petCode, Date registDate, Date updateDate) {
+    public SignupDTO(String userEmail, String userNickName, String password, String userStatus, String auth, String petCode, Date registDate, Date updateDate) {
         this.userEmail = userEmail;
         this.userNickName = userNickName;
         this.password = password;
@@ -69,11 +72,11 @@ public class SignupDTO {
         this.auth = auth;
     }
 
-    public int getPetCode() {
+    public String getPetCode() {
         return petCode;
     }
 
-    public void setPetCode(int petCode) {
+    public void setPetCode(String petCode) {
         this.petCode = petCode;
     }
 
@@ -101,7 +104,7 @@ public class SignupDTO {
                 ", password='" + password + '\'' +
                 ", userStatus='" + userStatus + '\'' +
                 ", auth='" + auth + '\'' +
-                ", petCode=" + petCode +
+                ", petCode='" + petCode + '\'' +
                 ", registDate=" + registDate +
                 ", updateDate=" + updateDate +
                 '}';

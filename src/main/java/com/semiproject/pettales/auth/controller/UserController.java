@@ -7,6 +7,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.HashMap;
+import java.util.Map;
+
 // 회원가입 요청을 받음
 
 @Controller
@@ -39,20 +42,5 @@ public class UserController {
 
         return mv;
     }
-
-    // 이메일 중복체크
-    @ResponseBody
-    @PostMapping("/emailCheck")
-    public int emailCheck(@RequestParam("userEmail") String userEmail){
-        System.out.println("컨트롤러 체크");
-
-        int result = memberService.emailCheck(userEmail);
-        return result;
-    }
-//    @PostMapping("/emailCheck")
-//    public @ResponseBody String emailCheck(@RequestParam String userEmail){
-//        String checkResult = memberService.emailCheck(userEmail);
-//        return checkResult;
-//    }
 
 }

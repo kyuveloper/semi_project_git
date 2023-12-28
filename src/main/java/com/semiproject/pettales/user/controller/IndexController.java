@@ -24,7 +24,7 @@ public class IndexController {
     }
 
     @GetMapping("/admin/page") // 관리자 페이지로 이동
-    public ModelAndView admnin(ModelAndView mv){
+    public ModelAndView admin(ModelAndView mv){ // (2023-12-24 오타 수정)
         mv.setViewName("admin/admin");
         return mv;
     }
