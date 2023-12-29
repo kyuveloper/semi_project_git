@@ -1,6 +1,6 @@
 package com.semiproject.pettales.user.model.dto;
 
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 
 import java.util.Date;
 
@@ -8,9 +8,15 @@ import java.util.Date;
 
 public class SignupDTO {
 
+    @NotBlank(message = "이메일은 필수로 입력해주세요")
+    @Pattern(regexp = "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+.[A-Za-z]{2,6}$", message = "이메일 형식이 올바르지 않습니다.")
     private String userEmail;
+    @NotBlank(message = "닉네임은 필수로 입력해주세요")
+    @Pattern(regexp = "^[가-힣a-zA-Z0-9]{2,8}$" , message = "닉네임은 특수문자를 포함하지 않은 2~8자리여야 합니다.")
     private String userNickName;
-    @Size(min = 6, max = 14)
+    @NotBlank(message = "비밀번호는 필수로 입력해주세요")
+    @Pattern(regexp = "^(?=.*[A-Za-z])(?=.*\\d)(?=.*[$@$!%*#?&])[a-z\\d$@$!%*#?&]{4,16}$",
+            message = "비밀번호는 8~16자리수여야 합니다. 영문 소문자, 숫자, 특수문자를 1개 이상 포함해야 합니다.")
     private String password;
     private String userStatus;
     private String auth;

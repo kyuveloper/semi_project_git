@@ -2,12 +2,17 @@ package com.semiproject.pettales.auth.controller;
 
 import com.semiproject.pettales.auth.service.MemberService;
 import com.semiproject.pettales.user.model.dto.SignupDTO;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.naming.Binding;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 // 회원가입 요청을 받음
@@ -25,7 +30,24 @@ public class UserController {
     }
 
     @PostMapping("/signup")
-    public ModelAndView signup(@ModelAttribute SignupDTO signupDTO, ModelAndView mv){
+    public ModelAndView signup(@ModelAttribute @Valid SignupDTO signupDTO, ModelAndView mv, BindingResult bindingResult){
+
+//        memberService.checkEmailDuplication(signupDTO);
+//        memberService.checkNickName(signupDTO);
+//
+//        memberService.regist(signupDTO);
+
+        //검증
+        if(bindingResult.hasErrors()){
+            //에러 메세지
+            Map<String, String> errorMap = new HashMap<>();
+
+            for (FieldError error : bindingResult.getFieldErrors()){
+                errorMap.put("valid_"+error.getField(),error.getDefaultMessage());
+            }
+            mv.addObject("errorMap",errorMap);
+            mv.setViewName("user/signup");
+        }
 
         int result = memberService.regist(signupDTO);
 
@@ -35,7 +57,7 @@ public class UserController {
             mv.setViewName("auth/clearSignup");
         }else {
             message = "회원가입 실패";
-            mv.setViewName("auth/login");
+            mv.setViewName("auth/fail");
         }
         System.out.println(result);
         mv.addObject("message",message);

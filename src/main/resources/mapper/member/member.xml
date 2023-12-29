@@ -18,20 +18,9 @@
         <result property="registDate" column="REGIST_DATE"/>
         <result property="updateDate" column="UPDATE_DATE"/>
     </resultMap>
-    <select id="findByUserNickName">
+    <select id="findByUserNickName" resultType="Map">
         SELECT
-            USER_CODE,
-            USER_EMAIL,
-            USER_NICKNAME,
-            USER_PASSWORD,
-            PROVIDER,
-            PROVIDER_ID,
-            USER_AUTH,
-            USER_STATUS,
-            PET_CODELIST,
-            COMPANY_CODELIST,
-            REGIST_DATE,
-            UPDATE_DATE
+            USER_NICKNAME
           FROM USER_TABLE
          WHERE USER_NICKNAME=#{userNickName}
     </select>
@@ -53,6 +42,7 @@
         FROM USER_TABLE
         WHERE USER_EMAIL=#{userEmail}
     </select>
+
 
     <insert id="regist" parameterType="com.semiproject.pettales.user.model.dto.SignupDTO">
         INSERT INTO USER_TABLE(

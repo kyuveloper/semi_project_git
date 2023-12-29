@@ -46,7 +46,7 @@ public class SecurityConfig {
                     // /admin/* 은 ADMIN에 속한 자가 가질 수 있는 권한임
 
                     auth.requestMatchers("/admin/**").hasAnyAuthority(UserAuth.ADMIN.getAuth());
-                    auth.requestMatchers("/user/**").hasAnyAuthority(UserAuth.USER.getAuth(), UserAuth.ADMIN.getAuth());
+//                    auth.requestMatchers("/user/**").hasAnyAuthority(UserAuth.USER.getAuth(), UserAuth.ADMIN.getAuth());
                     // (2023-12-24 권한 설정 변경)
                     // (2023-12-25 유저 페이지에 어드민 권한 접근 불가한 오류 수정)
 
@@ -80,4 +80,6 @@ public class SecurityConfig {
 
         return http.build();
     }
+
+
 }
