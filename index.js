@@ -9,7 +9,7 @@ app.use((req, res, next) => {
     res.header('Access-Control-Allow-Origin', '*'); // 모든 도메인에서 접근 허용 (보안 측면에서는 '*' 대신 실제 도메인을 지정하는 것이 좋음)
     res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
     res.header('Access-Control-Allow-Headers', 'Content-Type');
-    // 실제 서비스에서는 위와 같은 헤더 외에도 필요한 헤더를 추가할 수 있습니다.
+    // 실제 서비스에서는 위와 같은 헤더 외에도 필요한 헤더를 추가할 수 있다.
     next();
 });
 const port = 3000
@@ -32,7 +32,7 @@ app.use(express.static(__dirname + '/public'))
 app.get('/map',(req, res) => {
     const mapSql = `SELECT COMPANY_CODE, COMPANY_NAME, COMPANY_LAT, COMAPNY_HAR FROM COMPANY_TABLE`
      const markerSql = `SELECT ct.COMPANY_CODE, ct.COMPANY_NAME, ct.COMPANY_LAT, ct.COMAPNY_HAR FROM company_table ct JOIN bookmark_table bt ON ct.COMPANY_CODE = bt.COMPANY_CODE`
-     connection.query(mapSql, function (err1, mapSql, fields1) {
+     connection.query(mapSql, function (err1, mapSql, fields1) { // 하나의 app.get에서 두 개 이상의 result 설정
          if (err1) {
              console.log('Map Error 1')
              throw err1
@@ -49,7 +49,7 @@ app.get('/map',(req, res) => {
              res.json(Sqls)
          })
      })
-    // connection.query(mapSql, function (err, result, fields){
+    // connection.query(mapSql, function (err, result, fields){ 하나의 result만 설정할 때
     //     if (err) {
     //         console.log('Map Error');
     //         throw err;
