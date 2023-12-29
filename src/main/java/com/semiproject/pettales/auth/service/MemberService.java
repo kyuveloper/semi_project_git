@@ -19,9 +19,8 @@ public class MemberService {
     @Autowired
     private PasswordEncoder encoder;
 
-    public LoginUserDTO findByUserNickName(String userNickName){ // 닉네임으로 사용자를 찾음 찾은거로 AuthService에서 로그인함
-
-        LoginUserDTO login = userMapper.findByUserNickName(userNickName);
+    public LoginUserDTO findByUserEmail(String userEmail) { //이메일에 해당하는 사람 찾기
+        LoginUserDTO login = userMapper.findByUserEmail(userEmail);
         System.out.println(login);
         if(!Objects.isNull(login)){
             System.out.println("있");
@@ -31,6 +30,19 @@ public class MemberService {
             return null;
         }
     }
+
+//    public LoginUserDTO findByUserNickName(String userNickName){
+//
+//        LoginUserDTO login = userMapper.findByUserNickName(userNickName);
+//        System.out.println(login);
+//        if(!Objects.isNull(login)){
+//            System.out.println("있");
+//            return login;
+//        }else{
+//            System.out.println("없");
+//            return null;
+//        }
+//    }
 
     @Transactional
     public int regist(SignupDTO signupDTO){ // 회원가입
@@ -53,22 +65,27 @@ public class MemberService {
     //닉네임 체크
     public int nickNameCheck(String memberNickName) {
         LoginUserDTO loginUserDTO = userMapper.findByUserNickName(memberNickName);
-        if (loginUserDTO == null){
+        if (loginUserDTO == null) {
             return 1;
         } else {
             return 0;
         }
     }
+//    진짜 중복체크
+//    @Transactional(readOnly = true)
+//    public void checkEmailDuplication(SignupDTO signupDTO) {
+//        boolean emailDuplicate = userMapper.existByUserEmail(signupDTO.getUserEmail());
+//        if (emailDuplicate){
+//            throw new IllegalStateException("이미 존재하는 이메일 입니다.");
+//        }
+//    }
+//
+//    @Transactional(readOnly = true)
+//    public void checkNickName(SignupDTO signupDTO){
+//        boolean nickNameDuplication = userMapper.existByUserNickName(signupDTO.getUserNickName());
+//        if (nickNameDuplication) {
+//            throw new IllegalStateException("이미 존재하는 닉네임 입니다.");
+//        }
+//    }
 
-    public LoginUserDTO findByUserEmail(String userEmail) {
-        LoginUserDTO login = userMapper.findByUserEmail(userEmail);
-        System.out.println(login);
-        if(!Objects.isNull(login)){
-            System.out.println("있");
-            return login;
-        }else{
-            System.out.println("없");
-            return null;
-        }
-    }
 }

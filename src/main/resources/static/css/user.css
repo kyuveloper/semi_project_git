@@ -1,6 +1,12 @@
 #choosePet{
     border-radius: 30px;
 }
+P{
+    text-align: center;
+}
+h1{
+    text-align: center;
+}
 
 .emailDiv{
     display: flex;
@@ -10,10 +16,10 @@
 
 .signUpEmailDiv{
     margin-right: 10px;
-    display: flex;
+    /*display: flex;*/
     justify-content: center;
     margin-top: 30px;
-    margin-left: 90px;
+    /*margin-left: 90px;*/
 }
 
 .emailDiv img{
@@ -44,10 +50,10 @@
 
 .nicknameDiv{
     margin-right: 10px;
-    display: flex;
+    /*display: flex;*/
     justify-content: center;
     margin-top: 20px;
-    margin-left: 90px;
+    /*margin-left: 90px;*/
 }
 
 .nicknameDiv img{
@@ -64,7 +70,7 @@
 }
 
 .passwordDiv{
-    display: flex;
+    /*display: flex;*/
     justify-content: center;
     margin-top: 30px;
 }
