@@ -83,7 +83,7 @@
 
     <!--비밀번호입력-->
     <div class="passwordDiv">
-        <p><img th:src="@{/image/signup/passLogo.jpg}" class="passwordDiv" height="30px" width="30px">
+        <p><img th:src="@{/image/signup/passLogo.jpg}" height="30px" width="30px">
             <input type="password" name="password" placeholder="비밀번호" id="password1" size="60"></p>
         <p><small>비밀번호는 8~16자리수여야 합니다. 영문 소문자, 숫자, 특수문자를 1개 이상 포함해야 합니다.</small></p>
     </div>
@@ -91,7 +91,7 @@
     <!--비밀번호 확인-->
     <div class="passwordDiv">
         <p><img th:src="@{/image/signup/passLogo.jpg}" height="30px" width="30px">
-            <input type="password" name="checkPassword" placeholder="비밀번호 확인" id="password2" size="60">
+            <input type="password" name="checkPassword" placeholder="비밀번호 확인" id="password2" onblur="passCheck()" size="60">
             <button type="button" onclick="test()">확인하기</button><!--비밀번호가 같은지 확인--></p>
     </div>
 
@@ -212,23 +212,25 @@
     // }
 
     // <!--입력한 비밀번호와 입력한 비밀번호 확인이 일치할 시 회원가입 버튼이 활성화되고 그렇지 않으면 활성화가 안됨-->
-    // function test(){
-    //     console.log("dddd")
-    //     var v1 = document.getElementById('password1').value; <!--password1의 값을 v1로 지정함-->
-    //     var v2 = document.getElementById('password2').value; <!--password2의 값을 v2로 지정함-->
-    //     console.log(v1, v2)
-    //     if(v1 != v2) { <!--v1와 v2의 값이 다르다면-->
-    //         alert("비밀번호가 일치하지 않습니다");
-    //         const target = document.getElementById('target_btn');
-    //         target.disabled = true; <!--버튼이 비활성화 되있는 상태에서 true라서 그대로 비활성화 되있음-->
-    //         return false;
-    //     } else {
-    //         alert("비밀번호가 일치합니다");
-    //         const target = document.getElementById('target_btn');
-    //         target.disabled = false; <!--버튼이 비활성화 되있는 상태에서 false로 바껴서 활성화가 됨-->
-    //         return true;
-    //     }
-    // }
+    function passCheck(){
+        console.log("dddd")
+        var v1 = document.getElementById('password1').value; <!--password1의 값을 v1로 지정함-->
+        var v2 = document.getElementById('password2').value; <!--password2의 값을 v2로 지정함-->
+        console.log(v1, v2)
+        if(v1 != v2) { <!--v1와 v2의 값이 다르다면-->
+            alert("비밀번호가 일치하지 않습니다");
+            // v2.innerHTML = "비밀번호가 일치하지 않습니다";
+            // const target = document.getElementById('target_btn');
+            // target.disabled = true; <!--버튼이 비활성화 되있는 상태에서 true라서 그대로 비활성화 되있음-->
+            return false;
+        } else {
+            // v2.innerHTML = "비밀번호가 일치합니다";
+            alert("비밀번호가 일치합니다");
+            // const target = document.getElementById('target_btn');
+            // target.disabled = false; <!--버튼이 비활성화 되있는 상태에서 false로 바껴서 활성화가 됨-->
+            return true;
+        }
+    }
 
     // 입력한 비밀번호와 입력한 비밀번호 확인이 일치할 시 회원가입 버튼이 활성화되고 그렇지 않으면 비활성화됨
     function test() {
