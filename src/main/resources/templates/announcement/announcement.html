@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>공지사항</h1>
+<ul id="annoList"></ul>
+    <script>
+        document.addEventListener('DOMContentLoaded', fetchAnno)
+
+        async function fetchAnno() {
+            try {
+                const response= await fetch('http://localhost:3000/anno')
+                const anno = await response.json();
+
+                const annoList = document.getElementById('annoList')
+                anno.forEach(item => {
+                    const listItem = document.createElement('li')
+                    // 날짜를 'YYYY-MM-DD' 형식으로 변환
+                    const registDate = new Date(item.REGIST_DATE);
+                    const updateDate = new Date(item.UPDATE_DATE);
+                    listItem.innerHTML = `${item.ANNO_CODE} | ${item.ANNO_TITLE} | ${item.ANNO_CONTENTS} | ${registDate.toLocaleDateString()} | ${updateDate.toLocaleDateString()} | <a href="#" data-code="${item.ANNO_CODE}" class="annoDelete">삭제</a>`
+                    annoList.appendChild(listItem)
+                })
+
+                document.querySelectorAll('.annoDelete').forEach(link => {
+                    link.addEventListener('click', function (event){
+                        event.preventDefault();
+                        const code = this.getAttribute('data-code')
+                        deleteAnno(code)
+                    })
+                })
+
+            } catch (error) {
+                console.log('Error fetching data: ', error)
+            }
+
+            async function deleteAnno(code) {
+                try {
+                    const confirmDelete = window.confirm('정말 삭제하시겠습니까?')
+
+                    if (!confirmDelete) {
+                        // 동작 취소
+                        return;
+                    }
+
+                    const response = await fetch(`http://localhost:3000/annoDelete?ANNO_CODE=${code}`, {
+                        method: 'DELETE',
+                    })
+                    alert('삭제되었습니다!')
+                    location.reload()
+                } catch (error) {
+                    console.log('Error Deleting Anno: ', error)
+                }
+            }
+        }
+    </script>
+<a th:href="@{/anno/annoPage}">새 공지 등록</a> <br>
+<a th:href="@{/}">홈으로</a>
+
+</body>
+</html>

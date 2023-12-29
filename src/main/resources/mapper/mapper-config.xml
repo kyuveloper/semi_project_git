@@ -11,6 +11,8 @@
 
     <mappers>
         <mapper resource="mapper/member/member.xml" /> <!--실제 mapper 파일을 지정-->
+        <mapper resource="mapper/anno/AnnoMapper.xml" /> <!--실제 mapper 파일을 지정-->
+        <mapper resource="mapper/company/CompanyMapper.xml" /> <!--실제 mapper 파일을 지정-->
     </mappers>
 
 </configuration>
