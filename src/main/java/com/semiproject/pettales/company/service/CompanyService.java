@@ -2,7 +2,7 @@ package com.semiproject.pettales.company.service;
 
 import com.semiproject.pettales.company.dto.CompanyDTO;
 import com.semiproject.pettales.company.model.CompanyDAO;
-import com.semiproject.pettales.company.paging.CompanyPaging;
+import com.semiproject.pettales.company.dto.CompanyPaging;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,7 +13,7 @@ public class CompanyService {
     @Autowired
     private CompanyDAO companyDAO;
 
-    private static final int PAGE_LIMIT = 12; // 한 페이지당 보여줄 회사 갯수
+    private static final int PAGE_LIMIT = 9; // 한 페이지당 보여줄 회사 갯수
 
     private static final int BLOCK_LIMIT = 10; // 하단에 보여줄 페이지 번호 갯수
 
@@ -22,8 +22,7 @@ public class CompanyService {
     // 모든 시설 조회
     public List<CompanyDTO> selectAllCompany(int page){
         /*
-
-         * 1페이지에 보여줄 회사 : 12
+         * 1페이지에 보여줄 회사 : 9
 
          * 1page = 0
 
@@ -42,9 +41,9 @@ public class CompanyService {
     }
 
     // 지역별 건물 조회
-    public List<CompanyDTO> selectAllCompanyByCtprvn(int page, String companyCtprvn){
+    public List<CompanyDTO> selectAllCompanyByCtprvn(int page, String companyCtprvn, String companyClassi){
         int pageStart = (page -1) * PAGE_LIMIT;
-        List<CompanyDTO> companyListByCtprvn = companyDAO.selectAllCompanyByCtprvn(pageStart, PAGE_LIMIT, companyCtprvn);
+        List<CompanyDTO> companyListByCtprvn = companyDAO.selectAllCompanyByCtprvn(pageStart, PAGE_LIMIT, companyCtprvn, companyClassi);
 
         return companyListByCtprvn;
     }
@@ -85,12 +84,12 @@ public class CompanyService {
         return paging;
     }
 
-    // 지역별 시설 화면에 뿌리기 페이징파람
-    public CompanyPaging pagingParamByCtprvn(int page, String companyCtprvn) {
+    // 지역별 시설 화면에 뿌리기 페이징 파람
+    public CompanyPaging pagingParamByCtprvn(int page, String companyCtprvn, String companyClassi) {
 
         // 지역별 시설 갯수 조회
 
-        int boardCount = companyDAO.countCompanyByCtprvn(companyCtprvn);
+        int boardCount = companyDAO.countCompanyByCtprvn(companyCtprvn, companyClassi);
 
         // 전체 페이지 갯수 계산(10/3=3.33333 => 4)
 

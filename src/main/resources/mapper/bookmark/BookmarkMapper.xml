@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.semiproject.pettales.bookmark.model.BookmarkDAO">
+
+    <resultMap id="bookmarkResult" type="com.semiproject.pettales.bookmark.dto.BookmarkDTO">
+        <id property="bookmarkCode" column="BOOKMARK_CODE" />
+        <result property="companyCode" column="COMPANY_CODE"/>
+        <result property="userCode" column="USER_CODE"/>
+        <result property="bookmarked" column="BOOKMARKED"/>
+        <result property="companyCtprvn" column="COMPANY_CTPRVN"/>
+        <result property="companyName" column="COMPANY_NAME"/>
+        <result property="companyClassi" column="COMPANY_CLASSI"/>
+    </resultMap>
+
+    <insert id="insertBookmarkByComCode" parameterType="int">
+        INSERT INTO BOOKMARK_TABLE
+        (
+        COMPANY_CODE,
+        USER_CODE,
+        BOOKMARKED
+        )
+        VALUES
+        (
+        #{companyCode},
+        #{userCode},
+        true
+        )
+    </insert>
+
+    <select id="selectBookmarkByUserCode" resultMap="bookmarkResult">
+        SELECT
+        COMPANY_CTPRVN,
+        COMPANY_NAME,
+        COMPANY_CLASSI
+        FROM BOOKMARK_TABLE AS A
+        JOIN COMPANY_TABLE AS B
+        ON A.COMPANY_CODE = B.COMPANY_CODE
+        WHERE
+        USER_CODE = #{userCode}
+        AND
+        BOOKMARKED = 1
+    </select>
+
+    <update id="deleteBookmark" parameterType="map">
+        UPDATE
+        BOOKMARK_TABLE
+        SET
+        BOOKMARKED = 0
+        WHERE
+        BOOKMARK_CODE = #{bookmarkCode}
+        AND
+        USER_CODE = #{userCode}
+    </update>
+
+</mapper>

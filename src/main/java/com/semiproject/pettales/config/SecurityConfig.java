@@ -18,6 +18,32 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 // 로그인에 사용할 세부 정보
 // 로그아웃에 사용할 세부 정보
 
+//@Configuration
+//@EnableWebSecurity
+//public class SecurityConfig {
+//    @Autowired
+//    private AuthFailHandler authFailHandler;
+//
+//    @Bean
+//    public PasswordEncoder passwordEncoder(){ // 비밀번호 암호화
+//        return new BCryptPasswordEncoder();
+//    }
+//
+//    @Bean
+//    public WebSecurityCustomizer webSecurityCustomizer(){
+//        return web -> web.ignoring().requestMatchers(PathRequest.toStaticResources().atCommonLocations());
+//    }
+//
+//    @Bean
+//    public SecurityFilterChain configure(HttpSecurity http) throws Exception {
+//        http.authorizeHttpRequests(auth ->{
+//            auth.anyRequest().permitAll(); // 모든 요청을 허용하는 설정
+//        }).csrf(csrf -> csrf.disable()); // CSRF 공격 방지 기능을 비활성화
+//
+//        return http.build();
+//    }
+//}
+
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {

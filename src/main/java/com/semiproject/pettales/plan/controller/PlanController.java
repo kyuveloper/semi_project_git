@@ -1,9 +1,14 @@
 package com.semiproject.pettales.plan.controller;
 
+import com.semiproject.pettales.auth.model.AuthDetails;
+import com.semiproject.pettales.bookmark.dto.BookmarkDTO;
+import com.semiproject.pettales.bookmark.service.BookmarkService;
 import com.semiproject.pettales.company.dto.CompanyDTO;
-import com.semiproject.pettales.company.paging.CompanyPaging;
+import com.semiproject.pettales.company.dto.CompanyPaging;
 import com.semiproject.pettales.company.service.CompanyService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,24 +23,36 @@ public class PlanController {
     @Autowired
     private CompanyService companyService;
 
+    @Autowired
+    private BookmarkService bookmarkService;
+
     @GetMapping("/make_plan")
-    public String makePlanView(Model model,
-                               @RequestParam(value="page", required=false, defaultValue="1") int page,
-                               @RequestParam(value = "companyCtprvn", required = false) String companyCtprvn){
-        List<CompanyDTO> companyList = companyService.selectAllCompany(page);
-        //List<CompanyDTO> companyListByCtprvn = companyService.selectAllCompanyByCtprvn(page, companyCtprvn);
-        CompanyPaging paging = companyService.pagingParam(page);
-        //CompanyPaging paging = companyService.pagingParamByCtprvn(page, companyCtprvn);
+    public String makePlanView(Model model
+                               //@RequestParam(value="page", required=false, defaultValue="1") int page,
+                               //@RequestParam(value = "companyCtprvn", required = false) String companyCtprvn,
+                               //@RequestParam(value = "companyClassi", required = false) String companyClassi
+    ){
+//        List<CompanyDTO> companyListByCtprvn = companyService.selectAllCompanyByCtprvn(page, companyCtprvn, companyClassi);
+//        CompanyPaging paging = companyService.pagingParamByCtprvn(page, companyCtprvn, companyClassi);
+//
+//        model.addAttribute("companyCtprvn", companyCtprvn);
+//        model.addAttribute("companyClassi", companyClassi);
+//        model.addAttribute("paging", paging);
+//
+//        model.addAttribute("companyList", companyListByCtprvn);
 
-        model.addAttribute("paging", paging);
-        //model.addAttribute("paging2", paging2);
-        model.addAttribute("companyList", companyList);
-        //model.addAttribute("CompanyByCtprvn", companyListByCtprvn);
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        AuthDetails auth = (AuthDetails)authentication.getPrincipal();
+        int userCode = auth.getLoginUserDTO().getUserCode();
 
-        System.out.println("page: " + page);
-        System.out.println("companyCtprvn: " + companyCtprvn);
+        List<BookmarkDTO> bookmarkList =  bookmarkService.selectBookmarkByUserCode(userCode);
+        model.addAttribute("bookmark",bookmarkList);
+        return "plan/planView";
+    }
 
-        return "plan/planview";
+    @GetMapping("/paging_test")
+    public String pagingTest(){
+        return "plan/pagingTest";
     }
 
 }

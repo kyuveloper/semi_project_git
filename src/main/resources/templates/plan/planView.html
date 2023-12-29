@@ -1,199 +1,176 @@
 <!DOCTYPE html>
 <!-- thymeleaf 프라그먼트 -->
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="layout/default_layout">
-
 <th:block layout:fragment="content">
-  <p>여행 계획 추가</p>
-  <form action="/plan/plan_insert" method="post">
-    시작 날:<input type="text" id="startDate" name="startDate" autocomplete='off'><br>
-    마지막 날:<input type="text" id="endDate" name="endDate" autocomplete='off'><br>
-    <button type="submit">확인</button>
-  </form>
-  <button onclick="calculateDays()">일수 계산</button>
-  <p id="result"></p>
-
-
-  <div>
+  <div class="contents">
     <label for="regionDropdown">지역 선택:</label>
-    <select id="regionDropdown" onchange="loadBuildings()">
-      <option value="선택" selected>선택해주세요</option>
-      <option value="서울특별시">서울특별시</option>
-      <option value="제주특별자치도">제주특별자치도</option>
+    <select id="regionDropdown">
+      <option>선택해주세요</option>
+      <option value="서울특별시">서울</option>
+      <option value="제주특별자치도">제주</option>
       <!-- 다른 지역 옵션들 추가 -->
     </select>
-  </div>
 
-  <div class="planDiv" id="wholeListDiv">
-    <table>
-      <tr>
-        <th>시설 번호</th>
-        <th>시설 이름</th>
-        <th>시설 카테고리</th>
-        <th>시설 지역</th>
-      </tr>
-      <tr th:each="comp: ${companyList}">
-        <td th:text="${comp.companyCode}"></td>
-        <td th:text="${comp.companyName}"></td>
-        <td th:text="${comp.companyClassi}"></td>
-        <td th:text="${comp.companyCtprvn}"></td>
-      </tr>
-    </table>
-    <div class="paging">
-      <span th:if="${paging.page le 1}"> [이전] </span>
-      <a th:if="${paging.page > 1}" th:href="@{/plan/make_plan(page=${paging.page-1})}"> [이전] </a>
+    <label for="categoryDropdown">카테고리 선택:</label>
+    <select id="categoryDropdown">
+      <option>선택해주세요</option>
+      <option value="카페">카페</option>
+      <option value="미용">미용</option>
+      <option value="여행지">여행지</option>
+      <option value="펜션">펜션</option>
+      <option value="박물관">박물관</option>
+      <!-- 다른 카테고리 옵션들 추가 -->
+    </select>
 
-      <span th:each="i : ${#numbers.sequence(paging.startPage, paging.endPage)}">
-        <span th:if="${i eq paging.page}">
-            <b th:text="${i}"></b>
-        </span>
-        <a th:unless="${i eq paging.page}" th:href="@{/plan/make_plan(page=${i})}" th:text="${i}"></a>
-    </span>
-
-      <span th:if="${paging.page ge paging.maxPage}"> [다음] </span>
-      <a th:if="${paging.page < paging.maxPage}" th:href="@{/plan/make_plan(page=${paging.page+1})}"> [다음] </a>
+    <div class="com_parent_container">
+      <div id="result"></div>
+      <div id="result-container"></div>
+      <div class="favorite_box">
+        찜목록
+        <div th:each="bookmarks : ${bookmark}">
+          <p th:text="${bookmarks.companyClassi}"></p>
+          <p th:text="${bookmarks.companyCtprvn}"></p>
+          <p th:text="${bookmarks.companyName}"></p>
+          <button class="bookmarkDeleteBtn" data-bookmark-id="${bookmarks.bookmarkCode}">삭제</button>
+          <hr>
+        </div>
+      </div>
     </div>
   </div>
-
-  <!--    <div id="facilitiesContainer">-->
-  <!--        &lt;!&ndash; AJAX로 받아온 시설 리스트가 이 부분에 동적으로 추가될 것임 &ndash;&gt;-->
-  <!--        <table>-->
-  <!--            <tr>-->
-  <!--                <th>시설 번호</th>-->
-  <!--                <th>시설 이름</th>-->
-  <!--                <th>시설 카테고리</th>-->
-  <!--                <th>시설 지역</th>-->
-  <!--            </tr>-->
-  <!--            <tr th:each="comp2: ${CompanyByCtprvn}">-->
-  <!--                <td th:text="${comp2.companyCode}"></td>-->
-  <!--                <td th:text="${comp2.companyName}"></td>-->
-  <!--                <td th:text="${comp2.companyClassi}"></td>-->
-  <!--                <td th:text="${comp2.companyCtprvn}"></td>-->
-  <!--            </tr>-->
-  <!--        </table>-->
-  <!--        <div class="paging">&ndash;&gt;-->
-  <!--            <span th:if="${paging.page le 1}"> [이전] </span>-->
-  <!--            <a th:if="${paging.page > 1}" th:href="@{/plan/make_plan(page=${paging.page-1})}"> [이전] </a>-->
-
-  <!--            <span th:each="i : ${#numbers.sequence(paging.startPage, paging.endPage)}">-->
-  <!--                    <span th:if="${i eq paging.page}">-->
-  <!--                        <b th:text="${i}"></b>-->
-  <!--                    </span>-->
-  <!--                    <a th:unless="${i eq paging.page}" th:href="@{/plan/make_plan(page=${i})}" th:text="${i}"></a>-->
-  <!--                </span>-->
-
-  <!--            <span th:if="${paging.page ge paging.maxPage}"> [다음] </span>-->
-  <!--            <a th:if="${paging.page < paging.maxPage}" th:href="@{/plan/make_plan(page=${paging.page+1})}"> [다음] </a>-->
-  <!--        </div>-->
-  <!--    </div>-->
-
   <script>
-    $.datepicker.setDefaults({
-      dateFormat: 'yy-mm-dd',
-      prevText: '이전 달',
-      nextText: '다음 달',
-      monthNames: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
-      monthNamesShort: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
-      dayNames: ['일', '월', '화', '수', '목', '금', '토'],
-      dayNamesShort: ['일', '월', '화', '수', '목', '금', '토'],
-      dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'],
-      showMonthAfterYear: true,
-      yearSuffix: '년'
+    $(document).ready(function () {
+      $("#regionDropdown, #categoryDropdown").change(function () {
+        updateData();
+      });
+
+      function updateData(page) {
+        var selectedRegion = $("#regionDropdown").val();
+        var selectedCategory = $("#categoryDropdown").val();
+
+        $.ajax({
+          type: "get",
+          url: "/api/plan_make",
+          data: {
+            page: page,
+            companyCtprvn: selectedRegion,
+            companyClassi: selectedCategory
+          },
+          success: function (data) {
+            renderData(data);
+          },
+          error: function (xhr, status, error) {
+            console.error("데이터 로딩 중 오류 발생:", error);
+          }
+        });
+      }
+
+      function renderData(data) {
+        // 받은 데이터에서 company와 paging 추출
+        var companies = data.company;
+        var paging = data.paging;
+        var bookmarks = data.bookmarks;
+        // 시설 리스트 업데이트 코드
+        $("#result").empty();
+        for (var i = 0; i < companies.length; i++) {
+          var comp = companies[i];
+          var div = $("<div class='com_box_list'></div>");
+
+          div.append($("<img src='/image/heart-regular.svg'>"));
+          div.append($("<img src='/image/heart-solid.svg'>"));
+          div.append($("<p>companyCode: </p>").text(comp.companyCode));
+          div.append($("<p>companyName: </p>").text(comp.companyName));
+          div.append($("<p>companyClassi: </p>").text(comp.companyClassi));
+          div.append($("<p>companyCtprvn: </p>").text(comp.companyCtprvn));
+
+          var bookmarkButton = $("<img src='/image/heart-regular.svg' class='insertBookmarkBtn' data-company-id='" + comp.companyCode + "'>관심 시설 추가</img>");
+          div.append(bookmarkButton);
+
+          // div를 .com_box_list에 추가
+          $("#result").append(div);
+        }
+        renderPaging(paging);
+      }
+
+      function renderPaging(paging) {
+        $("#result-container").empty();
+        var ul = $("<ul class='pagination'></ul>");
+
+        if (paging.startPage > 1) {
+          var li = $("<li class='page-item'></li>");
+          var a = $("<a class='page-link'>&lt;&lt; 이전</a>").attr("href", "/plan/make_plan?page=" + (paging.startPage - 1)).click(function (e) {
+            e.preventDefault();
+            updateData(paging.startPage - 1);
+          });
+          li.append(a);
+          ul.append(li);
+        }
+
+        for (var i = paging.startPage; i <= paging.endPage; i++) {
+          var li = $("<li class='page-item'></li>");
+          var a = $("<a class='page-link'></a>").text(i).attr("href", "/plan/make_plan?page=" + i).click(function (page) {
+            return function (e) {
+              e.preventDefault();
+              updateData(page);
+            };
+          }(i));
+          if (i === paging.page) {
+            li.addClass("active");
+          }
+          li.append(a);
+          ul.append(li);
+        }
+
+        if (paging.endPage < paging.totalPages) {
+          var li = $("<li class='page-item'></li>");
+          var a = $("<a class='page-link'>다음 &gt;&gt;</a>").attr("href", "/plan/make_plan?page=" + (paging.endPage + 1)).click(function (e) {
+            e.preventDefault();
+            updateData(paging.endPage + 1);
+          });
+          li.append(a);
+          ul.append(li);
+        }
+
+        if (paging.totalPages > paging.endPage) {
+          var li = $("<li class='page-item'></li>");
+          var a = $("<a class='page-link'>맨 끝으로</a>").attr("href", "/plan/make_plan?page=" + paging.totalPages).click(function (e) {
+            e.preventDefault();
+            updateData(paging.totalPages);
+          });
+          li.append(a);
+          ul.append(li);
+        }
+
+        $("#result-container").append(ul);
+      }
+
+      $(document).on('click', '.insertBookmarkBtn', function() {
+        let companyCode = $(this).data('company-id');
+        console.log(companyCode);
+        $.ajax({
+          type: "POST",
+          url: "/bookmark/insert",
+          data: {
+            companyCode : companyCode
+          },
+          success: function (data) {
+            // 서버에서 받은 데이터로 찜목록 부분 업데이트
+            location.reload();
+          },
+          error:function(request, status, error){
+            alert("다시 시도해주세요");
+          }
+        });
+
+      });
+
+      $(document).on('click', '.bookmarkDeleteBtn', function() {
+        let bookmarkCode = $(this).data('bookmark-id');
+        console.log(bookmarkCode); // 콘솔에 값을 출력하여 확인
+        // 여기서 해당 북마크를 삭제하는 로직을 추가
+      });
+
+
+
     });
-
-    $(function() {
-      // 출발일은 오늘 이상만 선택 가능
-      $("#startDate").datepicker({
-        minDate: 0
-      });
-
-      // 도착일은 출발일 이상만 선택 가능
-      $("#endDate").datepicker({
-        minDate: 0
-      });
-    })
-
-    function calculateDays() {
-      // 출발일과 도착일 입력값 가져오기
-      var startDateStr = $("#startDate").val();
-      var endDateStr = $("#endDate").val();
-
-      // Date 객체로 변환
-      var startDate = new Date(startDateStr);
-      var endDate = new Date(endDateStr);
-
-      // 두 날짜 간의 차이 계산 (밀리초로 반환)
-      var timeDiff = endDate - startDate;
-
-      // 일수로 변환 (밀리초 -> 초 -> 분 -> 시간 -> 일)
-      var daysDiff = Math.floor(timeDiff / (1000 * 60 * 60 * 24) + 1);
-
-      // 결과 표시
-      $("#result").text("출발일과 도착일 사이의 일수: " + daysDiff + "일");
-    }
-
-    function loadBuildings() {
-      // 선택된 지역을 가져오기
-      var regionDropdown = document.getElementById("regionDropdown");
-      var selectedRegion = regionDropdown.value;
-
-      // AJAX를 사용하여 서버에서 해당 지역의 시설 목록을 가져옴
-      $.ajax({
-        type: "GET",
-        url: "/plan/make_plan?companyCtprvn=" + selectedRegion,
-        success: function (facilities) {
-          // 시설 목록을 받아서 동적으로 화면 갱신
-          updateFacilitiesUI(facilities);
-
-          // 선택된 지역에 따라 전체 리스트를 뿌려주는 div를 보이거나 숨김
-          if (selectedRegion === "서울특별시") {
-            $("#wholeListDiv").addClass("d-none"); // 안 보이게 함
-            location.href = "/plan/make_plan?companyCtprvn=" + "서울특별시";
-          }else if(selectedRegion === "제주특별자치도"){
-            $("#wholeListDiv").addClass("d-none"); // 안 보이게 함
-            location.href = "/plan/make_plan?companyCtprvn=" + "제주특별자치도";
-          }
-          else {
-            $("#wholeListDiv").removeClass("d-none"); // 숨김
-          }
-        },
-        error: function (xhr, status, error) {
-          console.error("Error loading facilities:", error);
-        }
-      });
-      console.log(selectedRegion);
-    }
-
-    function updateFacilitiesUI(facilities) {
-      var facilitiesContainer = document.getElementById("facilitiesContainer");
-      facilitiesContainer.innerHTML = "";  // 기존 내용 비우기
-
-      // 시설 목록을 테이블 형태로 만들기
-      var table = document.createElement("table");
-      var headerRow = table.insertRow(0);
-
-      // 헤더 추가
-      var headers = ["시설 번호", "시설 이름", "시설 카테고리", "시설 지역"];
-      for (var i = 0; i < headers.length; i++) {
-        var headerCell = document.createElement("th");
-        headerCell.innerText = headers[i];
-        headerRow.appendChild(headerCell);
-      }
-
-      // 시설 목록 추가
-      for (var i = 0; i < facilities.length; i++) {
-        var facility = facilities[i];
-        var row = table.insertRow(i + 1);
-
-        var cells = [facility.companyCode, facility.companyName, facility.companyClassi, facility.companyCtprvn];
-        for (var j = 0; j < cells.length; j++) {
-          var cell = row.insertCell(j);
-          cell.innerText = cells[j];
-        }
-      }
-
-      // 테이블을 facilitiesContainer에 추가
-      facilitiesContainer.appendChild(table);
-    }
-
   </script>
 </th:block>
