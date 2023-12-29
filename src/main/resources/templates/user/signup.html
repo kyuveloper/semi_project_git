@@ -23,7 +23,7 @@
     <link rel="stylesheet" th:href="@{/css/comInfo.css}" />
     <script defer th:src="@{/js/main.js}"></script>
     <script defer th:src="@{/js/comInfo.js}"></script>
-<!--    <script type="text/javascript" src="https://oapi.map.naver.com/openapi/v3/maps.js?ncpClientId=z00qc7owtc"></script>-->
+    <!--    <script type="text/javascript" src="https://oapi.map.naver.com/openapi/v3/maps.js?ncpClientId=z00qc7owtc"></script>-->
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"
             integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
             crossorigin="anonymous"></script>
@@ -57,9 +57,9 @@
     </div>
 </article>
 <!--<th:block layout:fragment="content">-->
-    <h1>회원가입</h1>
+<h1>회원가입</h1>
 
-    <!--이메일과 닉네임에 확인버튼을 만들고 3개가 다 일치하면 회원가입 버튼이 활성화되게끔-->
+<!--이메일과 닉네임에 확인버튼을 만들고 3개가 다 일치하면 회원가입 버튼이 활성화되게끔-->
 <!--userEmail과 check-result1의 값이 달라야하고
     userNickName과 check-result2의 값이 달라야하고
     password1과 password2의 값이 같아야
@@ -68,31 +68,31 @@
 <form th:action="@{/user/signup}" method="post">
     <!--이메일 입력-->
     <div class="signUpEmailDiv">
-    <p><img th:src="@{/image/signup/emailLogo.png}" class="emailLogo">
-    <input type="email" name="userEmail" placeholder="이메일" id="userEmail" onblur="emailCheck()" size="60"></p>
-    <p><small>이메일은 필수로 입력해주세요</small></p>
+        <p><img th:src="@{/image/signup/emailLogo.png}" class="emailLogo">
+            <input type="email" name="userEmail" placeholder="이메일" id="userEmail" onblur="emailCheck()" size="60"></p>
+        <p><small>이메일은 필수로 입력해주세요</small></p>
         <p id="check-result1"></p> <!--처리결과 보여주는 곳-->
     </div>
     <!--닉네임 입력-->
     <div class="nicknameDiv">
         <p><img th:src="@{/image/signup/nickLogo.png}" class="nicknameDiv">
             <input type="text" name="userNickName" placeholder="닉네임" id="userNickName" onblur="nickNameCheck()" size="60"></p>
-<!--    <p id="check-result2"></p>-->
-    <p><small>닉네임은 필수입니다 특수문자를 포함하지 않은 2~8자리를 입력해주세요.</small></p>
+        <!--    <p id="check-result2"></p>-->
+        <p><small>닉네임은 필수입니다 특수문자를 포함하지 않은 2~8자리를 입력해주세요.</small></p>
     </div>
 
     <!--비밀번호입력-->
     <div class="passwordDiv">
-    <p><img th:src="@{/image/signup/passLogo.jpg}" class="passwordDiv" height="30px" width="30px">
-        <input type="password" name="password" placeholder="비밀번호" id="password1" size="60"></p>
-    <p><small>비밀번호는 8~16자리수여야 합니다. 영문 소문자, 숫자, 특수문자를 1개 이상 포함해야 합니다.</small></p>
+        <p><img th:src="@{/image/signup/passLogo.jpg}" class="passwordDiv" height="30px" width="30px">
+            <input type="password" name="password" placeholder="비밀번호" id="password1" size="60"></p>
+        <p><small>비밀번호는 8~16자리수여야 합니다. 영문 소문자, 숫자, 특수문자를 1개 이상 포함해야 합니다.</small></p>
     </div>
 
     <!--비밀번호 확인-->
     <div class="passwordDiv">
-    <p><img th:src="@{/image/signup/passLogo.jpg}" height="30px" width="30px">
-        <input type="password" name="checkPassword" placeholder="비밀번호 확인" id="password2" size="60">
-        <button type="button" onclick="test()">확인하기</button><!--비밀번호가 같은지 확인--></p>
+        <p><img th:src="@{/image/signup/passLogo.jpg}" height="30px" width="30px">
+            <input type="password" name="checkPassword" placeholder="비밀번호 확인" id="password2" size="60">
+            <button type="button" onclick="test()">확인하기</button><!--비밀번호가 같은지 확인--></p>
     </div>
 
 
@@ -212,22 +212,56 @@
     // }
 
     // <!--입력한 비밀번호와 입력한 비밀번호 확인이 일치할 시 회원가입 버튼이 활성화되고 그렇지 않으면 활성화가 안됨-->
-    function test(){
-        console.log("dddd")
-        var v1 = document.getElementById('password1').value; <!--password1의 값을 v1로 지정함-->
-        var v2 = document.getElementById('password2').value; <!--password2의 값을 v2로 지정함-->
-        console.log(v1, v2)
-        if(v1 != v2) { <!--v1와 v2의 값이 다르다면-->
-            alert("비밀번호가 일치하지 않습니다");
-            const target = document.getElementById('target_btn');
-            target.disabled = true; <!--버튼이 비활성화 되있는 상태에서 true라서 그대로 비활성화 되있음-->
-            return false;
+    // function test(){
+    //     console.log("dddd")
+    //     var v1 = document.getElementById('password1').value; <!--password1의 값을 v1로 지정함-->
+    //     var v2 = document.getElementById('password2').value; <!--password2의 값을 v2로 지정함-->
+    //     console.log(v1, v2)
+    //     if(v1 != v2) { <!--v1와 v2의 값이 다르다면-->
+    //         alert("비밀번호가 일치하지 않습니다");
+    //         const target = document.getElementById('target_btn');
+    //         target.disabled = true; <!--버튼이 비활성화 되있는 상태에서 true라서 그대로 비활성화 되있음-->
+    //         return false;
+    //     } else {
+    //         alert("비밀번호가 일치합니다");
+    //         const target = document.getElementById('target_btn');
+    //         target.disabled = false; <!--버튼이 비활성화 되있는 상태에서 false로 바껴서 활성화가 됨-->
+    //         return true;
+    //     }
+    // }
+
+    // 입력한 비밀번호와 입력한 비밀번호 확인이 일치할 시 회원가입 버튼이 활성화되고 그렇지 않으면 비활성화됨
+    function test() {
+        var v1 = document.getElementById('password1').value;
+        var v2 = document.getElementById('password2').value;
+
+        // 이메일 및 비밀번호 일치 여부 확인
+        const isEmailValid = isEmailAvailable(); // 사용 가능한 이메일인지 확인
+        const isPasswordMatch = v1 === v2;
+
+        if (isEmailValid && isPasswordMatch) {
+            enableSignupButton(); // 이메일이 사용 가능하고 비밀번호가 일치하면 버튼 활성화
         } else {
-            alert("비밀번호가 일치합니다");
-            const target = document.getElementById('target_btn');
-            target.disabled = false; <!--버튼이 비활성화 되있는 상태에서 false로 바껴서 활성화가 됨-->
-            return true;
+            disableSignupButton(); // 그 외의 경우 버튼 비활성화
         }
+    }
+
+    // 이메일이 사용 가능한지 확인하는 함수
+    function isEmailAvailable() {
+        const checkResult1 = document.getElementById("check-result1");
+        return checkResult1.style.color === "green"; // 사용 가능한 이메일인지 여부를 색상으로 판단
+    }
+
+    // 회원가입 버튼을 활성화하는 함수
+    function enableSignupButton() {
+        const target = document.getElementById('target_btn');
+        target.disabled = false; // 기존 버튼이 비활성화 되어있으니 false가 떠야 닫힌게 열림
+    }
+
+    // 회원가입 버튼을 비활성화하는 함수
+    function disableSignupButton() {
+        const target = document.getElementById('target_btn');
+        target.disabled = true;
     }
 
 
