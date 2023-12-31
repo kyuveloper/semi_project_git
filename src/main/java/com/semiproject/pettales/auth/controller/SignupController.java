@@ -26,9 +26,9 @@ public class SignupController {
         System.out.println(memberNickName);
         System.out.println("memberNickName = " + memberNickName);
 
-        int checkResult = memberService.nickNameCheck(memberNickName);
+        int checkResult2 = memberService.nickNameCheck(memberNickName);
 
-        return checkResult;
+        return checkResult2;
     }
 
 }
