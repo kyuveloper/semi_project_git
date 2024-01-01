@@ -1,5 +1,6 @@
 package com.semiproject.pettales.auth.service;
 
+import com.semiproject.pettales.adminpage.model.dto.UserTableDTO;
 import com.semiproject.pettales.user.dao.UserMapper;
 import com.semiproject.pettales.user.model.dto.LoginUserDTO;
 import com.semiproject.pettales.user.model.dto.SignupDTO;
@@ -87,5 +88,9 @@ public class MemberService {
 //            throw new IllegalStateException("이미 존재하는 닉네임 입니다.");
 //        }
 //    }
+
+    public LoginUserDTO selectUserByUserCode(Integer userCode){
+        return userMapper.selectUserByUserCode(userCode);
+    }
 
 }

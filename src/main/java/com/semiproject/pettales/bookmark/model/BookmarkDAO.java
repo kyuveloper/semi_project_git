@@ -18,4 +18,9 @@ public interface BookmarkDAO {
             @Param("bookmarkCode")int bookmarkCode,
             @Param("userCode")int userCode
     );
+
+    BookmarkDTO selectBookmarkByComCode(
+            @Param("userCode")int userCode,
+            @Param("companyCode")int companyCode
+    );
 }

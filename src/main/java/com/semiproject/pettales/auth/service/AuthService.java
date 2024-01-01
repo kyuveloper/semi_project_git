@@ -28,4 +28,5 @@ public class AuthService implements UserDetailsService {
         }
         return new AuthDetails(login);
     }
+
 }

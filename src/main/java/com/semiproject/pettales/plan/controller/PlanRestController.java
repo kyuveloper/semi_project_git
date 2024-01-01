@@ -4,6 +4,7 @@ package com.semiproject.pettales.plan.controller;
 import com.semiproject.pettales.auth.model.AuthDetails;
 import com.semiproject.pettales.bookmark.dto.BookmarkDTO;
 import com.semiproject.pettales.bookmark.service.BookmarkService;
+import com.semiproject.pettales.company.dto.CompanyCardDTO;
 import com.semiproject.pettales.company.dto.CompanyDTO;
 import com.semiproject.pettales.company.dto.CompanyPaging;
 import com.semiproject.pettales.company.service.CompanyService;
@@ -32,20 +33,20 @@ public class PlanRestController {
     public ResponseEntity<Map<String, Object>> date(
             @RequestParam(value="page", required=false, defaultValue="1") int page,
             @RequestParam(value = "companyCtprvn", required = false) String companyCtprvn,
-            @RequestParam(value = "companyClassi", required = false) String companyClassi){
+            @RequestParam(value = "companyClassi", required = false) String companyClassi
+    ){
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         AuthDetails auth = (AuthDetails)authentication.getPrincipal();
         int userCode = auth.getLoginUserDTO().getUserCode();
 
-        List<CompanyDTO> companyDTOs = companyService.selectAllCompanyByCtprvn(page, companyCtprvn, companyClassi);
+        List<CompanyCardDTO> companyDTOs = companyService.selectAllCompanyByCtprvn(page, companyCtprvn, companyClassi);
         CompanyPaging paging = companyService.pagingParamByCtprvn(page, companyCtprvn, companyClassi);
-        List<BookmarkDTO> bookmarkDTOs = bookmarkService.selectBookmarkByUserCode(userCode);
 
         Map<String, Object> responseData = new HashMap<>();
         responseData.put("company", companyDTOs);
         responseData.put("paging", paging);
-        responseData.put("bookmarks", bookmarkDTOs);
+        //responseData.put("bookmarks", bookmarkDTOs);
 
         System.out.println("Received request - Page: " + page + ", CompanyCtprvn: " + companyCtprvn + ", CompanyClassi: " + companyClassi);
 

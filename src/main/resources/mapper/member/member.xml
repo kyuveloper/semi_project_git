@@ -81,4 +81,11 @@
         FROM USER_TABLE
         WHERE USER_EMAIL = #{userEmail}
     </select>
+
+    <select id="selectUserByUserCode" resultMap="login">
+        SELECT
+            *
+        FROM USER_TABLE
+        WHERE USER_CODE = #{userCode}
+    </select>
 </mapper>

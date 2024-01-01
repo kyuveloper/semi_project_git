@@ -54,4 +54,15 @@
         USER_CODE = #{userCode}
     </update>
 
+    <select id="selectBookmarkByComCode" resultMap="bookmarkResult">
+        SELECT
+            *
+        FROM
+        BOOKMARK_TABLE
+        WHERE
+            USER_CODE = #{userCode}
+        AND
+            COMPANY_CODE = #{companyCode}
+    </select>
+
 </mapper>

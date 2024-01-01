@@ -1,5 +1,6 @@
 package com.semiproject.pettales.bookmark.service;
 
+import com.semiproject.pettales.bookmark.dto.BookmarkCardDTO;
 import com.semiproject.pettales.bookmark.dto.BookmarkDTO;
 import com.semiproject.pettales.bookmark.model.BookmarkDAO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +35,10 @@ public class BookmarkService {
             System.out.println("성공");
         }
         return result;
+    }
+
+    public BookmarkDTO selectBookmarkByComCode(int companyCode, int userCode){
+        return bookmarkDAO.selectBookmarkByComCode(companyCode, userCode);
     }
 
 }

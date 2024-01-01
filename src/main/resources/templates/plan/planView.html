@@ -65,27 +65,33 @@
       }
 
       function renderData(data) {
-        // 받은 데이터에서 company와 paging 추출
         var companies = data.company;
         var paging = data.paging;
-        var bookmarks = data.bookmarks;
-        // 시설 리스트 업데이트 코드
+        var companyCards = data.companyCards;
+
         $("#result").empty();
-        for (var i = 0; i < companies.length; i++) {
-          var comp = companies[i];
+        for (var i = 0; i < companyCards.length; i++) {
+          var companyCard = companyCards[i];
+          var company = companyCard.companyDTO;
+          var bookmark = companyCard.bookmarkDTO;
+
           var div = $("<div class='com_box_list'></div>");
 
-          div.append($("<img src='/image/heart-regular.svg'>"));
-          div.append($("<img src='/image/heart-solid.svg'>"));
-          div.append($("<p>companyCode: </p>").text(comp.companyCode));
-          div.append($("<p>companyName: </p>").text(comp.companyName));
-          div.append($("<p>companyClassi: </p>").text(comp.companyClassi));
-          div.append($("<p>companyCtprvn: </p>").text(comp.companyCtprvn));
+          // 북마크 체크 여부에 따라 이미지 변경
+          if (bookmark != null && bookmark.bookmarked) {
+            div.append($("<img src='/image/heart-solid.svg'>"));
+          } else {
+            div.append($("<img src='/image/heart-regular.svg'>"));
+          }
 
-          var bookmarkButton = $("<img src='/image/heart-regular.svg' class='insertBookmarkBtn' data-company-id='" + comp.companyCode + "'>관심 시설 추가</img>");
+          div.append($("<p>companyCode: </p>").text(company.companyCode));
+          div.append($("<p>companyName: </p>").text(company.companyName));
+          div.append($("<p>companyClassi: </p>").text(company.companyClassi));
+          div.append($("<p>companyCtprvn: </p>").text(company.companyCtprvn));
+
+          var bookmarkButton = $("<img src='/image/heart-regular.svg' class='insertBookmarkBtn' data-company-id='" + company.companyCode + "'>관심 시설 추가</img>");
           div.append(bookmarkButton);
 
-          // div를 .com_box_list에 추가
           $("#result").append(div);
         }
         renderPaging(paging);

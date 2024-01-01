@@ -1,5 +1,6 @@
 package com.semiproject.pettales.user.dao;
 
+import com.semiproject.pettales.adminpage.model.dto.UserTableDTO;
 import com.semiproject.pettales.user.model.dto.LoginUserDTO;
 import com.semiproject.pettales.user.model.dto.SignupDTO;
 import org.apache.catalina.User;
@@ -15,6 +16,8 @@ public interface UserMapper{
     LoginUserDTO findByUserEmail(String userEmail);
 
     int regist(SignupDTO signupDTO); //회원가입
+
+    LoginUserDTO selectUserByUserCode(Integer userCode);
 
 
     //이넘에 정지기능 로그인실패시 정지유저라고 알람

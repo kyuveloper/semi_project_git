@@ -27,11 +27,7 @@ public class PlanController {
     private BookmarkService bookmarkService;
 
     @GetMapping("/make_plan")
-    public String makePlanView(Model model
-                               //@RequestParam(value="page", required=false, defaultValue="1") int page,
-                               //@RequestParam(value = "companyCtprvn", required = false) String companyCtprvn,
-                               //@RequestParam(value = "companyClassi", required = false) String companyClassi
-    ){
+    public String makePlanView(Model model){
 //        List<CompanyDTO> companyListByCtprvn = companyService.selectAllCompanyByCtprvn(page, companyCtprvn, companyClassi);
 //        CompanyPaging paging = companyService.pagingParamByCtprvn(page, companyCtprvn, companyClassi);
 //
@@ -50,9 +46,5 @@ public class PlanController {
         return "plan/planView";
     }
 
-    @GetMapping("/paging_test")
-    public String pagingTest(){
-        return "plan/pagingTest";
-    }
 
 }
