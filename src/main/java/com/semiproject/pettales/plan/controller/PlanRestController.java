@@ -2,7 +2,6 @@ package com.semiproject.pettales.plan.controller;
 
 
 import com.semiproject.pettales.auth.model.AuthDetails;
-import com.semiproject.pettales.bookmark.dto.BookmarkDTO;
 import com.semiproject.pettales.bookmark.service.BookmarkService;
 import com.semiproject.pettales.company.dto.CompanyCardDTO;
 import com.semiproject.pettales.company.dto.CompanyDTO;
@@ -12,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -26,21 +24,17 @@ public class PlanRestController {
     @Autowired
     private CompanyService companyService;
 
-    @Autowired
-    private BookmarkService bookmarkService;
-
     @GetMapping("/plan_make")
     public ResponseEntity<Map<String, Object>> date(
             @RequestParam(value="page", required=false, defaultValue="1") int page,
             @RequestParam(value = "companyCtprvn", required = false) String companyCtprvn,
-            @RequestParam(value = "companyClassi", required = false) String companyClassi
-    ){
-
+            @RequestParam(value = "companyClassi", required = false) String companyClassi){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         AuthDetails auth = (AuthDetails)authentication.getPrincipal();
         int userCode = auth.getLoginUserDTO().getUserCode();
 
-        List<CompanyCardDTO> companyDTOs = companyService.selectAllCompanyByCtprvn(page, companyCtprvn, companyClassi);
+        List<CompanyCardDTO> companyDTOs = companyService.selectCompanyCardByCtprvn(page, companyCtprvn, companyClassi, userCode);
+//        List<CompanyDTO> companyDTOs = companyService.selectAllCompanyByCtprvn(page, companyCtprvn, companyClassi);
         CompanyPaging paging = companyService.pagingParamByCtprvn(page, companyCtprvn, companyClassi);
 
         Map<String, Object> responseData = new HashMap<>();

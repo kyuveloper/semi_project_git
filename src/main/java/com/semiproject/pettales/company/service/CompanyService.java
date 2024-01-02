@@ -1,7 +1,5 @@
 package com.semiproject.pettales.company.service;
 
-import com.semiproject.pettales.adminpage.model.dto.UserTableDTO;
-import com.semiproject.pettales.auth.model.AuthDetails;
 import com.semiproject.pettales.auth.service.MemberService;
 import com.semiproject.pettales.bookmark.dto.BookmarkDTO;
 import com.semiproject.pettales.bookmark.service.BookmarkService;
@@ -11,14 +9,10 @@ import com.semiproject.pettales.company.model.CompanyDAO;
 import com.semiproject.pettales.company.dto.CompanyPaging;
 import com.semiproject.pettales.user.model.dto.LoginUserDTO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Service
 public class CompanyService {
@@ -59,37 +53,30 @@ public class CompanyService {
     }
 
     //지역별 건물 조회
-//    public List<CompanyDTO> selectAllCompanyByCtprvn(int page, String companyCtprvn, String companyClassi){
-//        int pageStart = (page -1) * PAGE_LIMIT;
-//        List<CompanyDTO> companyListByCtprvn = companyDAO.selectAllCompanyByCtprvn(pageStart, PAGE_LIMIT, companyCtprvn, companyClassi);
-//
-//        return companyListByCtprvn;
-//    }
-
-    public List<CompanyCardDTO> selectAllCompanyByCtprvn(int page, String companyCtprvn, String companyClassi){
+    public List<CompanyDTO> selectAllCompanyByCtprvn(int page, String companyCtprvn, String companyClassi){
         int pageStart = (page -1) * PAGE_LIMIT;
-        Map<String, Integer> pagingParams = new HashMap<>();
-        pagingParams.put("start", pageStart);
-        pagingParams.put("limit", PAGE_LIMIT);
+        List<CompanyDTO> companyListByCtprvn = companyDAO.selectAllCompanyByCtprvn(pageStart, PAGE_LIMIT, companyCtprvn, companyClassi);
+
+        return companyListByCtprvn;
+    }
+
+    public List<CompanyCardDTO> selectCompanyCardByCtprvn(int page, String companyCtprvn, String companyClassi, int userCode){
+        int pageStart = (page -1) * PAGE_LIMIT;
         List<CompanyCardDTO> companyCard = new ArrayList<>();
         List<CompanyDTO> companyListByCtprvn = companyDAO.selectAllCompanyByCtprvn(pageStart, PAGE_LIMIT, companyCtprvn, companyClassi);
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        AuthDetails auth = (AuthDetails)authentication.getPrincipal();
-        int userCode = auth.getLoginUserDTO().getUserCode();
 
+        // 리스트 수 만큼 CompanyCard에 회사 정보, 유저 정보, 북마크 정보 삽입
         for(CompanyDTO companyDTO : companyListByCtprvn){
             CompanyCardDTO card = new CompanyCardDTO();
-
             card.setCompanyDTO(companyDTO);
 
             LoginUserDTO user = memberService.selectUserByUserCode(userCode);
             card.setUser(user);
 
-            BookmarkDTO bookmark = bookmarkService.selectBookmarkByComCode(companyDTO.getCompanyCode(), userCode);
-
+            BookmarkDTO bookmarked = bookmarkService.selectBookmarkByComCode(userCode, companyDTO.getCompanyCode());
+            card.setBookmarkDTO(bookmarked);
             companyCard.add(card);
         }
-
         return companyCard;
     }
     public CompanyPaging pagingParam(int page) {

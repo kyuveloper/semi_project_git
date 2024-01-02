@@ -89,7 +89,7 @@ public class MemberService {
 //        }
 //    }
 
-    public LoginUserDTO selectUserByUserCode(Integer userCode){
+    public LoginUserDTO selectUserByUserCode(int userCode){
         return userMapper.selectUserByUserCode(userCode);
     }
 

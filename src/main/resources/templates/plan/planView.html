@@ -31,7 +31,7 @@
           <p th:text="${bookmark.companyClassi}"></p>
           <p th:text="${bookmark.companyCtprvn}"></p>
           <p th:text="${bookmark.companyName}"></p>
-          <button class="bookmarkDeleteBtn" th:data-bookmark-id="${bookmark.bookmarkCode}">삭제</button>
+          <button class="bookmarkDeleteBtn" th:data-company-id="${bookmark.companyCode}">삭제</button>
           <hr>
         </div>
       </div>
@@ -67,29 +67,23 @@
       function renderData(data) {
         var companies = data.company;
         var paging = data.paging;
-        var companyCards = data.companyCards;
 
         $("#result").empty();
-        for (var i = 0; i < companyCards.length; i++) {
-          var companyCard = companyCards[i];
-          var company = companyCard.companyDTO;
-          var bookmark = companyCard.bookmarkDTO;
+        for (var i = 0; i < companies.length; i++) {
+          //var companyCard = companyCards[i];
+          var comp = companies[i];
+          //var bookmark = companyCard.bookmarkDTO;
 
           var div = $("<div class='com_box_list'></div>");
 
-          // 북마크 체크 여부에 따라 이미지 변경
-          if (bookmark != null && bookmark.bookmarked) {
-            div.append($("<img src='/image/heart-solid.svg'>"));
-          } else {
-            div.append($("<img src='/image/heart-regular.svg'>"));
-          }
+          //북마크 체크 여부에 따라 이미지 변경
 
-          div.append($("<p>companyCode: </p>").text(company.companyCode));
-          div.append($("<p>companyName: </p>").text(company.companyName));
-          div.append($("<p>companyClassi: </p>").text(company.companyClassi));
-          div.append($("<p>companyCtprvn: </p>").text(company.companyCtprvn));
+          div.append($("<p>companyCode: </p>").text(comp.companyDTO.companyCode));
+          div.append($("<p>companyName: </p>").text(comp.companyDTO.companyName));
+          div.append($("<p>companyClassi: </p>").text(comp.companyDTO.companyClassi));
+          div.append($("<p>companyCtprvn: </p>").text(comp.companyDTO.companyCtprvn));
 
-          var bookmarkButton = $("<img src='/image/heart-regular.svg' class='insertBookmarkBtn' data-company-id='" + company.companyCode + "'>관심 시설 추가</img>");
+          var bookmarkButton = $("<img src='/image/heart-regular.svg' class='insertBookmarkBtn' data-company-id='" + comp.companyDTO.companyCode + "'>관심 시설 추가</img>");
           div.append(bookmarkButton);
 
           $("#result").append(div);
@@ -154,7 +148,7 @@
         console.log(companyCode);
         $.ajax({
           type: "POST",
-          url: "/bookmark/insert",
+          url: "/bookmark/toggle",
           data: {
             companyCode : companyCode
           },
@@ -170,8 +164,8 @@
       });
 
       $(document).on('click', '.bookmarkDeleteBtn', function() {
-        let bookmarkCode = $(this).data('bookmark-id');
-        console.log(bookmarkCode); // 콘솔에 값을 출력하여 확인
+        let companyCode = $(this).data('company-id');
+        console.log(companyCode); // 콘솔에 값을 출력하여 확인
         // 여기서 해당 북마크를 삭제하는 로직을 추가
       // $.ajax({
       //     type: "PUT",

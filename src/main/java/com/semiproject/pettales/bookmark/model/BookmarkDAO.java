@@ -8,15 +8,20 @@ import java.util.List;
 
 @Mapper
 public interface BookmarkDAO {
-    int insertBookmarkByComCode(
+    void insertBookmarkByComCode(
             @Param("companyCode")int companyCode,
             @Param("userCode")int userCode);
 
     List<BookmarkDTO> selectBookmarkByUserCode(int userCode);
 
-    int deleteBookmark(
-            @Param("bookmarkCode")int bookmarkCode,
+    void deleteBookmark(
+            @Param("companyCode")int companyCode,
             @Param("userCode")int userCode
+    );
+
+    int BookmarkCountByUserCode (
+            @Param("userCode")int userCode,
+            @Param("companyCode")int companyCode
     );
 
     BookmarkDTO selectBookmarkByComCode(

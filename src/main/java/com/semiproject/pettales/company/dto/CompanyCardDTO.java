@@ -1,6 +1,5 @@
 package com.semiproject.pettales.company.dto;
 
-import com.semiproject.pettales.adminpage.model.dto.UserTableDTO;
 import com.semiproject.pettales.bookmark.dto.BookmarkDTO;
 import com.semiproject.pettales.user.model.dto.LoginUserDTO;
 
