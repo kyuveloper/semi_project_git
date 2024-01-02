@@ -65,18 +65,16 @@
 
         $("#result").empty();
         for (var i = 0; i < companies.length; i++) {
-          //var companyCard = companyCards[i];
           var comp = companies[i];
-          //var bookmark = companyCard.bookmarkDTO;
 
           var div = $("<div class='com_box_list'></div>");
 
-          //북마크 체크 여부에 따라 이미지 변경
-
-          if(comp.bookmarkDTO.bookmarked == false){
-            var bookmarkButton = $("<img src='/image/heart-regular.svg' class='insertBookmarkBtn' data-company-id='" + comp.companyDTO.companyCode + "'/>");
-          }else{
-            var bookmarkButton = $("<img src='/image/heart-solid.svg' class='insertBookmarkBtn' data-company-id='" + comp.companyDTO.companyCode + "'/>");
+          // 북마크 체크 여부에 따라 이미지 변경
+          var bookmarkButton;
+          if (comp.bookmarkDTO && comp.bookmarkDTO.bookmarked === false) {
+            bookmarkButton = $("<img src='/image/heart-regular.svg' class='insertBookmarkBtn' data-company-id='" + comp.companyDTO.companyCode + "'/>");
+          } else {
+            bookmarkButton = $("<img src='/image/heart-solid.svg' class='insertBookmarkBtn' data-company-id='" + comp.companyDTO.companyCode + "'/>");
           }
 
           div.append($("<p>companyCode: </p>").text(comp.companyDTO.companyCode));

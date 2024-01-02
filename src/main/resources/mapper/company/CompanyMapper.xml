@@ -73,4 +73,15 @@
         LIMIT #{pageStart}, #{pageLimit}
     </select>
 
+    <select id="getDataByRegionAndCategory" resultMap="companyResult">
+        SELECT * FROM your_table
+        WHERE 1=1
+        <if test="companyCtprvn != null and companyCtprvn != ''">
+            AND companyCtprvn = #{companyCtprvn}
+        </if>
+        <if test="companyClassi != null and companyClassi != ''">
+            AND companyClassi = #{companyClassi}
+        </if>
+    </select>
+
 </mapper>

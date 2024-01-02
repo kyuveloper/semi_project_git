@@ -65,6 +65,8 @@ public class PlanRestController {
         System.out.println("Received region: " + companyCtprvn);
         System.out.println("Received category: " + companyClassi);
 
+        List<CompanyDTO> getDataByRegionAndCategory = companyService.getDataByRegionAndCategory(companyCtprvn, companyClassi);
+
         // 여기서 로직 수행 후 ResponseEntity를 반환
         return ResponseEntity.ok("Data received successfully");
     }

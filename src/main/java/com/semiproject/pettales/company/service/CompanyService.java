@@ -154,4 +154,8 @@ public class CompanyService {
         return paging;
 
     }
+
+    public List<CompanyDTO> getDataByRegionAndCategory(String companyCtprvn, String companyClassi){
+        return companyDAO.getDataByRegionAndCategory(companyCtprvn, companyClassi);
+    }
 }
