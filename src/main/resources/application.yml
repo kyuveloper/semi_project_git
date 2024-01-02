@@ -8,17 +8,17 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: pettales
     password: pettales
-  security:
-    oauth2:
-      client:
-        registration:
-          google:
-            client-id: 1234
-            client-secret: 1234
-            redirectUri: "{baseUrl}/login/oauth2/code/{registrationId}"
-            scope:
-              - email
-              - profile
+#  security:
+#    oauth2:
+#      client:
+#        registration:
+#          google:
+#            client-id: 1234
+#            client-secret: 1234
+#            redirectUri: "{baseUrl}/login/oauth2/code/{registrationId}"
+#            scope:
+#              - email
+#              - profile
 #  jpa:
 #    properties:
 #      hibernate:

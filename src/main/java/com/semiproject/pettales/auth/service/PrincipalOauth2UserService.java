@@ -2,8 +2,9 @@
 //
 //import com.semiproject.pettales.auth.model.AuthDetails;
 //import com.semiproject.pettales.auth.model.UserAuth;
-//import com.semiproject.pettales.user.dao.UserRepository;
+////import com.semiproject.pettales.user.dao.UserRepository;
 ////import com.semiproject.pettales.user.model.entity.User;
+////import com.semiproject.pettales.user.dao.UserRepository;
 //import com.semiproject.pettales.user.model.dto.LoginUserDTO;
 //import lombok.RequiredArgsConstructor;
 //import lombok.extern.slf4j.Slf4j;
@@ -20,16 +21,16 @@
 //import java.util.Optional;
 //
 //@Service
-//@RequiredArgsConstructor
-//@Slf4j
+////@RequiredArgsConstructor
+////@Slf4j
 //public class PrincipalOauth2UserService extends DefaultOAuth2UserService {
-//    private final UserRepository userRepository;
-//
-//    private final PasswordEncoder encoder;
-//
-////    @Override
-////    @Transactional
-////    public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
+////    private final UserRepository userRepository;
+////
+////    private final PasswordEncoder encoder;
+////
+//    @Override
+//    @Transactional
+//    public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
 ////        OAuth2User oAuth2User = super.loadUser(userRequest);
 ////        log.info("getAttributes : {}", oAuth2User.getAttributes());
 ////
@@ -38,10 +39,10 @@
 //////        String userEmail = oAuth2User.getAttribute("email");
 ////        String userEmail = provider + "_" + providerId;
 ////        log.info("userEmail : {}", userEmail);
-//
+////
 ////        Optional<LoginUserDTO> optionalUser = userRepository.findByUserEmail(userEmail);
 ////        LoginUserDTO loginUserDTO = null;
-//
+////
 ////        if(optionalUser.isEmpty()) {
 ////            loginUserDTO = LoginUserDTO.builder()
 ////                    .provider(provider)
@@ -54,7 +55,17 @@
 ////        } else {
 ////            loginUserDTO = optionalUser.get();
 ////        }
+//        System.out.println("userRequest : " + userRequest);
+//        System.out.println("getClientRegistration : " + userRequest.getClientRegistration());
+//        System.out.println("getAccessToken : " + userRequest.getAccessToken());
+//        System.out.println("getAccessToken : " + userRequest.getAccessToken().getTokenValue());
+//        System.out.println("getAttributes : " + super.loadUser(userRequest).getAttributes());
+//
 ////        return new AuthDetails(loginUserDTO, oAuth2User.getAttributes());
-////        LoginUserDTO loginUserDTO = LoginUserDTO.createLoginUserDTO();
-////    }
+////        LoginUserDTO loginUserDTO1 = LoginUserDTO.createLoginUserDTO();
+//        // 구글로 부터 받은 userRequest 데이터에 대한 후처리되는 함수
+//
+//
+//        return super.loadUser(userRequest);
+//    }
 //}
