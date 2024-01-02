@@ -2,6 +2,7 @@ package com.semiproject.pettales.plan.controller;
 
 
 import com.semiproject.pettales.auth.model.AuthDetails;
+import com.semiproject.pettales.bookmark.dto.BookmarkDTO;
 import com.semiproject.pettales.bookmark.service.BookmarkService;
 import com.semiproject.pettales.company.dto.CompanyCardDTO;
 import com.semiproject.pettales.company.dto.CompanyDTO;
@@ -45,6 +46,27 @@ public class PlanRestController {
         System.out.println("Received request - Page: " + page + ", CompanyCtprvn: " + companyCtprvn + ", CompanyClassi: " + companyClassi);
 
         return ResponseEntity.ok(responseData);
+    }
+
+//    @ModelAttribute("bookmark")
+//    public List<BookmarkDTO> userLikeList(){
+//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//        AuthDetails auth = (AuthDetails)authentication.getPrincipal();
+//        int userCode = auth.getLoginUserDTO().getUserCode();
+//
+//        return companyService.addLikeList
+//    }
+
+    @GetMapping("/category")
+    public ResponseEntity<String> yourRestEndpoint(
+            @RequestParam("companyCtprvn") String companyCtprvn,
+            @RequestParam("companyClassi") String companyClassi) {
+        // 받아온 region, category를 이용한 로직 수행
+        System.out.println("Received region: " + companyCtprvn);
+        System.out.println("Received category: " + companyClassi);
+
+        // 여기서 로직 수행 후 ResponseEntity를 반환
+        return ResponseEntity.ok("Data received successfully");
     }
 
 }

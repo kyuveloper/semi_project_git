@@ -3,24 +3,19 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="layout/default_layout">
 <th:block layout:fragment="content">
   <div class="contents">
-    <label for="regionDropdown">지역 선택:</label>
-    <select id="regionDropdown">
-      <option>선택해주세요</option>
-      <option value="서울특별시">서울</option>
-      <option value="제주특별자치도">제주</option>
-      <!-- 다른 지역 옵션들 추가 -->
-    </select>
+    <form method="get" action="/api/category">
+      <label for="regionDropdown">지역 선택:</label>
+      <select id="regionDropdown" name="companyCtprvn">
+        <!-- 옵션들 추가 -->
+      </select>
 
-    <label for="categoryDropdown">카테고리 선택:</label>
-    <select id="categoryDropdown">
-      <option>선택해주세요</option>
-      <option value="카페">카페</option>
-      <option value="미용">미용</option>
-      <option value="여행지">여행지</option>
-      <option value="펜션">펜션</option>
-      <option value="박물관">박물관</option>
-      <!-- 다른 카테고리 옵션들 추가 -->
-    </select>
+      <label for="categoryDropdown">카테고리 선택:</label>
+      <select id="categoryDropdown" name="companyClassi">
+        <!-- 옵션들 추가 -->
+      </select>
+
+      <button type="submit">검색</button>
+    </form>
 
     <div class="com_parent_container">
       <div id="result"></div>
@@ -78,12 +73,20 @@
 
           //북마크 체크 여부에 따라 이미지 변경
 
+          if(comp.bookmarkDTO.bookmarked == false){
+            var bookmarkButton = $("<img src='/image/heart-regular.svg' class='insertBookmarkBtn' data-company-id='" + comp.companyDTO.companyCode + "'/>");
+          }else{
+            var bookmarkButton = $("<img src='/image/heart-solid.svg' class='insertBookmarkBtn' data-company-id='" + comp.companyDTO.companyCode + "'/>");
+          }
+
           div.append($("<p>companyCode: </p>").text(comp.companyDTO.companyCode));
           div.append($("<p>companyName: </p>").text(comp.companyDTO.companyName));
           div.append($("<p>companyClassi: </p>").text(comp.companyDTO.companyClassi));
           div.append($("<p>companyCtprvn: </p>").text(comp.companyDTO.companyCtprvn));
 
-          var bookmarkButton = $("<img src='/image/heart-regular.svg' class='insertBookmarkBtn' data-company-id='" + comp.companyDTO.companyCode + "'>관심 시설 추가</img>");
+          console.log("companyDTO:", comp.companyDTO);
+          console.log("bookmarkDTO:", comp.bookmarkDTO);
+
           div.append(bookmarkButton);
 
           $("#result").append(div);

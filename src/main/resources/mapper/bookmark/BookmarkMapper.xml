@@ -65,7 +65,7 @@
             COMPANY_CODE = #{companyCode}
     </select>
 
-    <select id="selectBookmarkByComCode" resultMap="map">
+    <select id="selectBookmarkByComCode" resultMap="bookmarkResult">
         SELECT
             BOOKMARK_CODE,
             COMPANY_CODE,
