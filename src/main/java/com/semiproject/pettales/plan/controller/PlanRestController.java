@@ -41,7 +41,7 @@ public class PlanRestController {
         responseData.put("company", companyDTOs);
         responseData.put("paging", paging);
 
-        System.out.println("Received request - Page: " + page + ", CompanyCtprvn: " + companyCtprvn + ", CompanyClassi: " + companyClassi);
+        //System.out.println("Received request - Page: " + page + ", CompanyCtprvn: " + companyCtprvn + ", CompanyClassi: " + companyClassi);
 
         return ResponseEntity.ok(responseData);
     }

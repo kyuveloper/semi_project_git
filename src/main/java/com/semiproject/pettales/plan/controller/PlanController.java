@@ -3,6 +3,8 @@ package com.semiproject.pettales.plan.controller;
 import com.semiproject.pettales.auth.model.AuthDetails;
 import com.semiproject.pettales.bookmark.dto.BookmarkDTO;
 import com.semiproject.pettales.bookmark.service.BookmarkService;
+import com.semiproject.pettales.company.dto.CompanyCardDTO;
+import com.semiproject.pettales.company.dto.CompanyPaging;
 import com.semiproject.pettales.company.service.CompanyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -11,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 

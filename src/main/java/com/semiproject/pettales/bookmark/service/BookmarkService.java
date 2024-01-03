@@ -1,6 +1,5 @@
 package com.semiproject.pettales.bookmark.service;
 
-import com.semiproject.pettales.bookmark.dto.BookmarkCardDTO;
 import com.semiproject.pettales.bookmark.dto.BookmarkDTO;
 import com.semiproject.pettales.bookmark.model.BookmarkDAO;
 import org.springframework.beans.factory.annotation.Autowired;
