@@ -63,7 +63,6 @@ public class MemberService {
             return 0;
         }
     }
-<<<<<<< HEAD
 //    진짜 중복체크
 //    @Transactional(readOnly = true)
 //    public void checkEmailDuplication(SignupDTO signupDTO) {
@@ -85,6 +84,4 @@ public class MemberService {
         return userMapper.selectUserByUserCode(userCode);
     }
 
-=======
->>>>>>> develop
 }

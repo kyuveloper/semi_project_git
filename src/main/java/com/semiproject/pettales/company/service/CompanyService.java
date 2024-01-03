@@ -158,7 +158,6 @@ public class CompanyService {
 
     }
 
-<<<<<<< HEAD
     public List<String> getAllRegion(){
         return companyDAO.getAllRegion();
     }
@@ -167,7 +166,6 @@ public class CompanyService {
         return companyDAO.getAllCategory();
     }
 
-=======
     public int companyInfoByCode(CompanyDTO companyDTO) {
         int result = companyDAO.companyInfoByCode(companyDTO);
         if (result <= 0) {
@@ -177,5 +175,4 @@ public class CompanyService {
         }
         return result;
     }
->>>>>>> develop
 }
