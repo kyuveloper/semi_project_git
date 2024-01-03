@@ -44,9 +44,13 @@
 }
 
 #map{
-    margin-right: 300px;
+    margin-right: 100px;
 }
 
 .bookmark_div{
-    margin-left: 100px;
+    margin-right: 150px;
+}
+
+.date_div{
+    margin-right: 100px;
 }
