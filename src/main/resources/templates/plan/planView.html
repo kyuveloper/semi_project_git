@@ -16,26 +16,56 @@
         <div class="com_parent_container">
             <div id="result"></div>
             <div id="result-container"></div>
-            <!--      <div class="favorite_box">-->
-            <!--        찜목록-->
-            <!--        <div class="bookmark_box" th:each="bookmark : ${bookmark}">-->
-            <!--          <p th:text="${bookmark.companyClassi}"></p>-->
-            <!--          <p th:text="${bookmark.companyCtprvn}"></p>-->
-            <!--          <p th:text="${bookmark.companyName}"></p>-->
-            <!--          <button class="bookmarkDeleteBtn" th:data-bookmark-id="${bookmark.bookmarkCode}">삭제</button>-->
-            <!--          <hr>-->
-            <!--        </div>-->
-            <!--      </div>-->
-            <!--        <button type="button" class="btn btn-outline-info">더보기</button>-->
         </div>
     </div>
     <script>
         $(document).ready(function () {
-            // 셀렉트 박스의 값을 바꿀 때마다 해당 조건의 시설 리스트 출력
-            $("#regionDropdown, #categoryDropdown").change(function () {
-                updateData();
+            // 초기 데이터를 가져오기
+            $.ajax({
+                type: "get",
+                url: "/api/all_company",
+                success: function (data) {
+                    renderInitialData(data);
+                },
+                error: function (xhr, status, error) {
+                    console.error("데이터 로딩 중 오류 발생:", error);
+                }
             });
 
+            // 초기 데이터 렌더링
+            function renderInitialData(data) {
+                var companies = data.company;
+                $("#result").empty();
+
+                for (var i = 0; i < companies.length; i++) {
+                    var comp = companies[i];
+
+                    var div = $("<div class='com_box_list'></div>");
+
+                    var bookmarkButton;
+                    if (comp.bookmarkDTO == null || comp.bookmarkDTO == "") {
+                        bookmarkButton = $("<img src='/image/heart-regular.svg' class='insertBookmarkBtn' data-company-id='" + comp.companyDTO.companyCode + "'/>");
+                    } else {
+                        bookmarkButton = $("<img src='/image/heart-solid.svg' class='insertBookmarkBtn' data-company-id='" + comp.companyDTO.companyCode + "'/>");
+                    }
+
+                    div.append($("<p>companyCode: </p>").text(comp.companyDTO.companyCode));
+                    div.append($("<p>companyName: </p>").text(comp.companyDTO.companyName));
+                    div.append($("<p>companyClassi: </p>").text(comp.companyDTO.companyClassi));
+                    div.append($("<p>companyCtprvn: </p>").text(comp.companyDTO.companyCtprvn));
+
+                    div.append(bookmarkButton);
+
+                    $("#result").append(div);
+                }
+
+                // 셀렉트 박스의 값을 바꿀 때마다 해당 조건의 시설 리스트 출력
+                $("#regionDropdown, #categoryDropdown").change(function () {
+                    updateData();
+                });
+            }
+
+            // 조건에 따른 데이터 업데이트
             function updateData(page) {
                 var selectedRegion = $("#regionDropdown").val();
                 var selectedCategory = $("#categoryDropdown").val();
@@ -52,7 +82,6 @@
                         companyClassi: selectedCategory
                     },
                     success: function (data) {
-                        console.log(page);
                         renderData(data);
                     },
                     error: function (xhr, status, error) {
@@ -61,6 +90,7 @@
                 });
             }
 
+            // 데이터 렌더링
             function renderData(data) {
                 var companies = data.company;
                 var paging = data.paging;
@@ -71,7 +101,6 @@
 
                     var div = $("<div class='com_box_list'></div>");
 
-                    // 북마크 체크 여부에 따라 이미지 변경
                     var bookmarkButton;
                     if (comp.bookmarkDTO == null || comp.bookmarkDTO == "") {
                         bookmarkButton = $("<img src='/image/heart-regular.svg' class='insertBookmarkBtn' data-company-id='" + comp.companyDTO.companyCode + "'/>");
@@ -84,16 +113,16 @@
                     div.append($("<p>companyClassi: </p>").text(comp.companyDTO.companyClassi));
                     div.append($("<p>companyCtprvn: </p>").text(comp.companyDTO.companyCtprvn));
 
-                    console.log("companyDTO:", comp.companyDTO);
-                    console.log("bookmarkDTO:", comp.bookmarkDTO);
-
                     div.append(bookmarkButton);
 
                     $("#result").append(div);
                 }
+
+                // 페이징 렌더링
                 renderPaging(paging);
             }
 
+            // 페이징 렌더링
             function renderPaging(paging) {
                 $("#result-container").empty();
                 var ul = $("<ul class='pagination'></ul>");
@@ -146,50 +175,29 @@
                 $("#result-container").append(ul);
             }
 
+            // 북마크 버튼 클릭 시 이벤트 처리
             $(document).on('click', '.insertBookmarkBtn', function (e) {
+                e.preventDefault();
                 var currentPage = window.location.search.match(/page=(\d+)/);
                 var currentPageParam = currentPage ? "&page=" + currentPage[1] : "";
-                e.preventDefault();
                 let companyCode = $(this).data('company-id');
-                console.log(companyCode);
                 $.ajax({
                     type: "POST",
                     url: "/bookmark/toggle",
                     data: {
                         companyCode: companyCode,
-                        currentPage: currentPageParam // 현재 페이지 번호를 전달
+                        currentPage: currentPageParam
                     },
                     cache: false,
                     success: function (data) {
-                        // 서버에서 받은 데이터로 찜목록 부분 업데이트
-                        updateData(currentPageParam); // 현재 페이지 정보를 전달
+                        console.log(currentPageParam);
+                        updateData(currentPageParam);
                     },
                     error: function (request, status, error) {
                         alert("다시 시도해주세요");
                     }
                 });
             });
-
-            // $(document).on('click', '.bookmarkDeleteBtn', function() {
-            //   let bookmarkCode = $(this).data('bookmark-id');
-            //   console.log(bookmarkCode); // 콘솔에 값을 출력하여 확인
-            //   // 여기서 해당 북마크를 삭제하는 로직을 추가
-            // $.ajax({
-            //     type: "POST",
-            //     url: "/bookmark/delete",
-            //     data: {
-            //       bookmarkCode : bookmarkCode
-            //     },
-            //     success: function (data) {
-            //       // 서버에서 받은 데이터로 찜목록 부분 업데이트
-            //         window.onload
-            //     },
-            //     error:function(request, status, error){
-            //       alert("다시 시도해주세요");
-            //     }
-            //   });
-            // });
-
         });
     </script>
 </th:block>

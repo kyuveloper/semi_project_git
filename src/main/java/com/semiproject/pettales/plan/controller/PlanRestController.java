@@ -46,6 +46,21 @@ public class PlanRestController {
         return ResponseEntity.ok(responseData);
     }
 
+    @GetMapping("/all_company")
+    public Map<String, Object> allCompany(
+            @RequestParam(value="page", required=false, defaultValue="1") int page){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        AuthDetails auth = (AuthDetails)authentication.getPrincipal();
+        int userCode = auth.getLoginUserDTO().getUserCode();
+
+        List<CompanyCardDTO> companyList = companyService.selectAllCompanyCard(page, userCode);
+        CompanyPaging paging = companyService.pagingParam(page);
+        Map<String, Object> result = new HashMap<>();
+        result.put("company", companyList);
+        result.put("paging", paging);
+        return result;
+    }
+
 //    @ModelAttribute("bookmark")
 //    public List<BookmarkDTO> userLikeList(){
 //        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

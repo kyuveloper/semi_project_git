@@ -4,6 +4,7 @@ import com.semiproject.pettales.auth.model.AuthDetails;
 import com.semiproject.pettales.bookmark.dto.BookmarkDTO;
 import com.semiproject.pettales.bookmark.service.BookmarkService;
 import com.semiproject.pettales.company.dto.CompanyCardDTO;
+import com.semiproject.pettales.company.dto.CompanyDTO;
 import com.semiproject.pettales.company.dto.CompanyPaging;
 import com.semiproject.pettales.company.service.CompanyService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +37,7 @@ public class PlanController {
         List<String> regions = companyService.getAllRegion();
         List<String> categories = companyService.getAllCategory();
 
+
         // 기본값 설정
         String defaultRegion = "서울특별시";
         String defaultCategory = "미용";
@@ -45,8 +47,6 @@ public class PlanController {
         model.addAttribute("defaultRegion", defaultRegion);
         model.addAttribute("defaultCategory", defaultCategory);
 
-        List<BookmarkDTO> bookmarkList =  bookmarkService.selectBookmarkByUserCode(userCode);
-        model.addAttribute("bookmark",bookmarkList);
         return "plan/planView";
     }
 
