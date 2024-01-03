@@ -122,4 +122,14 @@ public class CompanyService {
         return paging;
 
     }
+
+    public int companyInfoByCode(CompanyDTO companyDTO) {
+        int result = companyDAO.companyInfoByCode(companyDTO);
+        if (result <= 0) {
+            System.out.println("Select Error");
+        } else {
+            System.out.println("Select Success");
+        }
+        return result;
+    }
 }

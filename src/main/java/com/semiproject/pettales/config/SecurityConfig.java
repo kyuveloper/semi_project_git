@@ -9,6 +9,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -102,7 +104,6 @@ public class SecurityConfig {
                     session.maximumSessions(1); //session의 허용 개수를 제한, 동시접속 제한
                     session.invalidSessionUrl("/"); // 세션만료시 이동할 페이지
                 }).csrf(csrf -> csrf.disable());
-
 
         return http.build();
     }

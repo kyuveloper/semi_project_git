@@ -1,5 +1,8 @@
 package com.semiproject.pettales.nodecontroller;
 
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @org.springframework.stereotype.Controller
@@ -10,7 +13,7 @@ public class Controller {
         return "map/map";
     }
 
-    @GetMapping("/anno")
+    @GetMapping("/admin/anno")
     public String anno() {
         return "announcement/announcement";
     }

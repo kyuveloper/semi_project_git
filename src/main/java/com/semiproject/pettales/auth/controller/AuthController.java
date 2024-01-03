@@ -1,5 +1,7 @@
 package com.semiproject.pettales.auth.controller;
 
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,7 +16,6 @@ public class AuthController {
 
     @GetMapping("/login")
     public void login(){
-
     }
 
     @GetMapping("/fail") // 로그인 실패시
