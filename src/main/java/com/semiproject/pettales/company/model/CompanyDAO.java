@@ -24,12 +24,11 @@ public interface CompanyDAO {
     // 전체 시설의 수
     int countCompany();
 
-    // 지역별 시설의 수
+    // 지역, 카테고리 별 시설의 수
     int countCompanyByCtprvn(
             @Param("companyCtprvn") String companyCtprvn,
             @Param("companyClassi") String companyClassi);
+    List<String> getAllRegion();
 
-    List<CompanyDTO> getDataByRegionAndCategory(
-            @Param("companyCtprvn") String companyCtprvn,
-            @Param("companyClassi") String companyClassi);
+    List<String> getAllCategory();
 }

@@ -46,4 +46,15 @@ public class BookmarkService {
         }
     }
 
+    // 찜 목록 삭제
+    public int deleteBookmarkByBookCode(int userCode, int bookmarkCode){
+        int result = bookmarkDAO.deleteBookmarkByBookCode(userCode, bookmarkCode);
+        if(result < 0){
+            System.out.println("실패했습니다");
+        }else{
+            System.out.println("성공");
+        }
+        return result;
+    }
+
 }

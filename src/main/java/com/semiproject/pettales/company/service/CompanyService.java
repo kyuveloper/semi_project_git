@@ -65,14 +65,17 @@ public class CompanyService {
         List<CompanyCardDTO> companyCard = new ArrayList<>();
         List<CompanyDTO> companyListByCtprvn = companyDAO.selectAllCompanyByCtprvn(pageStart, PAGE_LIMIT, companyCtprvn, companyClassi);
 
-        // 리스트 수 만큼 CompanyCard에 회사 정보, 유저 정보, 북마크 정보 삽입
+        // 시설 리스트 수 만큼 CompanyCard에 회사 정보, 유저 정보, 북마크 정보 삽입
         for(CompanyDTO companyDTO : companyListByCtprvn){
             CompanyCardDTO card = new CompanyCardDTO();
+            // 회사 정보
             card.setCompanyDTO(companyDTO);
 
+            // 로그인 한 유저의 정보
             LoginUserDTO user = memberService.selectUserByUserCode(userCode);
             card.setUser(user);
 
+            // 유저 북마크 정보
             BookmarkDTO bookmarked = bookmarkService.selectBookmarkByComCode(userCode, companyDTO.getCompanyCode());
             card.setBookmarkDTO(bookmarked);
             companyCard.add(card);
@@ -155,7 +158,12 @@ public class CompanyService {
 
     }
 
-    public List<CompanyDTO> getDataByRegionAndCategory(String companyCtprvn, String companyClassi){
-        return companyDAO.getDataByRegionAndCategory(companyCtprvn, companyClassi);
+    public List<String> getAllRegion(){
+        return companyDAO.getAllRegion();
     }
+
+    public List<String> getAllCategory(){
+        return companyDAO.getAllCategory();
+    }
+
 }

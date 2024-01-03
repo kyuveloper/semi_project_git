@@ -35,13 +35,11 @@ public class PlanRestController {
         int userCode = auth.getLoginUserDTO().getUserCode();
 
         List<CompanyCardDTO> companyDTOs = companyService.selectCompanyCardByCtprvn(page, companyCtprvn, companyClassi, userCode);
-//        List<CompanyDTO> companyDTOs = companyService.selectAllCompanyByCtprvn(page, companyCtprvn, companyClassi);
         CompanyPaging paging = companyService.pagingParamByCtprvn(page, companyCtprvn, companyClassi);
 
         Map<String, Object> responseData = new HashMap<>();
         responseData.put("company", companyDTOs);
         responseData.put("paging", paging);
-        //responseData.put("bookmarks", bookmarkDTOs);
 
         System.out.println("Received request - Page: " + page + ", CompanyCtprvn: " + companyCtprvn + ", CompanyClassi: " + companyClassi);
 
@@ -56,19 +54,5 @@ public class PlanRestController {
 //
 //        return companyService.addLikeList
 //    }
-
-    @GetMapping("/category")
-    public ResponseEntity<String> yourRestEndpoint(
-            @RequestParam("companyCtprvn") String companyCtprvn,
-            @RequestParam("companyClassi") String companyClassi) {
-        // 받아온 region, category를 이용한 로직 수행
-        System.out.println("Received region: " + companyCtprvn);
-        System.out.println("Received category: " + companyClassi);
-
-        List<CompanyDTO> getDataByRegionAndCategory = companyService.getDataByRegionAndCategory(companyCtprvn, companyClassi);
-
-        // 여기서 로직 수행 후 ResponseEntity를 반환
-        return ResponseEntity.ok("Data received successfully");
-    }
 
 }

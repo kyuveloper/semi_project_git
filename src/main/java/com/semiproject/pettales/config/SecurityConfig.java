@@ -12,6 +12,8 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.savedrequest.DefaultSavedRequest;
+import org.springframework.security.web.savedrequest.HttpSessionRequestCache;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 // USER와 ADMIN의 권한을 부여 해주는 기능
@@ -102,7 +104,6 @@ public class SecurityConfig {
                     session.maximumSessions(1); //session의 허용 개수를 제한, 동시접속 제한
                     session.invalidSessionUrl("/"); // 세션만료시 이동할 페이지
                 }).csrf(csrf -> csrf.disable());
-
 
         return http.build();
     }

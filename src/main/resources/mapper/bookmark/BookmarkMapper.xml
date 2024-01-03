@@ -31,6 +31,7 @@
 
     <select id="selectBookmarkByUserCode" resultMap="bookmarkResult">
         SELECT
+            BOOKMARK_CODE,
             COMPANY_CTPRVN,
             COMPANY_NAME,
             COMPANY_CLASSI
@@ -43,16 +44,11 @@
             BOOKMARKED = true
     </select>
 
-    <update id="deleteBookmark" parameterType="map">
-        UPDATE
-        BOOKMARK_TABLE
-        SET
-        BOOKMARKED = false
-        WHERE
-        COMPANY_CODE = #{companyCode}
-        AND
-        USER_CODE = #{userCode}
-    </update>
+    <delete id="deleteBookmark" parameterType="map">
+       DELETE FROM BOOKMARK_TABLE
+        WHERE USER_CODE = #{userCode}
+        AND COMPANY_CODE = #{companyCode}
+    </delete>
 
     <select id="BookmarkCountByUserCode" resultType="int">
         SELECT
@@ -77,4 +73,11 @@
         AND
             COMPANY_CODE = #{companyCode}
     </select>
+
+    <delete id="deleteBookmarkByBookCode" parameterType="map">
+        DELETE FROM BOOKMARK_TABLE
+        WHERE USER_CODE = #{userCode}
+        AND
+        BOOKMARK_CODE = #{bookmarkCode}
+    </delete>
 </mapper>

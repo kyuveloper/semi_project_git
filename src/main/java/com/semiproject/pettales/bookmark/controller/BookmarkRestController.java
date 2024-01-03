@@ -28,7 +28,7 @@ public class BookmarkRestController {
         if (userCode == null) {
             result.put("code", "0");
             result.put("result", "error");
-            result.put("errorMessage", "유저 정보를 찾을 수 없습니다."); // 적절한 에러 메시지로 변경
+            result.put("errorMessage", "유저 정보를 찾을 수 없습니다.");
         } else {
             result.put("code", "1");
             result.put("result", "성공");
@@ -37,5 +37,23 @@ public class BookmarkRestController {
         return result;
     }
 
+    @PostMapping("/delete")
+    public Map<String, Object> deleteBookmarkByBookCode(
+            @RequestParam("bookmarkCode")int bookmarkCode){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        AuthDetails auth = (AuthDetails)authentication.getPrincipal();
+        Integer userCode = auth.getLoginUserDTO().getUserCode();
+        Map<String, Object> result = new HashMap<>();
+        bookmarkService.deleteBookmarkByBookCode(userCode, bookmarkCode);
+        if(userCode == null){
+            result.put("code", 0);
+            result.put("result", "error");
+            result.put("errorMessage", "유저 정보를 찾을 수 없습니다."); // 적절한 에러 메시지로 변경
+        } else{
+            result.put("code", "1");
+            result.put("result", "성공");
+        }
+        return result;
+    }
 
 }
