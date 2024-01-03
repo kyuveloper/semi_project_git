@@ -37,4 +37,4 @@ out/
 .vscode/
 
 ### Nodejs ###
-node_modules
+/node_modules
