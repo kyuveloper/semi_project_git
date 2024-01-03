@@ -28,7 +28,12 @@ public interface CompanyDAO {
     int countCompanyByCtprvn(
             @Param("companyCtprvn") String companyCtprvn,
             @Param("companyClassi") String companyClassi);
+<<<<<<< HEAD
     List<String> getAllRegion();
 
     List<String> getAllCategory();
+=======
+
+    int companyInfoByCode(CompanyDTO companyDTO);
+>>>>>>> develop
 }

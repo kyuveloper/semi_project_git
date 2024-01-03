@@ -1,7 +1,6 @@
 package com.semiproject.pettales.auth.model;
 
 import com.semiproject.pettales.user.model.dto.LoginUserDTO;
-//import com.semiproject.pettales.user.model.entity.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.oauth2.core.user.OAuth2User;
@@ -9,7 +8,6 @@ import org.springframework.security.oauth2.core.user.OAuth2User;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Map;
-import java.util.Objects;
 
 // 사용자 세부 정보
 
@@ -19,18 +17,14 @@ public class AuthDetails implements UserDetails, OAuth2User {
     public AuthDetails() {
     }
 
+
     public AuthDetails(LoginUserDTO login) {
         this.loginUserDTO = login;
     }
+    public int getUserCode() {
+        return loginUserDTO.getUserCode();
+    }
 
-//    public AuthDetails(LoginUserDTO loginUserDTO) {
-//        this.loginUserDTO = loginUserDTO;
-//    }
-
-//    public AuthDetails(LoginUserDTO user, Map<String, Object> attributes) {
-//        this.loginUserDTO = new LoginUserDTO(user);
-//        this.attributes = attributes;
-//    }
 
     public LoginUserDTO getLoginUserDTO() {
         return loginUserDTO;
@@ -40,16 +34,6 @@ public class AuthDetails implements UserDetails, OAuth2User {
         this.loginUserDTO = loginUserDTO;
     }
 
-//    @Override
-//    public Collection<? extends GrantedAuthority> getAuthorities() {
-//        Collection<GrantedAuthority> authorities = new ArrayList<>();
-//
-//        if (loginUserDTO != null) {
-//            loginUserDTO.getAuth().forEach(role -> authorities.add(() -> role));
-//        }
-//
-//        return authorities;
-//    }
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         Collection<GrantedAuthority> authorities = new ArrayList<>();
