@@ -23,11 +23,12 @@ public class SignupDTO {
     private String petCode;
     private Date registDate;
     private Date updateDate;
+    private String answer;
 
     public SignupDTO() {
     }
 
-    public SignupDTO(String userEmail, String userNickName, String password, String userStatus, String auth, String petCode, Date registDate, Date updateDate) {
+    public SignupDTO(String userEmail, String userNickName, String password, String userStatus, String auth, String petCode, Date registDate, Date updateDate, String answer) {
         this.userEmail = userEmail;
         this.userNickName = userNickName;
         this.password = password;
@@ -36,6 +37,7 @@ public class SignupDTO {
         this.petCode = petCode;
         this.registDate = registDate;
         this.updateDate = updateDate;
+        this.answer = answer;
     }
 
     public String getUserEmail() {
@@ -102,6 +104,14 @@ public class SignupDTO {
         this.updateDate = updateDate;
     }
 
+    public String getAnswer() {
+        return answer;
+    }
+
+    public void setAnswer(String answer) {
+        this.answer = answer;
+    }
+
     @Override
     public String toString() {
         return "SignupDTO{" +
@@ -113,6 +123,7 @@ public class SignupDTO {
                 ", petCode='" + petCode + '\'' +
                 ", registDate=" + registDate +
                 ", updateDate=" + updateDate +
+                ", answer=" + answer +
                 '}';
     }
 }

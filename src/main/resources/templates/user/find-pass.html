@@ -47,17 +47,45 @@
         </ul>
     </div>
 </article>
-    <meta charset="UTF-8">
-    <title>Title</title>
 
-<div class="back-block">
-    <div class="fail">
-        로그인에 실패했습니다. 정확한 정보를 입력해 주세요.
+<!--회원가입시 문제를 내서 거기에 대한 답을 적고 비밀번호 찾기때 유저 이메일과 답이 일치할 시 비밀번호 변경 페이지로 넘어감-->
+<form th:action="@{/user/find-pass}" th:method="POST">
+    <div class="find-back-block">
+    <h2>비밀번호 찾기</h2>
+    <div class="signUpEmailDiv">
+    <p><img th:src="@{/image/signup/emailLogo.png}">
+        <input type="email" name="userEmail" placeholder="이메일" id="userEmail" size="60"></p>
     </div>
-    <div class="clearSignup-login">
-        <p><button onclick="location.href='/auth/login'">로그인</button></p>
+        <div class="findPassCheck">
+            <p><img th:src="@{/image/signup/questionMark.png}">
+                <input type="text" name="answer" placeholder="본인의 고등학교 이름은?" id="answer" size="60">
+            <button type="button" onclick="checkAnswer()">확인</button></p>
+        </div>
+        <div class="center">
+            <p><small>답변이 일치해야 비밀번호를 입력할 수 있습니다.</small></p>
+        </div>
+
+        <!--새 비밀번호 입력-->
+        <div class="passwordDiv">
+            <p><img th:src="@{/image/signup/passLogo.jpg}">
+                <input type="password" name="password" placeholder="새 비밀번호" id="password" size="60" disabled></p>
+        </div>
+        <div class="center">
+            <p><small>비밀번호는 6~16자리수여야 합니다. 영문 소문자, 숫자, 특수문자를 1개 이상 포함해야 합니다.</small></p>
+        </div>
+
+        <!--새 비밀번호 확인-->
+        <div class="findPassCheck">
+            <p><img th:src="@{/image/signup/passLogo.jpg}">
+                <input type="password" name="newCheckPassword" placeholder="새 비밀번호 확인" id="password2" size="60" disabled>
+                <button type="button" onclick="newPassCheck()">확인</button></p>
+        </div>
+
+        <div class="findPass">
+            <button>변경하기</button>
+        </div>
     </div>
-</div>
+</form>
 <footer>
     <div id="footer">
         <div class="comInfo">
@@ -84,4 +112,49 @@
     </div>
 </footer>
 </body>
+<script>
+    const checkAnswer = () => {
+        const userEmail = document.getElementById("userEmail").value;
+        const answer = document.getElementById("answer").value;
+
+        console.log("입력한 이메일", userEmail + "입력한 답", answer);
+        $.ajax({
+            type: "post",
+            url: "/user/check-answer",
+            data: {
+                "userEmail": userEmail,
+                "answer": answer
+            },
+            success: function (res) {
+                console.log("요청성공", res);
+                if (res === 1) {
+                    console.log("답변이 일치합니다");
+                    // 비밀번호 입력란과 확인란 활성화
+                    document.getElementById("password").disabled = false;
+                    document.getElementById("password2").disabled = false;
+                    alert("답변이 일치합니다.");
+                } else {
+                    console.log("답변이 일치하지 않습니다");
+                    alert("답변이 일치하지 않습니다.");
+                }
+            },
+            error: function (err) {
+                console.log("에러발생", err);
+            }
+        });
+    }
+
+    function newPassCheck(){
+        var v1 = document.getElementById('password').value;
+        var v2 = document.getElementById('password2').value;
+        console.log(v1, v2)
+        if(v1 != v2) {
+            alert("비밀번호가 일치하지 않습니다");
+            return false;
+        } else {
+            alert("비밀번호가 일치합니다");
+            return true;
+        }
+    }
+</script>
 </html>

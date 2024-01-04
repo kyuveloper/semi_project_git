@@ -47,15 +47,15 @@
         </ul>
     </div>
 </article>
-    <meta charset="UTF-8">
-    <title>Title</title>
+<meta charset="UTF-8">
+<title>Title</title>
 
-<div class="back-block">
+<div class="chage-back-block">
     <div class="fail">
-        로그인에 실패했습니다. 정확한 정보를 입력해 주세요.
+        비밀번호 변경에 실패했습니다. 다시 입력해주세요.
     </div>
     <div class="clearSignup-login">
-        <p><button onclick="location.href='/auth/login'">로그인</button></p>
+        <p><button onclick="back()">뒤로가기</button></p>
     </div>
 </div>
 <footer>
@@ -84,4 +84,9 @@
     </div>
 </footer>
 </body>
+<script>
+    function back(){
+        history.back();
+    }
+</script>
 </html>

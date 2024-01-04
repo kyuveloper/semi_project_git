@@ -15,14 +15,12 @@ public interface UserMapper{
 
     LoginUserDTO findByUserEmail(String userEmail);
 
+    LoginUserDTO findUserByEmailAndAnswer(String userEmail, String answer);
+
     int regist(SignupDTO signupDTO); //회원가입
 
     LoginUserDTO selectUserByUserCode(int userCode);
 
 
-    //이넘에 정지기능 로그인실패시 정지유저라고 알람
-
-    //중복체크 중복:true 중복아님:false
-//    boolean existByUserEmail(String userEmail);
-//    boolean existByUserNickName(String userNickName);
+    int changePassword(LoginUserDTO loginUserDTO); //비밀번호 변경
 }

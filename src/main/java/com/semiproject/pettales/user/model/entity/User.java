@@ -43,16 +43,17 @@
 //    private LocalDateTime updateDate;
 //
 //    // OAuth로그인에 사용
+//    @Column(name = "PROVIDER")
 //    private String provider;
+//
+//    @Column(name = "PROVIDER_ID")
 //    private String providerId;
 //
-//    @Column(name = "LOGIN_ID")
-//    private String loginId;
 //
 //    public User() {
 //    }
 //
-//    public User(int userCode, String userNickname, String userEmail, String password, String userStatus, String userAuth, String petCode, String companyCode, LocalDateTime registDate, LocalDateTime updateDate, String provider, String providerId, String loginId) {
+//    public User(int userCode, String userNickname, String userEmail, String password, String userStatus, String userAuth, String petCode, String companyCode, LocalDateTime registDate, LocalDateTime updateDate, String provider, String providerId) {
 //        this.userCode = userCode;
 //        this.userNickname = userNickname;
 //        this.userEmail = userEmail;
@@ -65,7 +66,6 @@
 //        this.updateDate = updateDate;
 //        this.provider = provider;
 //        this.providerId = providerId;
-//        this.loginId = loginId;
 //    }
 //
 //    public int getUserCode() {
@@ -164,14 +164,6 @@
 //        this.providerId = providerId;
 //    }
 //
-//    public String getLoginId() {
-//        return loginId;
-//    }
-//
-//    public void setLoginId(String loginId) {
-//        this.loginId = loginId;
-//    }
-//
 //    @Override
 //    public String toString() {
 //        return "User{" +
@@ -187,7 +179,6 @@
 //                ", updateDate=" + updateDate +
 //                ", provider='" + provider + '\'' +
 //                ", providerId='" + providerId + '\'' +
-//                ", loginId='" + loginId + '\'' +
 //                '}';
 //    }
 //}

@@ -55,69 +55,41 @@
         </ul>
     </div>
 </article>
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<form th:action="@{/auth/login}" th:method="POST">
-    <div class="back-block">
-        <h1>로그인</h1>
-    <div class="signUpEmailDiv">
-        <p><img th:src="@{/image/signup/emailLogo.png}">
-            <input type="email" name="user" placeholder="이메일" id="user" size="60"></p>
+<div class="change-back-block">
+<!--    <h1>환영합니다!</h1>-->
+    <h2>비밀번호가 성공적으로 변경되었습니다.</h2>
+    <div class="center">
+        <p><img th:src="@{/image/signup/firecracker.png}" height="90px" width="90px"></p>
     </div>
-    <div class="passwordDiv">
-        <p><img th:src="@{/image/signup/passLogo.jpg}">
-            <input type="password" name="pass" placeholder="비밀번호" id="pass" size="60"></p>
-        <p><a href="/user/find-pass">비밀번호 찾기</a>
-            <a href="/user/signup" class="left-margin">회원가입</a></p>
+    <div class="clearSignup-login">
+        <p><button onclick="location.href='/auth/login'">로그인</button></p>
+        <!--<p><a href="/auth/login">로그인</a></p>-->
     </div>
-
-<!--    <br>-->
-<!--    <label>비밀번호 : </label>-->
-<!--    <input type="password" id="pass" name="pass"/>-->
-<!--    <br>-->
-        <div class="login-final">
-    <p><button>로그인</button>
-<!--        <a href="/oauth2/authorization/google" class="left-margin">구글 로그인</a></p>-->
-        </div>
-
-    </div>
-</form>
-
-<!--    <div class="signUpEmailDiv">-->
-<!--        <p><img th:src="@{/image/signup/emailLogo.png}" class="emailLogo">-->
-<!--            <input type="email" name="userEmail" placeholder="이메일" id="userEmail" onblur="emailCheck()" size="60"></p>-->
-<!--        <p><small>이메일은 필수로 입력해주세요</small></p>-->
-<!--        <p id="check-result1"></p> &lt;!&ndash;처리결과 보여주는 곳&ndash;&gt;-->
-<!--    </div>-->
-
-    <footer>
-        <div id="footer">
-            <div class="comInfo">
-                <div class="comLogo"><i class="fa-solid fa-dog"></i></div>
-                <div class="comInfo_text">
-                    <p>
-                        주식회사 위드명 | 대표 김아무개<br>
-                        사업자 등록 번호 123-456-78910<br>
-                        서울특별시 구로구 경인로 557 삼영빌딩 4층<br>
-                        contact@withmung.com<br>
-                    </p>
-                </div>
-            </div>
-            <div class="etc">
+</div>
+</body>
+<footer>
+    <div id="footer">
+        <div class="comInfo">
+            <div class="comLogo"><i class="fa-solid fa-dog"></i></div>
+            <div class="comInfo_text">
                 <p>
-                    <a href="">이용약관</a> | <a href="">개인정보처리지침</a> | <a href="">고객지원</a> | <a href="">1:1 문의</a>
+                    주식회사 위드명 | 대표 김아무개<br>
+                    사업자 등록 번호 123-456-78910<br>
+                    서울특별시 구로구 경인로 557 삼영빌딩 4층<br>
+                    contact@withmung.com<br>
                 </p>
             </div>
-            <div class="sns">
-                <a th:href="@{http://www.facebook.com}" target="_blank"><i class="fa-brands fa-square-facebook fa-fade"></i></a>
-                <a th:href="@{http://www.instagram.com}" target="_blank"><i class="fa-brands fa-instagram fa-fade"></i></a>
-                <a th:href="@{http://www.youtube.com}" target="_blank"><i class="fa-brands fa-youtube fa-fade"></i></a>
-            </div>
         </div>
-    </footer>
-
-
-</body>
+        <div class="etc">
+            <p>
+                <a href="">이용약관</a> | <a href="">개인정보처리지침</a> | <a href="">고객지원</a> | <a href="">1:1 문의</a>
+            </p>
+        </div>
+        <div class="sns">
+            <a th:href="@{http://www.facebook.com}" target="_blank"><i class="fa-brands fa-square-facebook fa-fade"></i></a>
+            <a th:href="@{http://www.instagram.com}" target="_blank"><i class="fa-brands fa-instagram fa-fade"></i></a>
+            <a th:href="@{http://www.youtube.com}" target="_blank"><i class="fa-brands fa-youtube fa-fade"></i></a>
+        </div>
+    </div>
+</footer>
 </html>
