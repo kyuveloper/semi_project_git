@@ -5,7 +5,6 @@ import com.semiproject.pettales.user.model.dto.LoginUserDTO;
 import com.semiproject.pettales.user.model.dto.SignupDTO;
 import org.apache.catalina.User;
 import org.apache.ibatis.annotations.Mapper;
-import org.springframework.data.jpa.repository.JpaRepository;
 
 // 데이터베이스와 연동해줌
 

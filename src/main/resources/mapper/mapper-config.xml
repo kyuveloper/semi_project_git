@@ -13,10 +13,12 @@
         <mapper resource="mapper/member/member.xml" /> <!--실제 mapper 파일을 지정-->
         <mapper resource="mapper/anno/AnnoMapper.xml" /> <!--실제 mapper 파일을 지정-->
         <mapper resource="mapper/company/CompanyMapper.xml" /> <!--실제 mapper 파일을 지정-->
+        <mapper resource="mapper/company/companyMapMapper.xml" /> <!--실제 mapper 파일을 지정-->
         <mapper resource="mapper/bookmark/BookmarkMapper.xml" /> <!--실제 mapper 파일을 지정-->
         <mapper resource="mapper/inquiry/inquiryMapper.xml" /> <!--실제 mapper 파일을 지정-->
         <mapper resource="mapper/company/companyMapMapper.xml" /> <!--실제 mapper 파일을 지정-->
         <mapper resource="mapper/plan/planMapper.xml" /> <!--실제 mapper 파일을 지정-->
+        <mapper resource="mapper/review/review.xml" /> <!--실제 mapper 파일을 지정-->
     </mappers>
 
 </configuration>

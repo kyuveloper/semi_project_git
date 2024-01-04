@@ -82,7 +82,6 @@
         FROM USER_TABLE
         WHERE USER_EMAIL = #{userEmail}
     </select>
-<<<<<<< HEAD
 
     <select id="selectUserByUserCode" resultMap="login">
         SELECT
@@ -90,7 +89,6 @@
         FROM USER_TABLE
         WHERE USER_CODE = #{userCode}
     </select>
-=======
     
     <update id="changePassword" parameterType="com.semiproject.pettales.user.model.dto.LoginUserDTO">
         UPDATE USER_TABLE
@@ -99,7 +97,4 @@
         WHERE USER_EMAIL = #{userEmail}
         AND ANSWER = #{answer}
     </update>
-
-
->>>>>>> feature/security
 </mapper>
