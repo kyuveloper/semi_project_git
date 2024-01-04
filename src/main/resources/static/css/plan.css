@@ -37,3 +37,20 @@
     width: 100%; /* 부모의 100%를 차지하도록 설정 */
     order: 1; /* 순서 변경, .com_parent_div에서 먼저 나오도록 설정 */
 }
+
+.plan_body{
+    display: flex;
+    justify-content: center;
+}
+
+#map{
+    margin-right: 100px;
+}
+
+.bookmark_div{
+    margin-right: 150px;
+}
+
+.date_div{
+    margin-right: 100px;
+}
