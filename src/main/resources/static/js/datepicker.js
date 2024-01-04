@@ -22,3 +22,22 @@ $(function() {
         minDate: 0
     });
 })
+
+function calculateDays() {
+    // 출발일과 도착일 입력값 가져오기
+    var startDateStr = $("#startDate").val();
+    var endDateStr = $("#endDate").val();
+
+    // Date 객체로 변환
+    var startDate = new Date(startDateStr);
+    var endDate = new Date(endDateStr);
+
+    // 두 날짜 간의 차이 계산 (밀리초로 반환)
+    var timeDiff = endDate - startDate;
+
+    // 일수로 변환 (밀리초 -> 초 -> 분 -> 시간 -> 일)
+    var daysDiff = Math.floor(timeDiff / (1000 * 60 * 60 * 24) + 1);
+
+    // 결과 표시
+    $("#result").text("출발일과 도착일 사이의 일수: " + daysDiff + "일");
+}
