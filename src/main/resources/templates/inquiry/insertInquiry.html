@@ -12,6 +12,7 @@
     <input type="hidden" name="userCode" th:value="${#authentication.principal.userCode}">
     <button type="submit">등록</button>
 </form>
+
 이미지 업로드 :
 <form action="single-file" method="post" enctype="multipart/form-data">
     파일 : <input type="file" name="singleFile"><br>
