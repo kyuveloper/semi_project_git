@@ -2,7 +2,6 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="layout/default_layout">
 <th:block layout:fragment="content">
     <script type="text/javascript" src="https://oapi.map.naver.com/openapi/v3/maps.js?ncpClientId=z00qc7owtc"></script>
-<<<<<<< HEAD
     <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
 
     <meta charset="UTF-8">
@@ -10,13 +9,7 @@
 </head>
 <body>
 <h1>Map</h1>
-<div id="map" style="width: 800px; height: 700px;">
-=======
-    <script src="/js/datepicker.js"></script>
-    <h1>Map</h1>
-    <div class="plan_body">
 <div id="map" style="width: 400px; height: 700px;">
->>>>>>> feature/plan
     <script>
         document.addEventListener('DOMContentLoaded', initMap);
         function getCurrentLocation() {
@@ -171,4 +164,5 @@
             }
         }
     </script>
+</body>
 </th:block>
