@@ -164,7 +164,7 @@
       });
 
       $(document).on('click', '.bookmarkDeleteBtn', function() {
-        let bookmarkCode = $(this).data('bookmark-id');
+        let bookmarkCode = $(this).attr('data-bookmark-id');
         console.log(bookmarkCode); // 콘솔에 값을 출력하여 확인
         // 여기서 해당 북마크를 삭제하는 로직을 추가
       });

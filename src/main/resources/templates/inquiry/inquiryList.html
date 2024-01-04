@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>Inquiry List</h1>
+<ul id="inquiryList"></ul>
+<script>
+    document.addEventListener('DOMContentLoaded', fetchInquiry)
+
+    async function fetchInquiry() {
+        try {
+            const response= await fetch('http://localhost:3000/admin/inquiryList')
+            const inquiry = await response.json();
+
+            const inquiryList = document.getElementById('inquiryList')
+
+            inquiry.forEach(item => {
+                const listItem = document.createElement('li')
+                // 날짜를 'YYYY-MM-DD' 형식으로 변환
+                const registDate = new Date(item.regist_date);
+                console.log(item.REGIST_DATE)
+                console.log(registDate)
+                listItem.innerHTML = `${item.INQ_CODE} | ${item.USER_CODE} | ${item.INQ_CLASSI} | ${item.INQ_TITLE} | ${item.INQ_CONTENTS} | ${registDate.toLocaleDateString()} | <a href="#" data-code="${item.INQ_CODE}" class="inquiryDelete">삭제</a>`
+                inquiryList.appendChild(listItem)
+            })
+
+            document.querySelectorAll('.inquiryDelete').forEach(link => {
+                link.addEventListener('click', function (event){
+                    event.preventDefault();
+                    const code = this.getAttribute('data-code')
+                    deleteInquiry(code)
+                })
+            })
+
+        } catch (error) {
+            console.log('Error fetching data: ', error)
+        }
+
+        async function deleteInquiry(code) {
+            try {
+                const confirmDelete = window.confirm('정말 삭제하시겠습니까?')
+
+                if (!confirmDelete) {
+                    // 동작 취소
+                    return;
+                }
+                const response = await fetch(`http://localhost:3000/inquiryDelete?INQ_CODE=${code}`, {
+                    method: 'DELETE',
+                })
+                alert('삭제되었습니다!')
+                location.reload()
+            } catch (error) {
+                console.log('Error Deleting Inquiry: ', error)
+            }
+        }
+    }
+</script>
+<a th:href="@{/}">홈으로</a>
+</body>
+</html>

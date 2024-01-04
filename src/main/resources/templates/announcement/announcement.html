@@ -12,7 +12,7 @@
 
         async function fetchAnno() {
             try {
-                const response= await fetch('http://localhost:3000/anno')
+                const response= await fetch('http://localhost:3000/admin/anno')
                 const anno = await response.json();
 
                 const annoList = document.getElementById('annoList')
@@ -20,6 +20,7 @@
                     const listItem = document.createElement('li')
                     // 날짜를 'YYYY-MM-DD' 형식으로 변환
                     const registDate = new Date(item.REGIST_DATE);
+                    console.log(registDate)
                     const updateDate = new Date(item.UPDATE_DATE);
                     listItem.innerHTML = `${item.ANNO_CODE} | ${item.ANNO_TITLE} | ${item.ANNO_CONTENTS} | ${registDate.toLocaleDateString()} | ${updateDate.toLocaleDateString()} | <a href="#" data-code="${item.ANNO_CODE}" class="annoDelete">삭제</a>`
                     annoList.appendChild(listItem)

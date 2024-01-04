@@ -50,6 +50,10 @@
         COMPANY_TABLE
         WHERE
         COMPANY_CTPRVN = #{companyCtprvn}
+        <if test="companyClassi != null and companyClassi != ''">
+            AND
+            COMPANY_CLASSI = #{companyClassi}
+        </if>
     </select>
 
     <select id="selectAllCompanyByCtprvn" resultMap="companyResult">
@@ -62,6 +66,10 @@
         FROM COMPANY_TABLE
         WHERE
         COMPANY_CTPRVN = #{companyCtprvn}
+        <if test="companyClassi != null and companyClassi != ''">
+            AND
+            COMPANY_CLASSI = #{companyClassi}
+        </if>
         LIMIT #{pageStart}, #{pageLimit}
     </select>
 

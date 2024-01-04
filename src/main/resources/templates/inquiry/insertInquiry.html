@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form action="insertInquiry" method="post">
+    제목 : <input type="text" name="inqTitle">
+    분류 : <input type="text" name="inqClassi">
+    내용 : <input type="text" name="inqContents"><br>
+    <input type="hidden" name="userCode" th:value="${#authentication.principal.userCode}">
+    <button type="submit">등록</button>
+</form>
+이미지 업로드 :
+<form action="single-file" method="post" enctype="multipart/form-data">
+    파일 : <input type="file" name="singleFile"><br>
+    파일 설명 : <input type="text" name="singleFileDescription"><br>
+    <input type="submit">
+</form>
+</body>
+</html>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.semiproject.pettales.map.dao.ComMarkDAO">
+    <resultMap id="comMarkResult" type="com.semiproject.pettales.map.dto.ComMarkDTO">
+        <id property="companyCode" column="COMPANY_CODE" />
+        <result property="companyName" column="COMPANY_NAME"/>
+        <result property="companyAddress" column="COMPANY_ADDRESS"/>
+        <result property="companyLat" column="COMPANY_LAT"/>
+        <result property="companyHar" column="COMAPNY_HAR"/>
+        <result property="companyPhone" column="COMPANY_PHONE_NUMBER"/>
+        <result property="companyTime" column="COMPANY_TIME"/>
+        <result property="companyUrl" column="COMPANY_URL"/>
+        <result property="userCode" column="USER_CODE"/>
+    </resultMap>
+
+    <select id="selectComMarkByUserCode" resultMap="comMarkResult">
+        SELECT
+        ct.COMPANY_CODE,
+        ct.COMPANY_NAME,
+        ct.COMPANY_ADDRESS,
+        ct.COMPANY_LAT,
+        ct.COMAPNY_HAR,
+        ct.COMPANY_PHONE_NUMBER,
+        ct.COMPANY_TIME,
+        ct.COMPANY_URL
+        FROM company_table ct
+        JOIN bookmark_table bt ON ct.COMPANY_CODE = bt.COMPANY_CODE
+        WHERE bt.USER_CODE = #{userCode};
+    </select>
+</mapper>

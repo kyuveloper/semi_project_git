@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <script type="text/javascript" src="https://oapi.map.naver.com/openapi/v3/maps.js?ncpClientId=z00qc7owtc"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
@@ -9,12 +9,9 @@
 </head>
 <body>
 <h1>Map</h1>
-<div id="map" style="width: 300px; height: 700px;">
-    <script th:inline="javascript">
+<div id="map" style="width: 800px; height: 700px;">
+    <script>
         document.addEventListener('DOMContentLoaded', initMap);
-        function initMap() {
-            fetchMap();
-        }
         function getCurrentLocation() {
             return new Promise((resolve, reject) => {
                 navigator.geolocation.getCurrentPosition(
@@ -27,7 +24,9 @@
                 )
             })
         }
-
+        async function initMap() {
+            await fetchMap();
+        }
         async function fetchMap() {
             try {
                 // 위치
@@ -35,22 +34,22 @@
                 let latitude = position.coords.latitude;
                 let longitude = position.coords.longitude;
 
-                const response = await fetch('http://localhost:3000/map');
-                 const Sqls= await response.json()
-                 const { mapSql } = Sqls
-                 const { markerSql } = Sqls;
-                // const mapData = await response.json();
-                // console.log(mapData)
+                const data = await fetch(`http://localhost:8080/api/map`) // java에서 업체 정보 받아오는 api 호출
+                    .then(result => result.json());
+                console.log('data:: ', data)
 
-                const areaArr = []
-
-                markerSql.forEach(item => {
+                const areaArr = [];
+                data.forEach(item => {
                     areaArr.push(
                         {
-                            code: `${item.COMPANY_CODE}`,
-                            information: `${item.COMPANY_NAME}`,
-                            lat: `${item.COMPANY_LAT}`,
-                            lng: `${item.COMAPNY_HAR}`
+                            code: `${item.companyCode}`,
+                            information: `${item.companyName}`,
+                            address: `${item.companyAddress}`,
+                            lat: `${item.companyLat}`,
+                            lng: `${item.companyHar}`,
+                            phone: `${item.companyPhone}`,
+                            time: `${item.companyTime}`,
+                            url: `${item.companyUrl}`
                         }
                     )
                 })
@@ -74,13 +73,9 @@
                         position: new naver.maps.LatLng(areaArr[i].lat , areaArr[i].lng) // 지역구의 위도 경도 넣기
                     });
 
-                    // if (true) {
-                    //     marker.setMap(null); // 지도에서 마커 제거
-                    // }
-
                     /* 정보창 */
                     var infoWindow = new naver.maps.InfoWindow({
-                        content: '<div style="width:200px;text-align:center;padding:10px;"><b>' + areaArr[i].information + '</b><br> - 네이버 지도 - </div>'
+                        content: '<div style="width:250px;text-align:center;padding:10px;">'+ '<' + areaArr[i].information + '>' + '<br>' + '주소 : ' + areaArr[i].address + '<br>' + '전화번호 : ' + areaArr[i].phone + '<br>' + '영업시간 : ' + areaArr[i].time + '<br>' + '<a href="'+areaArr[i].url+'" target="_blank">업체 사이트 방문</a>' + '<br> - 펫테일 - </div>'
                     }); // 클릭했을 때 띄워줄 정보 HTML 작성
 
                     markers.push(marker); // 생성한 마커를 배열에 담는다.
