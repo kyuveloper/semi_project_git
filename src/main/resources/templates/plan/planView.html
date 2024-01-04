@@ -103,6 +103,7 @@
 
                     var bookmarkButton;
                     if (comp.bookmarkDTO == null || comp.bookmarkDTO == "") {
+                        // 회사 코드
                         bookmarkButton = $("<img src='/image/heart-regular.svg' class='insertBookmarkBtn' data-company-id='" + comp.companyDTO.companyCode + "'/>");
                     } else {
                         bookmarkButton = $("<img src='/image/heart-solid.svg' class='insertBookmarkBtn' data-company-id='" + comp.companyDTO.companyCode + "'/>");
@@ -180,6 +181,7 @@
                 e.preventDefault();
                 var currentPage = window.location.search.match(/page=(\d+)/);
                 var currentPageParam = currentPage ? "&page=" + currentPage[1] : "";
+                // 회사 코드
                 let companyCode = $(this).data('company-id');
                 $.ajax({
                     type: "POST",
