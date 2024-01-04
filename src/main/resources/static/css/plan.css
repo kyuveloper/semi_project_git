@@ -44,13 +44,35 @@
 }
 
 #map{
+    margin-right: 120px;
+}
+
+.bookmark_list_div{
     margin-right: 100px;
+    display: flex;
+    background-color: #B9A89D;
+    width: 500px;
+    max-height: 700px;
+    flex-wrap: wrap;
+    overflow-y: auto;
 }
 
 .bookmark_div{
-    margin-right: 150px;
+   background-color: #9F775F;
+    width: 200px;
+    height: 150px;
+    border-radius: 20%;
+    margin-bottom: 20px;
+    margin-left: 140px;
+}
+
+.bookDeleteBtn{
+    color:#9F775F;
+    position: absolute;
+    left: 1100px; /* 원하는 위치로 조절 */
 }
 
 .date_div{
     margin-right: 100px;
 }
+
