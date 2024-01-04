@@ -21,9 +21,7 @@
                 const listItem = document.createElement('li')
                 // 날짜를 'YYYY-MM-DD' 형식으로 변환
                 const registDate = new Date(item.regist_date);
-                console.log(item.REGIST_DATE)
-                console.log(registDate)
-                listItem.innerHTML = `${item.INQ_CODE} | ${item.USER_CODE} | ${item.INQ_CLASSI} | ${item.INQ_TITLE} | ${item.INQ_CONTENTS} | ${registDate.toLocaleDateString()} | <a href="#" data-code="${item.INQ_CODE}" class="inquiryDelete">삭제</a>`
+                listItem.innerHTML = `${item.INQ_CODE} | ${item.USER_CODE} | ${item.INQ_CLASSI} | ${item.INQ_TITLE} | ${item.INQ_CONTENTS} | ${registDate.toLocaleDateString()} | <a href="inquiry/inquiryAns?code=${item.INQ_CODE}">답변</a> | <a href="#" data-code="${item.INQ_CODE}" class="inquiryDelete">삭제</a>`
                 inquiryList.appendChild(listItem)
             })
 
@@ -38,7 +36,6 @@
         } catch (error) {
             console.log('Error fetching data: ', error)
         }
-
         async function deleteInquiry(code) {
             try {
                 const confirmDelete = window.confirm('정말 삭제하시겠습니까?')

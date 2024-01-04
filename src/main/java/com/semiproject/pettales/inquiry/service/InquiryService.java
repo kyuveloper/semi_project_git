@@ -19,4 +19,14 @@ public class InquiryService {
         }
         return result;
     }
+
+    public int updateInqAns(InquiryDTO inquiryDTO) {
+         int result = inquiryDAO.updateInqAns(inquiryDTO);
+        if (result <= 0) {
+            System.out.println("Update Error");
+        } else {
+            System.out.println("Update Success");
+        }
+        return result;
+    }
 }

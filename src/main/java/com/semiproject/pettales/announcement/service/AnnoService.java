@@ -19,4 +19,14 @@ public class AnnoService {
         }
         return result;
     }
+
+    public int updateAnno(AnnoDTO annoDTO) {
+        int result = annoDAO.updateAnno(annoDTO);
+        if (result <= 0) {
+            System.out.println("Update Error");
+        } else {
+            System.out.println("Update Success");
+        }
+        return result;
+    }
 }

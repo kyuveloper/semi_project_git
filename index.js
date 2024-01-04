@@ -1,6 +1,5 @@
 const mysql = require('mysql2')
 const express = require('express')
-const axios = require('axios')
 const cors = require('cors')
 const bodyParser = require('body-parser')
 const app = express()
@@ -38,6 +37,17 @@ app.get('/admin/anno', (req, res) => {
         res.json(result)
     })
 })
+// app.put('/admin/annoEdit', (req, res) => {
+//     const annoEdit = req.query.ANNO_CODE
+//     const editSql = `UPDATE ANNOUNCEMENT SET ANNO_TITLE= ${annoTitle},ANNO_CONTENTS= ${annoContents},ANNO_PIN= ${annoPin},ANNO_STATUS= ${annoStatus},update_date=DATE_FORMAT(now(), '%Y-%m-%d') WHERE ANNO_CODE=${annoEdit}`
+//     connection.query(editSql, function (err, result){
+//         if (err) {
+//             console.log('Update Error')
+//             throw err
+//         }
+//         res.json({success: true})
+//     })
+// })
 
 app.get('/admin/inquiryList', (req, res) => {
     const inquirySql = `SELECT * FROM INQUIRY`

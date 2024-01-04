@@ -26,4 +26,16 @@ public class AdminAnnoController {
 
         return "index";
     }
+
+    @GetMapping("annoEdit")
+    public String annoEdit() {
+        return "announcement/editAnno";
+    }
+
+    @PostMapping("updateAnno")
+    public String annoEdit(AnnoDTO annoDTO) {
+        annoService.updateAnno(annoDTO);
+
+        return "index";
+    }
 }
