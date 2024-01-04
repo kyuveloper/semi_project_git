@@ -5,6 +5,20 @@
     <title>Title</title>
 </head>
 <body>
+<!--리뷰는 새로고침하면 보여지게 할 것 평점, 리뷰내용, 회사코드, 유저코드가 서버로 전달될것
+    회사코드는 클릭한 회사코드, 유저코드는 로그인한 유저 코드로 받아 올 것-->
 
+<!--리뷰 작성 페이지에서 리뷰를 작성하고 서버에 동기로 보낼 것이니 controller에서 요청을 받는다
+    후에 service에서 리뷰를 insert하는 방법으로 처리한다
+    xml에서 insert 쿼리를 만들고
+    DAO랑 매핑시킨다-->
+
+    <h1>리뷰</h1>
+<form action="reviewPage" method="post">
+    평점 : <input type="text" name="companyGrade">
+    내용 : <input type="text" name="reviewContents">
+    <input type="hidden" name="userCode" th:value="${#authentication.principal.userCode}">
+    <button type="submit">작성</button>
+</form>
 </body>
 </html>

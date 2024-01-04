@@ -50,6 +50,7 @@ public class UserController {
 //            mv.setViewName("user/signup");
 //        }
 
+        System.out.println(signupDTO);
         int result = memberService.regist(signupDTO);
 
         String message;

@@ -16,6 +16,23 @@
 
     <insert id="insertReview" parameterType="com.semiproject.pettales.review.dto.ReviewDTO">
         INSERT INTO COMPANY_REVIEW(
-
+            REVIEW_CODE,
+            COMPANY_GRADE,
+            REVIEW_CONTENTS,
+            REVIEW_STATUS,
+            REGIST_DATE,
+            UPDATE_DATE,
+            COMPANY_CODE,
+            USER_CODE
+            )VALUES(
+            NULL,
+            #{companyGrade},
+            #{reviewContents},
+            'Y',
+            DATE_FORMAT(now(), '%Y-%m-%d'),
+            DATE_FORMAT(now(), '%Y-%m-%d'),
+            '6',
+            #{userCode}
+            )
     </insert>
 </mapper>
