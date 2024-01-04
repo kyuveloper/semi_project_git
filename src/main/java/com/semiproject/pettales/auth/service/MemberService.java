@@ -1,5 +1,6 @@
 package com.semiproject.pettales.auth.service;
 
+import com.semiproject.pettales.adminpage.model.dto.UserTableDTO;
 import com.semiproject.pettales.user.dao.UserMapper;
 import com.semiproject.pettales.user.model.dto.LoginUserDTO;
 import com.semiproject.pettales.user.model.dto.SignupDTO;
@@ -83,6 +84,7 @@ public class MemberService {
             return 0;
         }
     }
+<<<<<<< HEAD
 
 
     public int checkAnswer(String userEmail, String answer) { //입력한 답이 일치하는지 확인
@@ -94,4 +96,27 @@ public class MemberService {
             return 0;
         }
     }
+=======
+//    진짜 중복체크
+//    @Transactional(readOnly = true)
+//    public void checkEmailDuplication(SignupDTO signupDTO) {
+//        boolean emailDuplicate = userMapper.existByUserEmail(signupDTO.getUserEmail());
+//        if (emailDuplicate){
+//            throw new IllegalStateException("이미 존재하는 이메일 입니다.");
+//        }
+//    }
+//
+//    @Transactional(readOnly = true)
+//    public void checkNickName(SignupDTO signupDTO){
+//        boolean nickNameDuplication = userMapper.existByUserNickName(signupDTO.getUserNickName());
+//        if (nickNameDuplication) {
+//            throw new IllegalStateException("이미 존재하는 닉네임 입니다.");
+//        }
+//    }
+
+    public LoginUserDTO selectUserByUserCode(int userCode){
+        return userMapper.selectUserByUserCode(userCode);
+    }
+
+>>>>>>> origin/feature/plan
 }

@@ -14,44 +14,70 @@
         <result property="companyClassi" column="COMPANY_CLASSI"/>
     </resultMap>
 
-    <insert id="insertBookmarkByComCode" parameterType="int">
+    <insert id="insertBookmarkByComCode" parameterType="map">
         INSERT INTO BOOKMARK_TABLE
         (
-        COMPANY_CODE,
-        USER_CODE,
-        BOOKMARKED
+            COMPANY_CODE,
+            USER_CODE,
+            BOOKMARKED
         )
         VALUES
         (
-        #{companyCode},
-        #{userCode},
-        true
+            #{companyCode},
+            #{userCode},
+            true
         )
     </insert>
 
     <select id="selectBookmarkByUserCode" resultMap="bookmarkResult">
         SELECT
-        COMPANY_CTPRVN,
-        COMPANY_NAME,
-        COMPANY_CLASSI
+            BOOKMARK_CODE,
+            COMPANY_CTPRVN,
+            COMPANY_NAME,
+            COMPANY_CLASSI
         FROM BOOKMARK_TABLE AS A
         JOIN COMPANY_TABLE AS B
         ON A.COMPANY_CODE = B.COMPANY_CODE
         WHERE
-        USER_CODE = #{userCode}
+            USER_CODE = #{userCode}
         AND
-        BOOKMARKED = 1
+            BOOKMARKED = true
     </select>
 
-    <update id="deleteBookmark" parameterType="map">
-        UPDATE
-        BOOKMARK_TABLE
-        SET
-        BOOKMARKED = 0
-        WHERE
-        BOOKMARK_CODE = #{bookmarkCode}
-        AND
-        USER_CODE = #{userCode}
-    </update>
+    <delete id="deleteBookmark" parameterType="map">
+       DELETE FROM BOOKMARK_TABLE
+        WHERE USER_CODE = #{userCode}
+        AND COMPANY_CODE = #{companyCode}
+    </delete>
 
+    <select id="BookmarkCountByUserCode" resultType="int">
+        SELECT
+            COUNT(1)
+        FROM
+        BOOKMARK_TABLE
+        WHERE
+            USER_CODE = #{userCode}
+        AND
+            COMPANY_CODE = #{companyCode}
+    </select>
+
+    <select id="selectBookmarkByComCode" resultMap="bookmarkResult">
+        SELECT
+            BOOKMARK_CODE,
+            COMPANY_CODE,
+            USER_CODE,
+            BOOKMARKED
+        FROM BOOKMARK_TABLE
+        WHERE
+            USER_CODE = #{userCode}
+        AND
+            COMPANY_CODE = #{companyCode}
+    </select>
+
+    <delete id="deleteBookmarkByBookCode" parameterType="map">
+        DELETE FROM BOOKMARK_TABLE
+        WHERE USER_CODE = #{userCode}
+        AND
+        BOOKMARK_CODE = #{bookmarkCode}
+    </delete>
 </mapper>
