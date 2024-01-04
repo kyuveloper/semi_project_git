@@ -41,4 +41,11 @@
         #{userCode}
         )
     </insert>
+
+    <insert id="insertInqAns" parameterType="com.semiproject.pettales.inquiry.dto.InquiryDTO">
+        INSERT INTO INQUIRY (
+        INQ_CODE,
+
+        )
+    </insert>
 </mapper>

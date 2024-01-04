@@ -12,4 +12,6 @@ public class AdminInquiryController {
     public String inquryList() {
         return "inquiry/inquiryList";
     }
+
+    @
 }
