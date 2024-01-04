@@ -13,8 +13,8 @@ spring:
 #      client:
 #        registration:
 #          google:
-#            client-id: 1234
-#            client-secret: 1234
+#            client-id:
+#            client-secret:
 #            redirectUri: "{baseUrl}/login/oauth2/code/{registrationId}"
 #            scope:
 #              - email

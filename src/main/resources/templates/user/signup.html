@@ -9,7 +9,8 @@
 <!--</head>-->
 <!--<body>-->
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -50,9 +51,11 @@
 <article>
     <div class="myPage_box">
         <ul class="myPage_menus">
-            <li class="myPage_menu">로그인</li>
-            <li class="myPage_menu">마이페이지</li>
-            <li class="myPage_menu">설정</li>
+            <li sec:authorize="!hasAnyAuthority('ADMIN','USER')" class="myPage_menu"><a th:href="@{/auth/login}">로그인</a></li>
+            <li sec:authorize="!hasAnyAuthority('ADMIN','USER')" class="myPage_menu"><a th:href="@{/user/signup}">회원가입</a></li>
+            <li sec:authorize="hasAnyAuthority('ADMIN')" class="myPage_menu"><a th:href="@{/admin/userstatus}">관리자 페이지</a></li>
+            <li sec:authorize="hasAnyAuthority('ADMIN','USER')" class="myPage_menu">마이페이지</li>
+            <li sec:authorize="hasAnyAuthority('ADMIN','USER')" class="myPage_menu"><a th:href="@{/auth/logout}">로그아웃</a></li>
         </ul>
     </div>
 </article>
@@ -70,36 +73,63 @@
     <div class="signUpEmailDiv">
         <p><img th:src="@{/image/signup/emailLogo.png}" class="emailLogo">
             <input type="email" name="userEmail" placeholder="이메일" id="userEmail" onblur="emailCheck()" size="60"></p>
+    </div>
+        <div class="center">
         <p><small>이메일은 필수로 입력해주세요</small></p>
         <p id="check-result1"></p> <!--처리결과 보여주는 곳-->
-    </div>
+        </div>
+
     <!--닉네임 입력-->
     <div class="nicknameDiv">
-        <p><img th:src="@{/image/signup/nickLogo.png}" class="nicknameDiv">
+        <p><img th:src="@{/image/signup/nickLogo.png}">
             <input type="text" name="userNickName" placeholder="닉네임" id="userNickName" onblur="nickNameCheck()" size="60"></p>
         <!--    <p id="check-result2"></p>-->
+    </div>
+        <div class="center">
         <p><small>닉네임은 필수입니다 특수문자를 포함하지 않은 2~8자리를 입력해주세요.</small></p>
         <p id="check-result2"></p>
+        </div>
+
+    <!--질문에 대한 답-->
+    <div class="questionMarkDiv">
+        <p><img th:src="@{/image/signup/questionMark.png}">
+            <input type="text" name="answer" placeholder="본인의 고등학교 이름은?" id="answer" onblur="answerCheck()" size="60"></p>
     </div>
+    <div class="center">
+        <p><small>추후 비밀번호 찾기에 사용됩니다. 필수로 입력해주세요.</small></p>
+    </div>
+
 
     <!--비밀번호입력-->
     <div class="passwordDiv">
-        <p><img th:src="@{/image/signup/passLogo.jpg}" height="30px" width="30px">
+        <p><img th:src="@{/image/signup/passLogo.jpg}">
             <input type="password" name="password" placeholder="비밀번호" id="password1" size="60"></p>
-        <p><small>비밀번호는 8~16자리수여야 합니다. 영문 소문자, 숫자, 특수문자를 1개 이상 포함해야 합니다.</small></p>
+    </div>
+    <div class="center">
+        <p><small>비밀번호는 6~16자리수여야 합니다. 영문 소문자, 숫자, 특수문자를 1개 이상 포함해야 합니다.</small></p>
     </div>
 
     <!--비밀번호 확인-->
     <div class="passwordDiv">
-        <p><img th:src="@{/image/signup/passLogo.jpg}" height="30px" width="30px">
-            <input type="password" name="checkPassword" placeholder="비밀번호 확인" id="password2" onblur="passCheck()" size="60">
-            <button type="button" onclick="test()">확인하기</button><!--비밀번호가 같은지 확인--></p>
+        <p><img th:src="@{/image/signup/passLogo.jpg}">
+            <input type="password" name="checkPassword" placeholder="비밀번호 확인" id="password2" onblur="passCheck()" size="60"></p>
+
     </div>
+
 
 
     <br>
     <!--    <button  >회원가입</button> &lt;!&ndash;disabled="disabled"는 버튼 비활성화&ndash;&gt;-->
-    <p><button type="submit" class="btn signUpBtn" id="target_btn" disabled="disabled" >회원가입</button></p>
+    <div class="oneLine">
+        <div class="signup-check">
+        <button type="button" onclick="test()">확인하기</button><!--입력한 정보가 조건에 맞는지 확인-->
+        </div>
+        <div class="signup-final">
+            <button type="submit" id="target_btn" disabled="disabled" >회원가입</button>
+        </div>
+
+    </div>
+
 </form>
 <!--</th:block>-->
 <footer>
@@ -221,6 +251,13 @@
         })
     }
 
+    function answerCheck() {
+        var answerValue = document.getElementById('answer').value;
+
+        // answer 값이 공백 또는 null이 아닌 경우에 유효
+        return answerValue.trim() !== "" && answerValue !== null;
+    }
+
 
     // <!--입력한 비밀번호와 입력한 비밀번호 확인이 일치할 시 문구 띄워줌-->
     function passCheck(){
@@ -252,11 +289,11 @@
         const isEmailValid = isEmailAvailable(); // 사용 가능한 이메일인지 확인
         const isNickNameValid = isNickNameAvailable();
         const isPasswordMatch = v1 === v2;
+        // answer 값이 유효한지 확인
+        const isAnswerValid = answerCheck();
 
-        if (isEmailValid && isPasswordMatch) {
-            if(isPasswordMatch && isNickNameValid){
+        if (isEmailValid && isPasswordMatch && isAnswerValid && isNickNameValid) {
                 enableSignupButton(); // 이메일이 사용 가능하고 비밀번호가 일치하면 버튼 활성화
-            }
         } else {
             disableSignupButton(); // 그 외의 경우 버튼 비활성화
         }

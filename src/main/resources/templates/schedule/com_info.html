@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -41,9 +42,11 @@
   <article>
     <div class="myPage_box">
       <ul class="myPage_menus">
-        <li class="myPage_menu">로그인</li>
-        <li class="myPage_menu">마이페이지</li>
-        <li class="myPage_menu">설정</li>
+        <li sec:authorize="!hasAnyAuthority('ADMIN','USER')" class="myPage_menu"><a th:href="@{/auth/login}">로그인</a></li>
+        <li sec:authorize="!hasAnyAuthority('ADMIN','USER')" class="myPage_menu"><a th:href="@{/user/signup}">회원가입</a></li>
+        <li sec:authorize="hasAnyAuthority('ADMIN')" class="myPage_menu"><a th:href="@{/admin/userstatus}">관리자 페이지</a></li>
+        <li sec:authorize="hasAnyAuthority('ADMIN','USER')" class="myPage_menu">마이페이지</li>
+        <li sec:authorize="hasAnyAuthority('ADMIN','USER')" class="myPage_menu"><a th:href="@{/auth/logout}">로그아웃</a></li>
       </ul>
     </div>
     <div class="contents_grid">

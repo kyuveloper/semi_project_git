@@ -31,4 +31,15 @@ public class SignupController {
         return checkResult2;
     }
 
+    @PostMapping("/check-answer")
+    public int checkAnswer(@RequestParam("userEmail") String userEmail, @RequestParam("answer") String answer){
+        System.out.println(userEmail);
+        System.out.println(answer);
+        System.out.println("userEmail = " + userEmail + "answer = " + answer);
+
+        int checkResult3 = memberService.checkAnswer(userEmail, answer);
+
+        return checkResult3;
+    }
+
 }

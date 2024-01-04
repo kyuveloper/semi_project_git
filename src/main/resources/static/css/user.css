@@ -1,12 +1,170 @@
 #choosePet{
     border-radius: 30px;
 }
-P{
+.center{
     text-align: center;
 }
 h1{
     text-align: center;
+    margin-top: 100px;
+    color:#9F775F;
 }
+h2{
+    text-align: center;
+    color:#9F775F;
+    margin-bottom: 30px;
+}
+.clearSignup-login button{
+    margin-left: 725px;
+    margin-top: 30px;
+    background-color:#9F775F;
+    width: 80px;
+    height: 40px;
+    border-radius: 10px;
+    color: white;
+    /*margin-bottom: 100px;*/
+}
+
+.fail{
+    font-size: 40px;
+    text-align: center;
+    margin-top: 80px;
+    margin-bottom: 50px;
+}
+
+.questionMarkDiv{
+    /*display: flex;*/
+    justify-content: center;
+    margin-top: 30px;
+    margin-left: 500px;
+}
+
+.questionMarkDiv img{
+    height: 30px;
+    width: 30px;
+}
+
+.questionMarkDiv input{
+    background-color: #E7DFD7;
+    height: 40px; margin-left: 10px;
+    border-color: white;
+    outline: none;
+    border-radius: 5px;
+}
+
+.login-final button{
+    margin-left: 650px;
+    margin-top: 30px;
+    background-color:#9F775F;
+    width: 80px;
+    height: 40px;
+    border-radius: 10px;
+    color: white;
+}
+
+.signup-final button{
+    margin-left: 30px;
+    margin-top: 30px;
+    background-color:#9F775F;
+    width: 80px;
+    height: 40px;
+    border-radius: 10px;
+    color: white;
+    /*margin-bottom: 100px;*/
+}
+.left-margin{
+    margin-left: 20px;
+}
+
+.firecracker{
+    text-align: center;
+    margin-top: 30px;
+    height: 90px;
+    width: 90px;
+}
+
+.oneLine{
+    display: flex;
+}
+
+.back-block{
+    /*width: 500px;*/
+    height: 400px;
+}
+
+.find-back-block{
+    margin-top: 30px;
+    height: 500px;
+}
+
+.change-back-block{
+    margin-top: 80px;
+    height: 450px;
+}
+
+.findPassCheck button{
+    background-color:#9F775F;
+    width: 40px;
+    height: 30px;
+    border-radius: 10px;
+    color: white;
+}
+
+.findPassCheck input{
+    background-color: #E7DFD7;
+    height: 40px; margin-left: 10px;
+    border-color: white;
+    outline: none;
+    border-radius: 5px;
+}
+
+.findPassCheck img{
+    height: 30px;
+    width: 30px;
+}
+
+.signup-check button{
+    margin-left: 650px;
+    margin-top: 30px;
+    background-color:#9F775F;
+    width: 80px;
+    height: 40px;
+    border-radius: 10px;
+    color: white;
+}
+
+.findPass button{
+    margin-top: 30px;
+    margin-left: 725px;
+    background-color:#9F775F;
+    width: 80px;
+    height: 40px;
+    border-radius: 10px;
+    color: white;
+}
+
+.findPassCheck{
+    justify-content: center;
+    margin-top: 30px;
+    margin-left: 500px;
+}
+
+.testBack{
+    background-color: #0099ff;
+}
+
+.signup-center{
+    margin-left: 150px;
+}
+
+.signup-check{
+    display: flex;
+}
+
+/*a{*/
+/*    background-color:#9F775F;*/
+/*    color: white;*/
+/*}*/
 
 .emailDiv{
     display: flex;
@@ -19,7 +177,7 @@ h1{
     /*display: flex;*/
     justify-content: center;
     margin-top: 30px;
-    /*margin-left: 90px;*/
+    margin-left: 500px;
 }
 
 .emailDiv img{
@@ -53,7 +211,7 @@ h1{
     /*display: flex;*/
     justify-content: center;
     margin-top: 20px;
-    /*margin-left: 90px;*/
+    margin-left: 500px;
 }
 
 .nicknameDiv img{
@@ -73,6 +231,12 @@ h1{
     /*display: flex;*/
     justify-content: center;
     margin-top: 30px;
+    margin-left: 500px;
+}
+
+.passwordDiv img{
+    height: 30px;
+    width: 30px;
 }
 
 .passwordDiv input{
