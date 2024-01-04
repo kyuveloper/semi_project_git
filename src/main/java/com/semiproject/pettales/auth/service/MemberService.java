@@ -1,6 +1,5 @@
 package com.semiproject.pettales.auth.service;
 
-import com.semiproject.pettales.adminpage.model.dto.UserTableDTO;
 import com.semiproject.pettales.user.dao.UserMapper;
 import com.semiproject.pettales.user.model.dto.LoginUserDTO;
 import com.semiproject.pettales.user.model.dto.SignupDTO;
@@ -22,24 +21,14 @@ public class MemberService {
 
     public LoginUserDTO findByUserEmail(String userEmail) { //이메일에 해당하는 사람 찾기
         LoginUserDTO login = userMapper.findByUserEmail(userEmail);
-<<<<<<< HEAD
         System.out.println("login : " + login);
-        if(!Objects.isNull(login)){
-=======
-        System.out.println(login);
         if (!Objects.isNull(login)) {
->>>>>>> feature/security
             System.out.println("있");
             return login;
         } else {
             System.out.println("없");
             return null;
         }
-    }
-
-    public int findUserCodeByEmail(String userEmail) {
-        LoginUserDTO login = userMapper.findByUserEmail(userEmail);
-        return (login != null) ? login.getUserCode() : 0; // 기본값 0으로 설정하거나 다른 적절한 기본값 사용
     }
 
     @Transactional
@@ -81,12 +70,10 @@ public class MemberService {
         }
     }
 
-<<<<<<< HEAD
     public LoginUserDTO selectUserByUserCode(int userCode){
         return userMapper.selectUserByUserCode(userCode);
     }
 
-=======
     public void SetTempPassword(String to, String authNum) {
     }
 
@@ -100,5 +87,4 @@ public class MemberService {
             return 0;
         }
     }
->>>>>>> feature/security
 }
