@@ -13,5 +13,4 @@ public class AdminInquiryController {
         return "inquiry/inquiryList";
     }
 
-    @
 }
