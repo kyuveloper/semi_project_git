@@ -55,6 +55,18 @@ public class PlanController {
         return "plan/planView";
     }
 
+    @GetMapping("/plan_date")
+    public String map(Model model) {
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        AuthDetails auth = (AuthDetails)authentication.getPrincipal();
+        int userCode = auth.getLoginUserDTO().getUserCode();
+
+        List<BookmarkDTO> userBookmarkList = bookmarkService.selectBookmarkByUserCode(userCode);
+        model.addAttribute("bookmark", userBookmarkList);
+        return "plan/planDate";
+    }
+
 
 //    @ModelAttribute("/regions")
 //    public List<String> getRegions() {
