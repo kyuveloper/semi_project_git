@@ -26,9 +26,20 @@ public class SignupController {
         System.out.println(memberNickName);
         System.out.println("memberNickName = " + memberNickName);
 
-        int checkResult = memberService.nickNameCheck(memberNickName);
+        int checkResult2 = memberService.nickNameCheck(memberNickName);
 
-        return checkResult;
+        return checkResult2;
+    }
+
+    @PostMapping("/check-answer")
+    public int checkAnswer(@RequestParam("userEmail") String userEmail, @RequestParam("answer") String answer){
+        System.out.println(userEmail);
+        System.out.println(answer);
+        System.out.println("userEmail = " + userEmail + "answer = " + answer);
+
+        int checkResult3 = memberService.checkAnswer(userEmail, answer);
+
+        return checkResult3;
     }
 
 }

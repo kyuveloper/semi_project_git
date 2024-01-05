@@ -20,7 +20,7 @@ public class IndexController {
 
     @GetMapping
     public String root(){
-        return "index";
+        return "/index";
     }
 
     @GetMapping("/admin/page") // 관리자 페이지로 이동

@@ -1,11 +1,6 @@
 package com.semiproject.pettales.user.model.dto;
 
 import com.semiproject.pettales.auth.model.UserAuth;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-import lombok.Builder;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -17,7 +12,7 @@ import java.util.List;
 
 public class LoginUserDTO {
 
-    private Integer userCode;
+    private int userCode;
     private String userEmail;
     private String userNickName;
     private String provider; //google이 들어갈 자리
@@ -29,11 +24,12 @@ public class LoginUserDTO {
     private Date registDate;
     private Date updateDate;
     private UserAuth userAuth;
+    private String answer;
 
     public LoginUserDTO() {
     }
 
-    public LoginUserDTO(int userCode, String userEmail, String userNickName, String provider, String providerId, String userPassword, String userStatus, String petCode, String companyCode, Date registDate, Date updateDate, UserAuth userAuth) {
+    public LoginUserDTO(int userCode, String userEmail, String userNickName, String provider, String providerId, String userPassword, String userStatus, String petCode, String companyCode, Date registDate, Date updateDate, UserAuth userAuth, String answer) {
         this.userCode = userCode;
         this.userEmail = userEmail;
         this.userNickName = userNickName;
@@ -46,6 +42,7 @@ public class LoginUserDTO {
         this.registDate = registDate;
         this.updateDate = updateDate;
         this.userAuth = userAuth;
+        this.answer = answer;
     }
 
     public int getUserCode() {
@@ -136,6 +133,14 @@ public class LoginUserDTO {
         this.updateDate = updateDate;
     }
 
+    public String getAnswer() {
+        return answer;
+    }
+
+    public void setAnswer(String answer) {
+        this.answer = answer;
+    }
+
     public UserAuth getUserAuth() {
         return userAuth;
     }
@@ -158,6 +163,7 @@ public class LoginUserDTO {
                 ", companyCode='" + companyCode + '\'' +
                 ", registDate=" + registDate +
                 ", updateDate=" + updateDate +
+                ", answer=" + answer +
                 ", userAuth=" + userAuth +
                 '}';
     }

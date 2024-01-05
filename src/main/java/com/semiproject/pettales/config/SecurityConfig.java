@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.SecurityConfigurerAdapter;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
@@ -13,6 +14,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.DefaultSecurityFilterChain;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.savedrequest.DefaultSavedRequest;
 import org.springframework.security.web.savedrequest.HttpSessionRequestCache;
@@ -70,7 +72,8 @@ public class SecurityConfig {
     public SecurityFilterChain configure(HttpSecurity http) throws Exception {
 
         http.authorizeHttpRequests(auth ->{ //서버의 리소스에 접근 가능한 권한을 설정함
-                    auth.requestMatchers("/auth/login","/user/signup","/user/email-check","/auth/fail","/","/image/**","/js/**","/css/**","/user/nickName-check", "/favicon.ico", "/resources/**", "/error").permitAll(); // error 999 해결(favicon 이후 코드 추가)
+                    auth.requestMatchers("/auth/naver","/auth/login","/user/signup","/user/email-check","/auth/fail","/","/image/**","/js/**","/css/**","/user/nickName-check",
+                            "/favicon.ico", "/resources/**", "/error","/user/find-pass","/user/check-answer","/oauth2/authorization/google").permitAll(); // error 999 해결(favicon 이후 코드 추가)
                     // 접근 권한에 "/user/email-check" 없어서 시큐리티가 막아서 값이 안들어 가던거였음
                     // permitAll : 어떠한 사용자든 해당 경로에 접근 할 수 있도록 허용하는 역할
                     // /admin/* 은 ADMIN에 속한 자가 가질 수 있는 권한임
@@ -98,7 +101,7 @@ public class SecurityConfig {
                     logout.logoutSuccessUrl("/"); // 로그아웃 성공 시 이동할 페이지 설정
 //                }).oauth2Login(httpSecurityOAuth2LoginConfigurer -> {
 //                    httpSecurityOAuth2LoginConfigurer.loginPage("/auth/login");
-//                    httpSecurityOAuth2LoginConfigurer.defaultSuccessUrl("/comInfo");
+//                    httpSecurityOAuth2LoginConfigurer.defaultSuccessUrl("/");
 //                    httpSecurityOAuth2LoginConfigurer.failureHandler(authFailHandler);
                 })
                 .sessionManagement(session ->{ // 세션 관리
@@ -108,6 +111,4 @@ public class SecurityConfig {
 
         return http.build();
     }
-
-
 }

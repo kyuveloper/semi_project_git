@@ -3,7 +3,8 @@
 //import com.semiproject.pettales.auth.model.AuthDetails;
 //import com.semiproject.pettales.auth.model.UserAuth;
 //import com.semiproject.pettales.user.dao.UserRepository;
-////import com.semiproject.pettales.user.model.entity.User;
+//import com.semiproject.pettales.user.model.entity.User;
+//import com.semiproject.pettales.user.dao.UserRepository;
 //import com.semiproject.pettales.user.model.dto.LoginUserDTO;
 //import lombok.RequiredArgsConstructor;
 //import lombok.extern.slf4j.Slf4j;
@@ -27,34 +28,47 @@
 //
 //    private final PasswordEncoder encoder;
 //
-////    @Override
-////    @Transactional
-////    public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
-////        OAuth2User oAuth2User = super.loadUser(userRequest);
-////        log.info("getAttributes : {}", oAuth2User.getAttributes());
-////
-////        String provider = userRequest.getClientRegistration().getRegistrationId();
-////        String providerId = oAuth2User.getAttribute("sub");
-//////        String userEmail = oAuth2User.getAttribute("email");
+//    @Override
+//    @Transactional
+//    public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
+//        OAuth2User oAuth2User = super.loadUser(userRequest);
+//        log.info("getAttributes : {}", oAuth2User.getAttributes());
+//
+//        String provider = userRequest.getClientRegistration().getRegistrationId();
+//        String providerId = oAuth2User.getAttribute("sub");
+//        String userNickName = oAuth2User.getAttribute("name");
 ////        String userEmail = provider + "_" + providerId;
-////        log.info("userEmail : {}", userEmail);
+//        String userEmail = oAuth2User.getAttribute("email");
+//        log.info("userEmail : {}", userEmail);
 //
-////        Optional<LoginUserDTO> optionalUser = userRepository.findByUserEmail(userEmail);
-////        LoginUserDTO loginUserDTO = null;
+//        Optional<User> optionalUser = userRepository.findByUserEmail(userEmail);
+//        User user = null;
 //
-////        if(optionalUser.isEmpty()) {
-////            loginUserDTO = LoginUserDTO.builder()
-////                    .provider(provider)
-////                    .providerId(providerId)
-////                    .userEmail(userEmail)
-////                    .userStatus("기본")
-////                    .userAuth(UserAuth.valueOf("USER"))
-////                    .build();
-////            userRepository.save(loginUserDTO);
-////        } else {
-////            loginUserDTO = optionalUser.get();
-////        }
+//        if(optionalUser.isEmpty()) {
+//            user = user.builder()
+//                    .provider(provider)
+//                    .providerId(providerId)
+//                    .userEmail(userEmail)
+//                    .userNickname(userNickName)
+//                    .password(encoder.encode("123"))
+//                    .userStatus("기본")
+//                    .userAuth("USER")
+//                    .build();
+//            userRepository.save(user);
+//        } else {
+//            user = optionalUser.get();
+//        }
+//        System.out.println("userRequest : " + userRequest);
+//        System.out.println("getClientRegistration : " + userRequest.getClientRegistration());
+//        System.out.println("getAccessToken : " + userRequest.getAccessToken());
+//        System.out.println("getAccessToken : " + userRequest.getAccessToken().getTokenValue());
+//        System.out.println("getAttributes : " + super.loadUser(userRequest).getAttributes());
+//
 ////        return new AuthDetails(loginUserDTO, oAuth2User.getAttributes());
-////        LoginUserDTO loginUserDTO = LoginUserDTO.createLoginUserDTO();
-////    }
+////        LoginUserDTO loginUserDTO1 = LoginUserDTO.createLoginUserDTO();
+//        // 구글로 부터 받은 userRequest 데이터에 대한 후처리되는 함수
+//
+//
+//        return super.loadUser(userRequest);
+//    }
 //}

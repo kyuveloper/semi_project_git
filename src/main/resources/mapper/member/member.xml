@@ -17,8 +17,9 @@
         <result property="companyCode" column="COMPANY_CODELIST"/>
         <result property="registDate" column="REGIST_DATE"/>
         <result property="updateDate" column="UPDATE_DATE"/>
+        <result property="answer" column="ANSWER"/>
     </resultMap>
-    <select id="findByUserNickName" resultType="Map">
+    <select id="findByUserNickName" resultMap="login">
         SELECT
             USER_NICKNAME
           FROM USER_TABLE
@@ -27,20 +28,29 @@
 
     <select id="findByUserEmail" resultMap="login">
         SELECT
-        USER_CODE,
-        USER_EMAIL,
-        USER_NICKNAME,
-        USER_PASSWORD,
-        PROVIDER,
-        PROVIDER_ID,
-        USER_AUTH,
-        USER_STATUS,
-        PET_CODELIST,
-        COMPANY_CODELIST,
-        REGIST_DATE,
-        UPDATE_DATE
-        FROM USER_TABLE
-        WHERE USER_EMAIL=#{userEmail}
+            USER_CODE,
+            USER_EMAIL,
+            USER_NICKNAME,
+            USER_PASSWORD,
+            PROVIDER,
+            PROVIDER_ID,
+            USER_AUTH,
+            USER_STATUS,
+            PET_CODELIST,
+            COMPANY_CODELIST,
+            REGIST_DATE,
+            UPDATE_DATE
+          FROM USER_TABLE
+         WHERE USER_EMAIL=#{userEmail}
+    </select>
+
+    <select id="findUserByEmailAndAnswer" resultMap="login">
+        SELECT
+            USER_EMAIL,
+            ANSWER
+          FROM USER_TABLE
+         WHERE USER_EMAIL = #{userEmail}
+           AND ANSWER = #{answer}
     </select>
 
 
@@ -51,6 +61,7 @@
         USER_PASSWORD,
         USER_AUTH,
         USER_STATUS,
+        ANSWER,
         REGIST_DATE,
         UPDATE_DATE
         )VALUES(
@@ -59,22 +70,12 @@
         #{password},
         'USER',
         '기본',
+        #{answer},
         now(),
         now()
         )
     </insert>
-    <!--    <update id="findPw">-->
-    <!--        UPDATE USER_TABLE-->
-    <!--           SET-->
-    <!--        USER_PASSWORD = {password}-->
-    <!--         WHERE USER_EMAIL = {userEmail}-->
-    <!--    </update>-->
-    <!--    <select id="findPwCheck" resultType="int">-->
-    <!--        SELECT-->
-    <!--            COUNT(*)-->
-    <!--          FROM USER_TABLE-->
-    <!--         WHERE USER_EMAIL = #{userEmail}-->
-    <!--    </select>-->
+
     <select id="checkEmail" parameterType="com.semiproject.pettales.user.model.dto.LoginUserDTO">
         SELECT
         COUNT(*)
@@ -88,4 +89,12 @@
         FROM USER_TABLE
         WHERE USER_CODE = #{userCode}
     </select>
+    
+    <update id="changePassword" parameterType="com.semiproject.pettales.user.model.dto.LoginUserDTO">
+        UPDATE USER_TABLE
+            SET
+        USER_PASSWORD = #{userPassword}
+        WHERE USER_EMAIL = #{userEmail}
+        AND ANSWER = #{answer}
+    </update>
 </mapper>

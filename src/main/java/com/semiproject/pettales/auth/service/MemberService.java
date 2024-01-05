@@ -1,6 +1,5 @@
 package com.semiproject.pettales.auth.service;
 
-import com.semiproject.pettales.adminpage.model.dto.UserTableDTO;
 import com.semiproject.pettales.user.dao.UserMapper;
 import com.semiproject.pettales.user.model.dto.LoginUserDTO;
 import com.semiproject.pettales.user.model.dto.SignupDTO;
@@ -23,24 +22,29 @@ public class MemberService {
     public LoginUserDTO findByUserEmail(String userEmail) { //이메일에 해당하는 사람 찾기
         LoginUserDTO login = userMapper.findByUserEmail(userEmail);
         System.out.println("login : " + login);
-        if(!Objects.isNull(login)){
+        if (!Objects.isNull(login)) {
             System.out.println("있");
             return login;
-        }else{
+        } else {
             System.out.println("없");
             return null;
         }
     }
 
-    public int findUserCodeByEmail(String userEmail) {
-        LoginUserDTO login = userMapper.findByUserEmail(userEmail);
-        return (login != null) ? login.getUserCode() : 0; // 기본값 0으로 설정하거나 다른 적절한 기본값 사용
+    @Transactional
+    public int regist(SignupDTO signupDTO) { // 회원가입
+        signupDTO.setPassword(encoder.encode(signupDTO.getPassword()));
+
+        int result = userMapper.regist(signupDTO);
+
+        return result;
     }
 
     @Transactional
-    public int regist(SignupDTO signupDTO){ // 회원가입
-        signupDTO.setPassword(encoder.encode(signupDTO.getPassword()));
-        int result = userMapper.regist(signupDTO);
+    public int changePassword(LoginUserDTO loginUserDTO){ // 비밀번호 수정
+        loginUserDTO.setPassword(encoder.encode(loginUserDTO.getPassword()));
+        System.out.println(loginUserDTO);
+        int result = userMapper.changePassword(loginUserDTO);
 
         return result;
     }
@@ -54,34 +58,33 @@ public class MemberService {
             return 0;
         }
     }
+
     //닉네임 체크
     public int nickNameCheck(String memberNickName) {
         LoginUserDTO loginUserDTO = userMapper.findByUserNickName(memberNickName);
+        System.out.println(loginUserDTO);
         if (loginUserDTO == null) {
             return 1;
         } else {
             return 0;
         }
     }
-//    진짜 중복체크
-//    @Transactional(readOnly = true)
-//    public void checkEmailDuplication(SignupDTO signupDTO) {
-//        boolean emailDuplicate = userMapper.existByUserEmail(signupDTO.getUserEmail());
-//        if (emailDuplicate){
-//            throw new IllegalStateException("이미 존재하는 이메일 입니다.");
-//        }
-//    }
-//
-//    @Transactional(readOnly = true)
-//    public void checkNickName(SignupDTO signupDTO){
-//        boolean nickNameDuplication = userMapper.existByUserNickName(signupDTO.getUserNickName());
-//        if (nickNameDuplication) {
-//            throw new IllegalStateException("이미 존재하는 닉네임 입니다.");
-//        }
-//    }
 
     public LoginUserDTO selectUserByUserCode(int userCode){
         return userMapper.selectUserByUserCode(userCode);
     }
 
+    public void SetTempPassword(String to, String authNum) {
+    }
+
+
+    public int checkAnswer(String userEmail, String answer) { //입력한 답이 일치하는지 확인
+        LoginUserDTO loginUserDTO = userMapper.findUserByEmailAndAnswer(userEmail, answer);
+        System.out.println(loginUserDTO);
+        if (loginUserDTO != null) {
+            return 1;
+        } else {
+            return 0;
+        }
+    }
 }

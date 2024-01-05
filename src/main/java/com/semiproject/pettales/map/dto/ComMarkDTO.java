@@ -5,8 +5,12 @@ import com.semiproject.pettales.bookmark.dto.BookmarkDTO;
 public class ComMarkDTO {
     private int companyCode;
     private String companyName;
+    private String companyAddress;
     private String companyLat;
     private String companyHar;
+    private String companyPhone;
+    private String companyTime;
+    private String companyUrl;
     private int userCode;
 
     public ComMarkDTO() {
@@ -16,11 +20,15 @@ public class ComMarkDTO {
         this.userCode = bookmarkDTO.getUserCode();
     }
 
-    public ComMarkDTO(int companyCode, String companyName, String companyLat, String companyHar, int userCode) {
+    public ComMarkDTO(int companyCode, String companyName, String companyAddress, String companyLat, String companyHar, String companyPhone, String companyTime, String companyUrl, int userCode) {
         this.companyCode = companyCode;
         this.companyName = companyName;
+        this.companyAddress = companyAddress;
         this.companyLat = companyLat;
         this.companyHar = companyHar;
+        this.companyPhone = companyPhone;
+        this.companyTime = companyTime;
+        this.companyUrl = companyUrl;
         this.userCode = userCode;
     }
 
@@ -40,6 +48,14 @@ public class ComMarkDTO {
         this.companyName = companyName;
     }
 
+    public String getCompanyAddress() {
+        return companyAddress;
+    }
+
+    public void setCompanyAddress(String companyAddress) {
+        this.companyAddress = companyAddress;
+    }
+
     public String getCompanyLat() {
         return companyLat;
     }
@@ -56,6 +72,30 @@ public class ComMarkDTO {
         this.companyHar = companyHar;
     }
 
+    public String getCompanyPhone() {
+        return companyPhone;
+    }
+
+    public void setCompanyPhone(String companyPhone) {
+        this.companyPhone = companyPhone;
+    }
+
+    public String getCompanyTime() {
+        return companyTime;
+    }
+
+    public void setCompanyTime(String companyTime) {
+        this.companyTime = companyTime;
+    }
+
+    public String getCompanyUrl() {
+        return companyUrl;
+    }
+
+    public void setCompanyUrl(String companyUrl) {
+        this.companyUrl = companyUrl;
+    }
+
     public int getUserCode() {
         return userCode;
     }
@@ -69,8 +109,12 @@ public class ComMarkDTO {
         return "ComMarkDTO{" +
                 "companyCode=" + companyCode +
                 ", companyName='" + companyName + '\'' +
+                ", companyAddress='" + companyAddress + '\'' +
                 ", companyLat='" + companyLat + '\'' +
                 ", companyHar='" + companyHar + '\'' +
+                ", companyPhone='" + companyPhone + '\'' +
+                ", companyTime='" + companyTime + '\'' +
+                ", companyUrl='" + companyUrl + '\'' +
                 ", userCode=" + userCode +
                 '}';
     }

@@ -1,0 +1,44 @@
+:root {
+    --main-color: rgb(136, 100, 78);
+}
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+    list-style: none;
+    scroll-behavior: smooth;
+}
+body {
+    margin: 0;
+    font-family: 'Noto Sans KR', sans-serif;
+    line-height: normal;
+}
+div {
+    display: block;
+}
+#infoContainer {
+    background-color: var(--main-color);
+    border-radius: 0.5rem;
+    margin: 4rem;
+    height: 30rem;
+    position: relative;
+}
+.imagesContainer {
+    border-radius: 0.5rem;
+    background-color: whitesmoke;
+    width: 95%;
+    height: 90%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+}
+
+.firstImg img {
+    width: 100%;
+}
+.gridImgs img {
+    width: 100%;
+}

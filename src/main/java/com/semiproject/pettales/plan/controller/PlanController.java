@@ -29,6 +29,11 @@ public class PlanController {
     @Autowired
     private PlanService planService;
 
+    @GetMapping("comDetail")
+    public String comDetail() {
+        return "plan/comDetail";
+    }
+
     @GetMapping("/make_plan")
     public String makePlanView(Model model){
 

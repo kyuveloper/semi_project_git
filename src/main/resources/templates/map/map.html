@@ -2,9 +2,13 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="layout/default_layout">
 <th:block layout:fragment="content">
     <script type="text/javascript" src="https://oapi.map.naver.com/openapi/v3/maps.js?ncpClientId=z00qc7owtc"></script>
-    <script src="/js/datepicker.js"></script>
-    <h1>Map</h1>
-    <div class="plan_body">
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>Map</h1>
 <div id="map" style="width: 400px; height: 700px;">
     <script>
         document.addEventListener('DOMContentLoaded', initMap);
@@ -39,9 +43,13 @@
                     areaArr.push(
                         {
                             code: `${item.companyCode}`,
-                            information: `${item.companyCode} \n ${item.companyName}`,
+                            information: `${item.companyName}`,
+                            address: `${item.companyAddress}`,
                             lat: `${item.companyLat}`,
-                            lng: `${item.companyHar}`
+                            lng: `${item.companyHar}`,
+                            phone: `${item.companyPhone}`,
+                            time: `${item.companyTime}`,
+                            url: `${item.companyUrl}`
                         }
                     )
                 })
@@ -67,7 +75,7 @@
 
                     /* 정보창 */
                     var infoWindow = new naver.maps.InfoWindow({
-                        content: '<div style="width:200px;text-align:center;padding:10px;"><b>' + areaArr[i].information + '</b><br> - 펫테일 - </div>'
+                        content: '<div style="width:250px;text-align:center;padding:10px;">'+ '<' + areaArr[i].information + '>' + '<br>' + '주소 : ' + areaArr[i].address + '<br>' + '전화번호 : ' + areaArr[i].phone + '<br>' + '영업시간 : ' + areaArr[i].time + '<br>' + '<a href="'+areaArr[i].url+'" target="_blank">업체 사이트 방문</a>' + '<br> - 펫테일 - </div>'
                     }); // 클릭했을 때 띄워줄 정보 HTML 작성
 
                     markers.push(marker); // 생성한 마커를 배열에 담는다.
@@ -156,4 +164,5 @@
             }
         }
     </script>
+</body>
 </th:block>

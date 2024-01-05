@@ -33,7 +33,18 @@
         #{ annoStatus },
         DATE_FORMAT(now(), '%Y-%m-%d'),
         DATE_FORMAT(now(), '%Y-%m-%d'),
-        '1'
+        #{ userCode }
         )
     </insert>
+
+    <update id="updateAnno" parameterType="com.semiproject.pettales.announcement.dto.AnnoDTO">
+        UPDATE ANNOUNCEMENT
+        SET
+        ANNO_TITLE=${annoTitle},
+        ANNO_CONTENTS=${annoContents},
+        ANNO_PIN=${annoPin},
+        ANNO_STATUS=${annoStatus},
+        UPDATE_DATE=DATE_FORMAT(now(), '%Y-%m-%d')
+        WHERE ANNO_CODE=${annoCode}
+    </update>
 </mapper>
