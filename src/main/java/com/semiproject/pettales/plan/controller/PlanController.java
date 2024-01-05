@@ -3,10 +3,8 @@ package com.semiproject.pettales.plan.controller;
 import com.semiproject.pettales.auth.model.AuthDetails;
 import com.semiproject.pettales.bookmark.dto.BookmarkDTO;
 import com.semiproject.pettales.bookmark.service.BookmarkService;
-import com.semiproject.pettales.company.dto.CompanyCardDTO;
-import com.semiproject.pettales.company.dto.CompanyDTO;
-import com.semiproject.pettales.company.dto.CompanyPaging;
 import com.semiproject.pettales.company.service.CompanyService;
+import com.semiproject.pettales.plan.dto.PlanDTO;
 import com.semiproject.pettales.plan.service.PlanService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -14,11 +12,9 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -60,17 +56,41 @@ public class PlanController {
         return "plan/planView";
     }
 
+    @GetMapping("/plan_date")
+    public String map(Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        AuthDetails auth = (AuthDetails)authentication.getPrincipal();
+        int userCode = auth.getLoginUserDTO().getUserCode();
 
-//    @ModelAttribute("/regions")
-//    public List<String> getRegions() {
-//        // companyCtprvn 컬럼의 값들을 가져오는 로직
-//        return companyService.getAllRegion();
-//    }
-//
-//    @ModelAttribute("/categories")
-//    public List<String> getCategories() {
-//        // companyClassi 컬럼의 값들을 가져오는 로직
-//        return companyService.getAllCategory();
-//    }
+        List<BookmarkDTO> userBookmarkList = bookmarkService.selectBookmarkByUserCode(userCode);
+        model.addAttribute("bookmark", userBookmarkList);
+        return "plan/planDate";
+    }
+
+    @GetMapping("/plan_select")
+    public String planSelect(Model model){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        AuthDetails auth = (AuthDetails)authentication.getPrincipal();
+        int userCode = auth.getLoginUserDTO().getUserCode();
+
+        List<PlanDTO> planList = planService.selectPlanByUserCode(userCode);
+        model.addAttribute("plans", planList);
+        return "plan/planSelect";
+    }
+
+    @GetMapping("/plan_detail")
+    public String planDetail(
+            Model model,
+            @RequestParam("planCode")int planCode){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        AuthDetails auth = (AuthDetails)authentication.getPrincipal();
+        int userCode = auth.getLoginUserDTO().getUserCode();
+
+        List<BookmarkDTO> userBookmarkList = bookmarkService.selectBookmarkByUserCode(userCode);
+        PlanDTO planInfo = planService.selectPlanByPlanCode(planCode, userCode);
+        model.addAttribute("bookmark", userBookmarkList);
+        model.addAttribute("planInfo", planInfo);
+        return "plan/planDetail";
+    }
 
 }
