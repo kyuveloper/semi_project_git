@@ -1,0 +1,51 @@
+:root {
+    --main-color: rgb(136, 100, 78);
+}
+
+.inquiryContainer {
+    width: 40rem;
+    height: 30rem;
+    margin: 5rem auto 5rem;
+    border-radius: 2rem;
+    background-color: var(--main-color);
+    opacity: 0.9;
+    box-shadow: 7px 7px 20px 15px darkgrey;
+    position: relative;
+}
+
+.inquiryText {
+    padding: 3rem 0 1.5rem 4rem;
+}
+.inquiryText h2 {
+    margin-bottom: 1rem;
+}
+
+.inquiryContents {
+    text-align: center;
+}
+
+.titleBox, .categoryBox {
+    resize: none;
+    border-radius: 0.3rem;
+    padding: 1rem 0 0 1.3rem;
+}
+
+.textBox {
+    border-radius: 0.3rem;
+    padding: 1rem;
+    resize: none;
+}
+
+.submitBtn {
+    position: absolute;
+    bottom: 3.5%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.submitBtn button {
+    padding: 0.2rem 1rem 0.2rem 1rem;
+    font-size: 1rem;
+    border-radius: 1rem;
+    border: none;
+}
