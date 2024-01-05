@@ -4,8 +4,7 @@ import com.semiproject.pettales.plan.dao.PlanDAO;
 import com.semiproject.pettales.plan.dto.PlanDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.Date;
+import java.util.List;
 
 @Service
 public class PlanService {
@@ -18,7 +17,16 @@ public class PlanService {
             System.out.println("실패");
         }else{
             System.out.println("성공");
+            System.out.println(planDTO.getPlanTitle());
         }
         return result;
+    }
+
+    public List<PlanDTO> selectPlanByUserCode(int userCode){
+        return planDAO.selectPlanByUserCode(userCode);
+    }
+
+    public PlanDTO selectPlanByPlanCode(int planCode, int userCode){
+        return planDAO.selectPlanByPlanCode(planCode, userCode);
     }
 }

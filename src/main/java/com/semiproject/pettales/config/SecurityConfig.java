@@ -79,7 +79,6 @@ public class SecurityConfig {
 //                    auth.requestMatchers("/user/**").hasAnyAuthority(UserAuth.USER.getAuth(), UserAuth.ADMIN.getAuth());
                     // (2023-12-24 권한 설정 변경)
                     // (2023-12-25 유저 페이지에 어드민 권한 접근 불가한 오류 수정)
-
                     // /user/* 는 USER에 속한 자가 가질 수 있는 권한임
                     auth.anyRequest().authenticated(); //anyRequest:모든 요청 authenticated:인증된
                     //인증된 사용자는 전부 사용 가능
