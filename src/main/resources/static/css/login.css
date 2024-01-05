@@ -2,15 +2,20 @@
     --main-color: rgb(136, 100, 78);
 }
 body {
+    height: 1vw;
+    position: relative;
 }
 .loginContainer {
     width: 40rem;
     height: 30rem;
-    margin: 5rem auto 0;
+    margin: auto;
     border-radius: 2rem;
     background-color: var(--main-color);
     opacity: 0.9;
-    position: relative;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, 40%);
     box-shadow: 7px 7px 20px 15px darkgrey;
 }
 

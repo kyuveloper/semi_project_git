@@ -51,25 +51,26 @@
         </ul>
     </div>
 </article>
-<form th:action="@{/auth/login}" th:method="POST">
-    <div class="loginContainer">
-        <div class="loginContents">
-            <div class="loginText">로그인</div>
-            <div class="inputBoxes">
-                <input type="email" name="user" placeholder="이메일" class="inputEmail" id="user">
-                <input type="password" name="pass" placeholder="비밀번호" class="inputPwd" id="pass">
-            </div>
-            <div class="etcBtn">
-                <a href="/user/find-pass">비밀번호 찾기</a>
-                <a href="/user/signup" class="left-margin">회원가입</a>
-            </div>
-            <div class="loginBtn">
-                <button>로그인</button>
+<article>
+    <form th:action="@{/auth/login}" th:method="POST">
+        <div class="loginContainer">
+            <div class="loginContents">
+                <div class="loginText">로그인</div>
+                <div class="inputBoxes">
+                    <input type="email" name="user" placeholder="이메일" class="inputEmail" id="user">
+                    <input type="password" name="pass" placeholder="비밀번호" class="inputPwd" id="pass">
+                </div>
+                <div class="etcBtn">
+                    <a href="/user/find-pass">비밀번호 찾기</a>
+                    <a href="/user/signup" class="left-margin">회원가입</a>
+                </div>
+                <div class="loginBtn">
+                    <button>로그인</button>
+                </div>
             </div>
         </div>
-    </div>
-</form>
-
+    </form>
+</article>
 
 
 
