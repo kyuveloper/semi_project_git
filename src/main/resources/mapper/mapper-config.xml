@@ -17,6 +17,7 @@
         <mapper resource="mapper/bookmark/BookmarkMapper.xml" /> <!--실제 mapper 파일을 지정-->
         <mapper resource="mapper/inquiry/inquiryMapper.xml" /> <!--실제 mapper 파일을 지정-->
         <mapper resource="mapper/company/companyMapMapper.xml" /> <!--실제 mapper 파일을 지정-->
+        <mapper resource="mapper/plan/comDetailMapper.xml" /> <!--실제 mapper 파일을 지정-->
         <mapper resource="mapper/plan/planMapper.xml" /> <!--실제 mapper 파일을 지정-->
         <mapper resource="mapper/review/review.xml" /> <!--실제 mapper 파일을 지정-->
     </mappers>

@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<!--<html lang="en" xmlns:th="http://www.thymeleaf.org">-->
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
@@ -22,13 +21,10 @@
         </div>
         <div class="main_menus">
             <div class="main_menu"><a th:href="@{/}">Home</a></div>
-            <div class="main_menu"><a th:href="@{/comInfo}">Start</a></div>
-            <div class="main_menu"><a th:href="@{/plan/make_plan}">Support</a></div>
-            <div class="main_menu"><a th:href="@{/user/signup}">회원가입</a></div>
-            <div class="main_menu"><a th:href="@{/auth/logout}">로그아웃</a></div>
-            <div class="main_menu"><a th:href="@{/map}">Map</a></div>
+            <div class="main_menu"><a th:href="@{/comInfo}">견본</a></div>
+            <div class="main_menu"><a th:href="@{/plan/make_plan}">계획 시작</a></div>
+            <div class="main_menu"><a th:href="@{/map}">네이버 맵구현</a></div>
             <div class="main_menu"><a th:href="@{/anno}">공지사항</a></div>
-            <div class="main_menu"><a th:href="@{/inquiryPage}">문의하기</a></div>
         </div>
         <div class="main_mypage">
             <a href="#"><i class="fa-solid fa-user" style="color: #ffffff;"></i></a>
@@ -46,6 +42,7 @@
                 <!--                <li class="myPage_menu"><a th:href="@{/auth/login}">로그인</a></li>-->
                 <li sec:authorize="!hasAnyAuthority('ADMIN','USER')" class="myPage_menu"><a th:href="@{/auth/login}">로그인</a></li>
                 <li sec:authorize="!hasAnyAuthority('ADMIN','USER')" class="myPage_menu"><a th:href="@{/user/signup}">회원가입</a></li>
+                <li sec:authorize="!hasAnyAuthority('ADMIN','USER')" class="myPage_menu"><a th:href="@{/inquiryPage}">문의하기</a></li>
                 <li sec:authorize="hasAnyAuthority('ADMIN')" class="myPage_menu"><a th:href="@{/admin/userstatus}">관리자 페이지</a></li>
                 <li sec:authorize="hasAnyAuthority('ADMIN','USER')" class="myPage_menu">마이페이지</li>
                 <li sec:authorize="hasAnyAuthority('ADMIN','USER')" class="myPage_menu"><a th:href="@{/auth/logout}">로그아웃</a></li>
@@ -80,7 +77,7 @@
             <div class="comLogo"><i class="fa-solid fa-dog"></i></div>
             <div class="comInfo_text">
                 <p>
-                    주식회사 위드명 | 대표 김아무개<br>
+                    주식회사 펫테일 | 대표 김아무개<br>
                     사업자 등록 번호 123-456-78910<br>
                     서울특별시 구로구 경인로 557 삼영빌딩 4층<br>
                     contact@withmung.com<br>
@@ -100,5 +97,4 @@
     </div>
 </footer>
 </body>
-<!--<script src="main.js"></script>-->
 </html>

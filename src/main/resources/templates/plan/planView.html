@@ -49,12 +49,23 @@
                         bookmarkButton = $("<img src='/image/heart-solid.svg' class='insertBookmarkBtn' data-company-id='" + comp.companyDTO.companyCode + "'/>");
                     }
 
+                    // 추가된 부분: a 태그 생성 및 클릭 이벤트 핸들러 추가
+                    var anchorTag = $("<a href='#' class='companyLink' data-company-code='" + comp.companyDTO.companyCode + "'>상세 정보</a>");
+                    anchorTag.click(function (event) {
+                        event.preventDefault();
+                        var companyCode = $(this).data('company-code');
+                        // 여기에서 companyCode를 사용하여 새로운 페이지로 이동하거나 필요한 작업을 수행
+                        window.location.href = '/plan/comDetail?companyCode=' + companyCode;
+                    });
+
+
                     div.append($("<p>companyCode: </p>").text(comp.companyDTO.companyCode));
                     div.append($("<p>companyName: </p>").text(comp.companyDTO.companyName));
                     div.append($("<p>companyClassi: </p>").text(comp.companyDTO.companyClassi));
                     div.append($("<p>companyCtprvn: </p>").text(comp.companyDTO.companyCtprvn));
 
                     div.append(bookmarkButton);
+                    div.append(anchorTag); // a 태그를 div에 추가
 
                     $("#result").append(div);
                 }

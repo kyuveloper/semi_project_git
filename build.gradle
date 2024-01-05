@@ -32,6 +32,8 @@ dependencies {
     //구글 로그인
     implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
 
+//    compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.24'
+
     //jpa
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     runtimeOnly 'com.h2database:h2'
