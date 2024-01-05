@@ -84,6 +84,11 @@ public class MemberService {
             return 0;
         }
     }
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> d67d8a21e87f637a289195eb9ae69be102ad3991
 
     public int checkAnswer(String userEmail, String answer) { //입력한 답이 일치하는지 확인
         LoginUserDTO loginUserDTO = userMapper.findUserByEmailAndAnswer(userEmail, answer);
@@ -116,4 +121,8 @@ public class MemberService {
         return userMapper.selectUserByUserCode(userCode);
     }
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> d67d8a21e87f637a289195eb9ae69be102ad3991
 }

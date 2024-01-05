@@ -8,13 +8,23 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: pettales
     password: pettales
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> d67d8a21e87f637a289195eb9ae69be102ad3991
 #  mvc:
 #    static-path-pattern: /static/**
   servlet:
     multipart:
       max-file-size: 10MB
       max-request-size: 10MB
+<<<<<<< HEAD
 
+=======
+=======
+
+>>>>>>> feature/plan
+>>>>>>> d67d8a21e87f637a289195eb9ae69be102ad3991
 #  security:
 #    oauth2:
 #      client:

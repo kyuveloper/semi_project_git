@@ -82,7 +82,11 @@
         FROM USER_TABLE
         WHERE USER_EMAIL = #{userEmail}
     </select>
+<<<<<<< HEAD
 
+=======
+<<<<<<< HEAD
+>>>>>>> d67d8a21e87f637a289195eb9ae69be102ad3991
     
     <update id="changePassword" parameterType="com.semiproject.pettales.user.model.dto.LoginUserDTO">
         UPDATE USER_TABLE
@@ -93,7 +97,11 @@
     </update>
 
 
+<<<<<<< HEAD
 
+=======
+=======
+>>>>>>> d67d8a21e87f637a289195eb9ae69be102ad3991
 
     <select id="selectUserByUserCode" resultMap="login">
         SELECT
@@ -101,5 +109,9 @@
         FROM USER_TABLE
         WHERE USER_CODE = #{userCode}
     </select>
+<<<<<<< HEAD
 
+=======
+>>>>>>> feature/plan
+>>>>>>> d67d8a21e87f637a289195eb9ae69be102ad3991
 </mapper>
