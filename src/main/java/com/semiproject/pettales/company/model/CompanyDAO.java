@@ -2,6 +2,7 @@ package com.semiproject.pettales.company.model;
 
 
 import com.semiproject.pettales.company.dto.CompanyDTO;
+import com.semiproject.pettales.company.dto.CompanyDetailDTO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -20,6 +21,8 @@ public interface CompanyDAO {
             @Param("pageLimit") int pageLimit,
             @Param("companyCtprvn") String companyCtprvn,
             @Param("companyClassi") String companyClassi);
+
+    List<CompanyDetailDTO> comDetailInfo(int companyCode);
 
     // 전체 시설의 수
     int countCompany();

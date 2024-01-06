@@ -160,6 +160,10 @@ a {
     opacity: .5;
     padding: .7rem 0;
 }
+.myPage_menu a {
+    color: white;
+    font-size: 1.1rem;
+}
 
 
 /* 슬라이드 이미지 */

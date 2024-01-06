@@ -5,6 +5,7 @@ import com.semiproject.pettales.bookmark.dto.BookmarkDTO;
 import com.semiproject.pettales.bookmark.service.BookmarkService;
 import com.semiproject.pettales.company.dto.CompanyCardDTO;
 import com.semiproject.pettales.company.dto.CompanyDTO;
+import com.semiproject.pettales.company.dto.CompanyDetailDTO;
 import com.semiproject.pettales.company.model.CompanyDAO;
 import com.semiproject.pettales.company.dto.CompanyPaging;
 import com.semiproject.pettales.user.model.dto.LoginUserDTO;
@@ -177,5 +178,9 @@ public class CompanyService {
             System.out.println("Select Success");
         }
         return result;
+    }
+
+    public List<CompanyDetailDTO> comDetailInfo(int companyCode) {
+        return companyDAO.comDetailInfo(companyCode);
     }
 }
