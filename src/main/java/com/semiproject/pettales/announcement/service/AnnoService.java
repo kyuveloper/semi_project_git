@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class AnnoService {
+
     @Autowired
     private AnnoDAO annoDAO;
 
@@ -16,6 +17,16 @@ public class AnnoService {
             System.out.println("Insert Error");
         } else {
             System.out.println("Insert Success");
+        }
+        return result;
+    }
+
+    public int updateAnno(AnnoDTO annoDTO) {
+        int result = annoDAO.updateAnno(annoDTO);
+        if (result <= 0) {
+            System.out.println("Update Error");
+        } else {
+            System.out.println("Update Success");
         }
         return result;
     }

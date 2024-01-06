@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>공지 수정하기</h1>
+<form action="updateAnno" method="post">
+    <input type="hidden" name="annoCode" id="annoCode" th:value="${code}">
+    제목 : <input type="text" name="annoTitle">
+    내용 : <input type="text" name="annoContents">
+    상단고정 : <input type="text" name="annoPin">
+    공개여부 : <input type="text" name="annoStatus">
+    <button type="submit">등록</button>
+</form>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const code = urlParams.get('code');
+
+        if (code) {
+            console.log(code)
+            document.getElementById('annoCode').value = code;
+        }
+    });
+</script>
+</body>
+</html>

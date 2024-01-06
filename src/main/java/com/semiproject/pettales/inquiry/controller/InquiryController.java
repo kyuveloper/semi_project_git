@@ -23,4 +23,5 @@ public class InquiryController {
         inquiryService.insertInquiry(inquiryDTO);
         return "redirect:/";
     }
+
 }

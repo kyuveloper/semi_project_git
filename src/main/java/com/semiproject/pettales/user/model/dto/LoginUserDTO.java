@@ -1,10 +1,6 @@
 package com.semiproject.pettales.user.model.dto;
 
 import com.semiproject.pettales.auth.model.UserAuth;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
 
 import java.util.ArrayList;
 import java.util.Arrays;

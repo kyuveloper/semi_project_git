@@ -42,10 +42,13 @@
         )
     </insert>
 
-    <insert id="insertInqAns" parameterType="com.semiproject.pettales.inquiry.dto.InquiryDTO">
-        INSERT INTO INQUIRY (
-        INQ_CODE,
-
-        )
-    </insert>
+    <update id="updateInqAns" parameterType="com.semiproject.pettales.inquiry.dto.InquiryDTO">
+        UPDATE INQUIRY
+        SET
+        ANSWER_CODE=#{inqCode},
+        ANSWER_CONTENTS=#{answerContents},
+        ANSWER_REGIST_DATE=DATE_FORMAT(now(), '%Y-%m-%d'),
+        ANSWER_UPDATE_DATE=DATE_FORMAT(now(), '%Y-%m-%d')
+        WHERE INQ_CODE=#{inqCode}
+    </update>
 </mapper>

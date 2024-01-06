@@ -1,6 +1,5 @@
 package com.semiproject.pettales.auth.service;
 
-import com.semiproject.pettales.adminpage.model.dto.UserTableDTO;
 import com.semiproject.pettales.user.dao.UserMapper;
 import com.semiproject.pettales.user.model.dto.LoginUserDTO;
 import com.semiproject.pettales.user.model.dto.SignupDTO;
@@ -22,7 +21,11 @@ public class MemberService {
 
     public LoginUserDTO findByUserEmail(String userEmail) { //이메일에 해당하는 사람 찾기
         LoginUserDTO login = userMapper.findByUserEmail(userEmail);
+<<<<<<< HEAD
         System.out.println(login);
+=======
+        System.out.println("login : " + login);
+>>>>>>> develop22
         if (!Objects.isNull(login)) {
             System.out.println("있");
             return login;
@@ -32,6 +35,7 @@ public class MemberService {
         }
     }
 
+<<<<<<< HEAD
 //    public LoginUserDTO findByUserNickName(String userNickName){
 //
 //        LoginUserDTO login = userMapper.findByUserNickName(userNickName);
@@ -45,6 +49,8 @@ public class MemberService {
 //        }
 //    }
 
+=======
+>>>>>>> develop22
     @Transactional
     public int regist(SignupDTO signupDTO) { // 회원가입
         signupDTO.setPassword(encoder.encode(signupDTO.getPassword()));
@@ -85,7 +91,14 @@ public class MemberService {
         }
     }
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+
+    public LoginUserDTO selectUserByUserCode(int userCode){
+        return userMapper.selectUserByUserCode(userCode);
+    }
+>>>>>>> develop22
 
 
 >>>>>>> d67d8a21e87f637a289195eb9ae69be102ad3991
@@ -99,6 +112,7 @@ public class MemberService {
             return 0;
         }
     }
+<<<<<<< HEAD
 
 //    진짜 중복체크
 //    @Transactional(readOnly = true)
@@ -125,4 +139,6 @@ public class MemberService {
 =======
 
 >>>>>>> d67d8a21e87f637a289195eb9ae69be102ad3991
+=======
+>>>>>>> develop22
 }
