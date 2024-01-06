@@ -20,8 +20,6 @@ public class AdminInquiryController {
         return "inquiry/inquiryList";
     }
 
-<<<<<<< HEAD
-=======
     @GetMapping("/inquiry/inquiryAns")
     public String inquiryAns() {
         return "inquiry/inquiryAns";
@@ -34,6 +32,4 @@ public class AdminInquiryController {
         return "index";
     }
 
-
->>>>>>> develop22
 }

@@ -32,24 +32,27 @@ public class CompanyService {
 // 메인 화면에 뿌릴 신발 리스트(페이징)
 
     // 모든 시설 조회
-    public List<CompanyDTO> selectAllCompany(int page){
-        /*
-         * 1페이지에 보여줄 회사 : 9
-
-         * 1page = 0
-
-         * 2page = 12
-
-         * 3page = 24
-
-         */
-
+    public List<CompanyCardDTO> selectAllCompanyCard(int page, int userCode){
         int pageStart = (page -1) * PAGE_LIMIT;
-
+        List<CompanyCardDTO> companyCard = new ArrayList<>();
         List<CompanyDTO> companyList = companyDAO.selectAllCompany(pageStart, PAGE_LIMIT);
 
-        return companyList;
+        // 시설 리스트 수 만큼 CompanyCard에 회사 정보, 유저 정보, 북마크 정보 삽입
+        for(CompanyDTO companyDTO : companyList){
+            CompanyCardDTO card = new CompanyCardDTO();
+            // 회사 정보
+            card.setCompanyDTO(companyDTO);
 
+            // 로그인 한 유저의 정보
+            LoginUserDTO user = memberService.selectUserByUserCode(userCode);
+            card.setUser(user);
+
+            // 유저 북마크 정보
+            BookmarkDTO bookmarked = bookmarkService.selectBookmarkByComCode(userCode, companyDTO.getCompanyCode());
+            card.setBookmarkDTO(bookmarked);
+            companyCard.add(card);
+        }
+        return companyCard;
     }
 
     //지역별 건물 조회
