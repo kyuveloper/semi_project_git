@@ -4,6 +4,7 @@ import com.semiproject.pettales.auth.model.AuthDetails;
 import com.semiproject.pettales.bookmark.dto.BookmarkDTO;
 import com.semiproject.pettales.bookmark.service.BookmarkService;
 import com.semiproject.pettales.company.service.CompanyService;
+import com.semiproject.pettales.plan.dto.DetailPlanDTO;
 import com.semiproject.pettales.plan.dto.PlanDTO;
 import com.semiproject.pettales.plan.service.PlanService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -87,10 +90,37 @@ public class PlanController {
         int userCode = auth.getLoginUserDTO().getUserCode();
 
         List<BookmarkDTO> userBookmarkList = bookmarkService.selectBookmarkByUserCode(userCode);
+        // 서비스를 통해 시작일과 종료일을 가져온다. (planService에서 해당 메서드를 정의해야 함)
+        LocalDate startDate = planService.getStartDateByPlanCodeAndUserCode(planCode, userCode);
+        LocalDate endDate = planService.getEndDateByPlanCodeAndUserCode(planCode, userCode);
+
         PlanDTO planInfo = planService.selectPlanByPlanCode(planCode, userCode);
+
         model.addAttribute("bookmark", userBookmarkList);
         model.addAttribute("planInfo", planInfo);
+
+        // 가져온 날짜들을 모델에 담아서 Thymeleaf 템플릿으로 전달한다.
+        model.addAttribute("startDate", startDate);
+        model.addAttribute("endDate", endDate);
         return "plan/planDetail";
+    }
+
+    @GetMapping("/plan_detail_date")
+    public String planDetailDate(Model model,
+                                 @RequestParam("travelDate")Date travelDate,
+                                 @RequestParam("planDetailCode")int planDetailCode){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        AuthDetails auth = (AuthDetails)authentication.getPrincipal();
+        int userCode = auth.getLoginUserDTO().getUserCode();
+        List<BookmarkDTO> userBookmarkList = bookmarkService.selectBookmarkByUserCode(userCode);
+
+        DetailPlanDTO detailPlanDTO = planService.selectPlanBookmark(travelDate, planDetailCode, userCode);
+
+        model.addAttribute("bookmark", userBookmarkList);
+        model.addAttribute("detailPlan", detailPlanDTO);
+
+
+        return "plan/planDetailDate";
     }
 
 }

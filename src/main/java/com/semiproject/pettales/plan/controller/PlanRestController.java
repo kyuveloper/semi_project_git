@@ -5,6 +5,8 @@ import com.semiproject.pettales.auth.model.AuthDetails;
 import com.semiproject.pettales.company.dto.CompanyCardDTO;
 import com.semiproject.pettales.company.dto.CompanyPaging;
 import com.semiproject.pettales.company.service.CompanyService;
+import com.semiproject.pettales.plan.dto.BookmarkMappingDTO;
+import com.semiproject.pettales.plan.dto.DetailPlanDTO;
 import com.semiproject.pettales.plan.dto.PlanDTO;
 import com.semiproject.pettales.plan.service.PlanService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +14,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -78,6 +82,54 @@ public class PlanRestController {
         }
         return result;
     }
+
+    @PostMapping("/insert_detail")
+    public int insertDetailPlan(@RequestBody DetailPlanDTO detailPlanDTO){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        AuthDetails auth = (AuthDetails) authentication.getPrincipal();
+        int userCode = auth.getLoginUserDTO().getUserCode();
+
+        detailPlanDTO.setUserCode(userCode);
+        int result = planService.insertDetailPlan(detailPlanDTO);
+
+        System.out.println("Received date: " + detailPlanDTO.getTravelDate());
+        System.out.println("Received planCode: " + detailPlanDTO.getPlanCode());
+
+        if(result < 0){
+            System.out.println("실패");
+        }else{
+            System.out.println("성공");
+        }
+        return result;
+    }
+
+    @PostMapping("/insert_mapping")
+    public int insertBookmarkMapping(@RequestBody BookmarkMappingDTO bookmarkMappingDTO){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        AuthDetails auth = (AuthDetails) authentication.getPrincipal();
+        int userCode = auth.getLoginUserDTO().getUserCode();
+
+        bookmarkMappingDTO.setUserCode(userCode);
+        int result = planService.insertBookmarkMapping(bookmarkMappingDTO);
+
+        if(result < 0){
+            System.out.println("실패");
+        }else{
+            System.out.println("성공");
+        }
+        return result;
+    }
+
+//    @GetMapping("/detail_plan_view")
+//    public Map<String, Object> detailPlanView(
+//            @RequestParam("travleDate") Date travelDate,
+//            @RequestParam("planDetailCode") int planDetailCode){
+//
+//        DetailPlanDTO detailPlan = planService.selectPlanBookmark(travelDate, planDetailCode);
+//        Map<String, Object> result = new HashMap<>();
+//        result.put("detailPlan",detailPlan);
+//        return result;
+//    }
 
 //    @ModelAttribute("bookmark")
 //    public List<BookmarkDTO> userLikeList(){

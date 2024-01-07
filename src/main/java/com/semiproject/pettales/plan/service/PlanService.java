@@ -1,9 +1,14 @@
 package com.semiproject.pettales.plan.service;
 
 import com.semiproject.pettales.plan.dao.PlanDAO;
+import com.semiproject.pettales.plan.dto.BookmarkMappingDTO;
+import com.semiproject.pettales.plan.dto.DetailPlanDTO;
 import com.semiproject.pettales.plan.dto.PlanDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -28,5 +33,27 @@ public class PlanService {
 
     public PlanDTO selectPlanByPlanCode(int planCode, int userCode){
         return planDAO.selectPlanByPlanCode(planCode, userCode);
+    }
+
+    public LocalDate getStartDateByPlanCodeAndUserCode(int planCode, int userCode) {
+        // PlanMapper를 통해 시작일을 가져온다.
+        return planDAO.getStartDateByPlanCodeAndUserCode(planCode, userCode);
+    }
+
+    public LocalDate getEndDateByPlanCodeAndUserCode(int planCode, int userCode) {
+        // PlanMapper를 통해 종료일을 가져온다.
+        return planDAO.getEndDateByPlanCodeAndUserCode(planCode, userCode);
+    }
+
+    public int insertDetailPlan(DetailPlanDTO detailPlanDTO){
+        return planDAO.insertDetailPlan(detailPlanDTO);
+    }
+
+    public int insertBookmarkMapping(BookmarkMappingDTO bookmarkMappingDTO){
+        return planDAO.insertBookmarkMapping(bookmarkMappingDTO);
+    }
+
+    public DetailPlanDTO selectPlanBookmark(Date travelDate, int planDetailCode, int userCode){
+        return planDAO.selectPlanBookmark(travelDate, planDetailCode, userCode);
     }
 }
