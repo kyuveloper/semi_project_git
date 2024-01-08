@@ -22,10 +22,8 @@
         </div>
         <div class="main_menus">
             <div class="main_menu"><a th:href="@{/}">Home</a></div>
-            <div class="main_menu"><a th:href="@{/comInfo}">견본</a></div>
+            <div class="main_menu"><a th:href="@{/anno/allList}">공지사항</a></div>
             <div class="main_menu"><a th:href="@{/plan/make_plan}">계획 시작</a></div>
-            <div class="main_menu"><a th:href="@{/map}">네이버 맵구현</a></div>
-            <div class="main_menu"><a th:href="@{/anno}">공지사항</a></div>
         </div>
         <div class="main_mypage">
             <a href="#"><i class="fa-solid fa-user" style="color: #ffffff;"></i></a>
@@ -39,14 +37,21 @@
         </div>
         <div class="gridImgs">
             <img th:src="@{/image/rr-abrot-pNIgH0y3upM-unsplash.jpg}" alt="">
-<!--            <img th:src="@{/image/toa-heftiba-6bKpHAun4d8-unsplash.jpg}" alt="">-->
-<!--            <img th:src="@{/image/wade-austin-ellis-NdZxzD9QlSY-unsplash.jpg}" alt="">-->
-<!--            <img th:src="@{/image/daan-evers-tKN1WXrzQ3s-unsplash.jpg}" alt="">-->
+            <img th:src="@{/image/toa-heftiba-6bKpHAun4d8-unsplash.jpg}" alt="">
+            <img th:src="@{/image/wade-austin-ellis-NdZxzD9QlSY-unsplash.jpg}" alt="">
+            <img th:src="@{/image/daan-evers-tKN1WXrzQ3s-unsplash.jpg}" alt="">
         </div>
     </div>
 </div>
 
-<div id="comDetail"></div>
+<div class="subContainer">
+    <div class="comInfoContainer">
+        <div id="comDetail"></div>
+    </div>
+    <div class="reviewContainer"></div>
+</div>
+
+
 <script>
     document.addEventListener('DOMContentLoaded', sendCompanyCode);
 
@@ -81,9 +86,43 @@
                     }
                 )
             })
-            console.log(areaArr)
+            // 새로운 div 요소들을 생성합니다.
+            var nameDiv = document.createElement('div');
+            var addressDiv = document.createElement('div');
+            var phoneDiv = document.createElement('div');
+            var timeDiv = document.createElement('div');
+            var urlDiv = document.createElement('div');
+            var infoDiv = document.createElement('div');
+
+            // 각 div에 해당하는 정보를 설정합니다.
+            nameDiv.textContent = areaArr[0].name;
+            addressDiv.textContent = '주소: ' + areaArr[0].address;
+            phoneDiv.textContent = '전화 번호: ' + areaArr[0].phone;
+            timeDiv.textContent = '운영 시간: ' + areaArr[0].time;
+            urlDiv.textContent = '사이트 주소: ' + areaArr[0].url;
+            infoDiv.textContent = '기본 정보: ' + areaArr[0].info;
+
+            // 각 div에 클래스 이름을 추가합니다.
+            nameDiv.classList.add('infoName');
+            addressDiv.classList.add('infoAddress');
+            phoneDiv.classList.add('infoPhone');
+            timeDiv.classList.add('infoTime');
+            urlDiv.classList.add('infoUrl');
+            infoDiv.classList.add('infoInfo');
+
             const dataById = document.getElementById('comDetail')
-            dataById.innerText = areaArr[0].name+areaArr[0].address+areaArr[0].phone+areaArr[0].time+areaArr[0].url+areaArr[0].info
+            // 각 div를 dataById에 추가합니다.
+            dataById.appendChild(nameDiv);
+            dataById.appendChild(addressDiv);
+            dataById.appendChild(phoneDiv);
+            dataById.appendChild(timeDiv);
+            dataById.appendChild(urlDiv);
+            dataById.appendChild(infoDiv);
+            // console.log(areaArr)
+            // console.log(areaArr.name)
+
+            // console.log(dataById)
+            // dataById.innerHTML = areaArr[0].name+areaArr[0].address+areaArr[0].phone+areaArr[0].time+areaArr[0].url+areaArr[0].info
 
 
         } catch (error) {
@@ -125,7 +164,7 @@
             <div class="comLogo"><i class="fa-solid fa-dog"></i></div>
             <div class="comInfo_text">
                 <p>
-                    주식회사 펫테일 | 대표 김아무개<br>
+                    주식회사 펫테일 | 대표 김박홍<br>
                     사업자 등록 번호 123-456-78910<br>
                     서울특별시 구로구 경인로 557 삼영빌딩 4층<br>
                     contact@withmung.com<br>

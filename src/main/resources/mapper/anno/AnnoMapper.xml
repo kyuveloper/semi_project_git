@@ -15,6 +15,13 @@
         <result property="userCode" column="USER_CODE"/>
     </resultMap>
 
+    <select id="selectAllAnno" resultMap="annoResult">
+        SELECT
+        *
+        FROM ANNOUNCEMENT
+        WHERE ANNO_STATUS="act"
+    </select>
+
     <insert id="insertAnno" parameterType="com.semiproject.pettales.announcement.dto.AnnoDTO">
         INSERT INTO ANNOUNCEMENT (
         ANNO_CODE,

@@ -21,35 +21,24 @@
         </div>
         <div class="main_menus">
             <div class="main_menu"><a th:href="@{/}">Home</a></div>
-            <div class="main_menu"><a th:href="@{/comInfo}">견본</a></div>
+            <div class="main_menu"><a th:href="@{/anno/allList}">공지사항</a></div>
             <div class="main_menu"><a th:href="@{/plan/make_plan}">계획 시작</a></div>
-            <div class="main_menu"><a th:href="@{/map}">네이버 맵구현</a></div>
-            <div class="main_menu"><a th:href="@{/anno}">공지사항</a></div>
         </div>
         <div class="main_mypage">
             <a href="#"><i class="fa-solid fa-user" style="color: #ffffff;"></i></a>
         </div>
     </nav>
 </header>
-<!--<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="layout/default_layout">
-
-<th:block layout:fragment="content">-->
 <main>
     <article>
         <div class="myPage_box">
             <ul class="myPage_menus">
-
-                <!--                <li class="myPage_menu"><a th:href="@{/auth/login}">로그인</a></li>-->
                 <li sec:authorize="!hasAnyAuthority('ADMIN','USER')" class="myPage_menu"><a th:href="@{/auth/login}">로그인</a></li>
                 <li sec:authorize="!hasAnyAuthority('ADMIN','USER')" class="myPage_menu"><a th:href="@{/user/signup}">회원가입</a></li>
-                <li sec:authorize="!hasAnyAuthority('ADMIN','USER')" class="myPage_menu"><a th:href="@{/inquiryPage}">문의하기</a></li>
-                <li sec:authorize="hasAnyAuthority('ADMIN')" class="myPage_menu"><a th:href="@{/admin/userstatus}">관리자 페이지</a></li>
-                <li sec:authorize="hasAnyAuthority('ADMIN','USER')" class="myPage_menu">마이페이지</li>
+                <li sec:authorize="hasAnyAuthority('ADMIN','USER')" class="myPage_menu"><a th:href="@{/inquiryPage}">문의하기</a></li>
+                <li sec:authorize="hasAnyAuthority('ADMIN')" class="myPage_menu"><a th:href="@{/templates/admin22/userstatus}">관리자 페이지</a></li>
+                <li sec:authorize="hasAnyAuthority('ADMIN','USER')" class="myPage_menu"><a th:href="@{/user/mypage}">마이페이지</a></li>
                 <li sec:authorize="hasAnyAuthority('ADMIN','USER')" class="myPage_menu"><a th:href="@{/auth/logout}">로그아웃</a></li>
-
-                <!--                <li class="myPage_menu">로그인</li>-->
-
-<!--                <li class="myPage_menu">설정</li>-->
             </ul>
         </div>
         <div class="slider_container">
@@ -64,20 +53,26 @@
                 <div class="slider_text">
                     PetTales,<br>
                     <p id="dynamic"></p><br>
-                    텍스트
                 </div>
             </div>
         </div>
     </article>
+    <article>
+        <div class="line"></div>
+        <div class="subContents">
+            <div class="subConBox fstContents"></div>
+            <div class="subConBox secContents"></div>
+            <div class="subConBox thdContents"></div>
+        </div>
+    </article>
 </main>
-<!--</th:block>-->
 <footer>
     <div id="footer">
         <div class="comInfo">
             <div class="comLogo"><i class="fa-solid fa-dog"></i></div>
             <div class="comInfo_text">
                 <p>
-                    주식회사 펫테일 | 대표 김아무개<br>
+                    주식회사 펫테일 | 대표 김박홍<br>
                     사업자 등록 번호 123-456-78910<br>
                     서울특별시 구로구 경인로 557 삼영빌딩 4층<br>
                     contact@withmung.com<br>

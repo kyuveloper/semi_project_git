@@ -22,10 +22,8 @@
         </div>
         <div class="main_menus">
             <div class="main_menu"><a th:href="@{/}">Home</a></div>
-            <div class="main_menu"><a th:href="@{/comInfo}">견본</a></div>
+            <div class="main_menu"><a th:href="@{/anno/allList}">공지사항</a></div>
             <div class="main_menu"><a th:href="@{/plan/make_plan}">계획 시작</a></div>
-            <div class="main_menu"><a th:href="@{/map}">네이버 맵구현</a></div>
-            <div class="main_menu"><a th:href="@{/anno}">공지사항</a></div>
         </div>
         <div class="main_mypage">
             <a href="#"><i class="fa-solid fa-user" style="color: #ffffff;"></i></a>
@@ -39,9 +37,11 @@
             <p>문의하실 내용을 작성하여 보내주시면 빠른 시일 내에 답변 드리도록 하겠습니다.</p>
         </div>
         <div class="inquiryContents">
-            <textarea cols="40" class="titleBox" type="text" name="inqTitle" placeholder="문의 제목"></textarea>
-            <textarea cols="10" class="categoryBox" type="text" name="inqClassi" placeholder="문의 분류"></textarea><br>
-            <textarea cols="54" rows="12" class="textBox" name="inqContents" placeholder="문의 내용을 적어주세요"></textarea>
+            <div class="boxFlex">
+                <textarea class="titleBox" type="text" name="inqTitle" placeholder="문의 제목"></textarea>
+                <textarea class="categoryBox" type="text" name="inqClassi" placeholder="문의 분류"></textarea><br>
+            </div>
+            <textarea rows="15" class="textBox" name="inqContents" placeholder="문의 내용을 적어주세요"></textarea>
 <!--            <input class="textBox" type="text" name="inqContents" placeholder="문의 내용을 적어주세요"><br>-->
             <input type="hidden" name="userCode" th:value="${#authentication.principal.userCode}">
         </div>

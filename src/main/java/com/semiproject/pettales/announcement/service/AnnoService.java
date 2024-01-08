@@ -5,11 +5,19 @@ import com.semiproject.pettales.announcement.dto.AnnoDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class AnnoService {
 
     @Autowired
     private AnnoDAO annoDAO;
+
+    public List<AnnoDTO> selectAllAnno() {
+        List<AnnoDTO> anno = annoDAO.selectAllAnno();
+
+        return anno;
+    }
 
     public int insertAnno(AnnoDTO annoDTO) {
         int result = annoDAO.insertAnno(annoDTO);
