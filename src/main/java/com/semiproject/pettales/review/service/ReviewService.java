@@ -5,6 +5,9 @@ import com.semiproject.pettales.review.dto.ReviewDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Objects;
+
 @Service
 public class ReviewService {
     @Autowired
@@ -14,5 +17,14 @@ public class ReviewService {
         int result = reviewDAO.insertReview(reviewDTO);
 
         return result;
+    }
+
+    public List<ReviewDTO> viewReview() {
+        List<ReviewDTO> reviews = reviewDAO.viewReview();
+
+        if(Objects.isNull(reviews)){
+            System.out.println("리뷰가 없음");
+        }
+        return reviews;
     }
 }

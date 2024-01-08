@@ -119,4 +119,5 @@ public class AuthDetails implements UserDetails, OAuth2User {
     public Map<String, Object> getAttributes() {
         return attributes;
     }
+
 }

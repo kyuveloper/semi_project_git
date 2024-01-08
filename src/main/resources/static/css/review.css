@@ -1,0 +1,47 @@
+table {
+    border-collapse: collapse;
+    margin-left: 2%;
+    margin-top: 2%;
+    margin-bottom: 2%;
+    width: 95%;
+}
+
+th, td {
+    border: 1px solid #dddddd;
+    text-align: left;
+}
+
+/* 평점에 대한 스타일 */
+td:nth-child(1) {
+    padding: 2px; /* 적절한 padding 값 설정 (상하좌우 여백) */
+    width: 80px;
+}
+
+/* 리뷰내용에 대한 스타일 */
+td:nth-child(2) {
+    padding: 8px; /* 적절한 padding 값 설정 (상하좌우 여백) */
+}
+
+/*tr:nth-child(even) {*/
+/*    background-color: #f2f2f2; !* 짝수 행 배경색 *!*/
+/*}*/
+
+tr:nth-child(odd) {
+    background-color: #f9f5eb; /* 홀수 행 배경색 (밝은 베이지색) */
+}
+
+.inputReview input{
+    background-color: #E7DFD7;
+    height: 30px; margin-left: 10px;
+    border-color: white;
+    outline: none;
+    border-radius: 5px;
+}
+
+.inputReview button{
+    background-color:white;
+    width: 40px;
+    height: 30px;
+    border-radius: 10px;
+    color: black;
+}

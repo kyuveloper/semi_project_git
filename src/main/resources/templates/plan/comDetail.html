@@ -47,6 +47,15 @@
 </div>
 
 <div id="comDetail"></div>
+<!--<form th:action="@{/plan/comDetail}" th:method="POST">-->
+<!--    평점 : <input type="text" name="companyGrade">-->
+<!--    내용 : <input type="text" name="reviewContents">-->
+<!--    <input type="hidden" name="userCode" th:value="${#authentication.principal.userCode}">-->
+<!--    <input type="hidden" name="companyCode" th:value="${companyCode}" />-->
+<!--&lt;!&ndash;        <input type="hidden" name="companyCode" th:value="${#authentication.principal.companyCode}">&ndash;&gt;-->
+<!--    <button type="submit">작성</button>-->
+<!--</form>-->
+<a th:href="@{/review/reviewPage}">리뷰</a>
 <script>
     document.addEventListener('DOMContentLoaded', sendCompanyCode);
 

@@ -13,6 +13,12 @@
         <result property="companyCode" column="COMPANY_CODE"/>
         <result property="userCode" column="USER_CODE"/>
     </resultMap>
+    <select id="viewReview" resultMap="review">
+        SELECT
+            COMPANY_GRADE,
+            REVIEW_CONTENTS
+        FROM COMPANY_REVIEW
+    </select>
 
     <insert id="insertReview" parameterType="com.semiproject.pettales.review.dto.ReviewDTO">
         INSERT INTO COMPANY_REVIEW(
@@ -31,7 +37,7 @@
             'Y',
             DATE_FORMAT(now(), '%Y-%m-%d'),
             DATE_FORMAT(now(), '%Y-%m-%d'),
-            '6',
+            '156',
             #{userCode}
             )
     </insert>

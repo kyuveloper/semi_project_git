@@ -2,6 +2,7 @@ package com.semiproject.pettales.plan.controller;
 
 import com.semiproject.pettales.company.dto.CompanyDetailDTO;
 import com.semiproject.pettales.company.service.CompanyService;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,9 +27,22 @@ public class comDetailController {
         return ResponseEntity.ok(comDetailInfo);
     }
 
+//    @GetMapping("/comDetail")
+//    public ResponseEntity<List<CompanyDetailDTO>> selectCompanyDetailInfo(HttpSession session) {
+//        // 세션에서 companyCode 가져오기
+//        int currentCompanyCode = (int) session.getAttribute("currentCompanyCode");
+//        System.out.println(currentCompanyCode);
+//
+//        List<CompanyDetailDTO> comDetailInfo = companyService.comDetailInfo(currentCompanyCode);
+//        System.out.println(comDetailInfo);
+//        return ResponseEntity.ok(comDetailInfo);
+//    }
+
 //    @GetMapping("comDetail")
 //    public ResponseEntity<List<CompanyDetailDTO>> companyDetailInfo(@RequestParam int companyCode) {
 //        List<CompanyDetailDTO> comDetailInfo = companyService.comDetailInfo(companyCode);
 //        return ResponseEntity.ok(comDetailInfo);
 //    }
+
+
 }
