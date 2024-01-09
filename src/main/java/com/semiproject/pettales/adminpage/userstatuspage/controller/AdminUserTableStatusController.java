@@ -31,7 +31,7 @@ import java.util.Date;
 import java.util.List;
 
 @Controller
-@RequestMapping("/admin")
+@RequestMapping("/admins")
 public class AdminUserTableStatusController {
 
     private final AdminUserTableStatusService adminUserTableStatusService;
@@ -77,7 +77,7 @@ public class AdminUserTableStatusController {
 
         redirectAttributes.addFlashAttribute("message", "수정되었습니다.");
 
-        mv.setViewName("redirect:/admin/userstatus");
+        mv.setViewName("redirect:/admins/userstatus");
         return mv;
     }
 
@@ -127,7 +127,7 @@ public class AdminUserTableStatusController {
         mv.addObject("users", users);
         mv.addObject("totalUserCount", totalUserCount);
         mv.addObject("currentPage", page);
-        mv.setViewName("admin/userstatus");
+        mv.setViewName("/admins/userstatus");
         mv.addObject("usersCountOnPage", users.size()); // 현재 페이지에 표시된 사용자 수 추가
         return mv;
     }
@@ -138,7 +138,7 @@ public class AdminUserTableStatusController {
         UserTableDTO userDto = adminUserTableStatusService.getUserInfo(userCode);
         ModelAndView mv = new ModelAndView();
         mv.addObject("user", userDto);
-        mv.setViewName("/admin/userstatus/edit");
+        mv.setViewName("/admins/userstatus/edit");
 
         return mv;
     }
@@ -151,10 +151,10 @@ public class AdminUserTableStatusController {
         if (userTarget != null) {
             adminUserTableStatusService.deleteUser(userCode);
             redirectAttributes.addFlashAttribute("successMessage", "삭제되었습니다.");
-            mv.setViewName("redirect:/admin/userstatus");
+            mv.setViewName("redirect:/admins/userstatus");
         } else {
             mv.addObject("error", "해당 사용자를 찾을 수 없습니다.");
-            mv.setViewName("redirect:admin/userstatus");
+            mv.setViewName("redirect:admins/userstatus");
         }
         return mv;
     }
@@ -164,14 +164,14 @@ public class AdminUserTableStatusController {
     public ModelAndView searchUsers(@RequestParam String keyword, ModelAndView mv) {
         List<UserTableDTO> users = adminUserTableStatusService.searchUsers(keyword);
         mv.addObject("users", users);
-        mv.setViewName("admin/userstatus/search");
+        mv.setViewName("admins/userstatus/search");
         return mv;
     }
 
     // 사용자 등록 페이지를 표시하는 메소드
     @GetMapping("/userstatus/add")
     public String showAddUserForm() {
-        return "admin/userstatus/add";
+        return "admins/userstatus/add";
     }
 
     // POST 요청으로 사용자 데이터를 등록하는 메소드
@@ -180,7 +180,7 @@ public class AdminUserTableStatusController {
         ModelAndView mv = new ModelAndView();
         adminUserTableStatusService.addUser(userDto);
         redirectAttributes.addFlashAttribute("successMessage", "새 사용자가 등록되었습니다.");
-        mv.setViewName("redirect:/admin/userstatus");
+        mv.setViewName("redirect:/admins/userstatus");
         return mv;
     }
 

@@ -21,7 +21,7 @@ async function fetchMap() {
         let latitude = position.coords.latitude;
         let longitude = position.coords.longitude;
 
-        const data = await fetch(`http://localhost:8080/api/map`) // java에서 업체 정보 받아오는 api 호출
+        const data = await fetch(`http://localhost:8083/api/map`) // java에서 업체 정보 받아오는 api 호출
             .then(result => result.json());
         console.log('data:: ', data)
 

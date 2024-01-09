@@ -67,7 +67,7 @@
         try {
             const companyCode = await getCompanyCode();
             console.log(companyCode);
-            const response = await fetch(`http://localhost:8080/api/comDetail?companyCode=${companyCode}`);
+            const response = await fetch(`http://localhost:8083/api/comDetail?companyCode=${companyCode}`);
             if (!response.ok) {
                 throw new Error(`HTTP error! Status: ${response.status}`);
             }

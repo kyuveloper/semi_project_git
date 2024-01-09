@@ -33,9 +33,9 @@ public class PlanController {
     @Autowired
     private PlanService planService;
 
-    @GetMapping("comDetail")
+    @GetMapping("/comDetail")
     public String comDetail() {
-        return "plan/comDetail";
+        return "/plan/comDetail";
     }
 
     @GetMapping("/make_plan")
@@ -57,7 +57,7 @@ public class PlanController {
         model.addAttribute("defaultRegion", defaultRegion);
         model.addAttribute("defaultCategory", defaultCategory);
 
-        return "plan/planView";
+        return "/plan/planView";
     }
 
 

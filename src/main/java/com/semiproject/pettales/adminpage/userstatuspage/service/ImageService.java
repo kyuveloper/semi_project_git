@@ -16,7 +16,7 @@ public class ImageService {
 
     private final Path rootLocation;
 
-    public ImageService(@Value("${image.upload-dir}") String uploadDir) {
+    public ImageService(@Value("resources/static/images/user") String uploadDir) {
         this.rootLocation = Paths.get(uploadDir).toAbsolutePath().normalize();
         try {
             Files.createDirectories(rootLocation);

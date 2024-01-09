@@ -73,7 +73,7 @@ public class UserUpdateController {
             return "redirect:/";
         }
 
-        return "user/mypage/profile";
+        return "/user/mypage/profile";
     }
 
     // 사용자 프로필 정보를 업데이트하는 메서드입니다.

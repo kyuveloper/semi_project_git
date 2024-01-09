@@ -18,7 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Controller
-@RequestMapping("/admin")
+@RequestMapping("/admins")
 public class AdminAnnouncementStatusController {
 
     private final AdminAnnouncementStatusService adminAnnouncementStatusService;
@@ -37,7 +37,7 @@ public class AdminAnnouncementStatusController {
         mv.addObject("announcements", announcements);
         mv.addObject("totalAnnouncementCount", totalAnnouncementCount);
         mv.addObject("currentPage", page);
-        mv.setViewName("/admin/announcements");
+        mv.setViewName("/admins/announcements");
         mv.addObject("usersCountOnPage", announcements.size()); // 현재 페이지에 표시된 수 추가
         mv.addObject("announcementsCountOnPage", announcements.size()); // 현재 페이지에 표시된 공지사항 수 추가
         return mv;
@@ -49,7 +49,7 @@ public class AdminAnnouncementStatusController {
         AnnouncementDTO announceDto = adminAnnouncementStatusService.getAnnouncementInfo(annoCode);
         ModelAndView mv = new ModelAndView();
         mv.addObject("company", announceDto);
-        mv.setViewName("/admin/announcements/edit");
+        mv.setViewName("/admins/announcements/edit");
         return mv;
     }
 
@@ -58,7 +58,7 @@ public class AdminAnnouncementStatusController {
     public ModelAndView updateCompany(@PathVariable int annoCode, @ModelAttribute AnnouncementDTO announceDto, HttpServletRequest request) {
         ModelAndView mv = new ModelAndView();
         adminAnnouncementStatusService.updateAnnouncementInfo(annoCode, announceDto);
-        mv.setViewName("redirect:/admin/announcements");
+        mv.setViewName("redirect:/admins/announcements");
         return mv;
     }
 
@@ -68,7 +68,7 @@ public class AdminAnnouncementStatusController {
         ModelAndView mv = new ModelAndView();
         adminAnnouncementStatusService.deleteAnnouncement(companyCode);
         redirectAttributes.addFlashAttribute("successMessage", "공지사항이 삭제되었습니다.");
-        mv.setViewName("redirect:/admin/announcements");
+        mv.setViewName("redirect:/admins/announcements");
         return mv;
     }
 
@@ -78,14 +78,14 @@ public class AdminAnnouncementStatusController {
         ModelAndView mv = new ModelAndView();
         List<AnnouncementDTO> announcements = adminAnnouncementStatusService.searchAnnouncements(keyword);
         mv.addObject("announcements", announcements);
-        mv.setViewName("/admin/announcements/search");
+        mv.setViewName("/admins/announcements/search");
         return mv;
     }
 
     // 공지사항 등록 페이지를 표시하는 메소드
     @GetMapping("/announcements/add")
     public String showAddCompanyForm() {
-        return "/admin/announcements/add";
+        return "/admins/announcements/add";
     }
 
 
@@ -95,7 +95,7 @@ public class AdminAnnouncementStatusController {
         ModelAndView mv = new ModelAndView();
         adminAnnouncementStatusService.addAnnouncement(announceDto);
         redirectAttributes.addFlashAttribute("successMessage", "공지사항이 등록되었습니다.");
-        mv.setViewName("redirect:/admin/announcements");
+        mv.setViewName("redirect:/admins/announcements");
         return mv;
     }
 

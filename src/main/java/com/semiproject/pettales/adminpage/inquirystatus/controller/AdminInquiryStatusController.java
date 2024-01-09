@@ -20,7 +20,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.util.List;
 
 @Controller
-@RequestMapping("/admin")
+@RequestMapping("/admins")
 public class AdminInquiryStatusController {
 
     private AdminInquiryStatusService adminInquiryStatusService;
@@ -36,7 +36,7 @@ public class AdminInquiryStatusController {
         ModelAndView mv = new ModelAndView();
         List<InquiryDTO> inquiries = adminInquiryStatusService.getInquiriesPerPage(page, 15);
         mv.addObject("inquiries", inquiries);
-        mv.setViewName("/admin/inquirystatus");
+        mv.setViewName("/admins/inquirystatus");
         return mv;
     }
 
@@ -46,7 +46,7 @@ public class AdminInquiryStatusController {
         ModelAndView mv = new ModelAndView();
         InquiryDTO inquiryDto = adminInquiryStatusService.getInquiryInfo(inqCode);
         mv.addObject("inquiry", inquiryDto);
-        mv.setViewName("/admin/inquirystatus/detail");
+        mv.setViewName("/admins/inquirystatus/detail");
         return mv;
     }
 
@@ -56,7 +56,7 @@ public class AdminInquiryStatusController {
         ModelAndView mv = new ModelAndView();
         InquiryDTO inquiryDto = adminInquiryStatusService.getInquiryInfo(inqCode);
         mv.addObject("inquiry", inquiryDto);
-        mv.setViewName("/admin/inquirystatus/answer");
+        mv.setViewName("/admins/inquirystatus/answer");
         return mv;
     }
 
@@ -70,7 +70,7 @@ public class AdminInquiryStatusController {
         HttpSession session = request.getSession();
         session.setAttribute("message", "답변이 등록되었습니다.");
 
-        mv.setViewName("redirect:/admin/inquirystatus/" + inqCode);
+        mv.setViewName("redirect:/admins/inquirystatus/" + inqCode);
         return mv;
     }
 
@@ -80,7 +80,7 @@ public class AdminInquiryStatusController {
         ModelAndView mv = new ModelAndView();
         adminInquiryStatusService.deleteInquiry(inqCode);
         redirectAttributes.addFlashAttribute("successMessage", "문의사항이 삭제되었습니다.");
-        mv.setViewName("redirect:/admin/inquirystatus");
+        mv.setViewName("redirect:/admins/inquirystatus");
         return mv;
     }
 
@@ -101,7 +101,7 @@ public class AdminInquiryStatusController {
         mv.addObject("currentPage", page);
         mv.addObject("inquiriesPerPage", inquiriesPerPage);
         mv.addObject("totalInquiryCount", allInquiries.size());
-        mv.setViewName("/admin/inquirystatus/user");
+        mv.setViewName("/admins/inquirystatus/user");
         return mv;
     }
 
@@ -112,7 +112,7 @@ public class AdminInquiryStatusController {
         ModelAndView mv = new ModelAndView();
         List<InquiryDTO> inquiries = adminInquiryStatusService.getInquiriesPerPage(page,15);
         mv.addObject("inquiries", inquiries);
-        mv.setViewName("/admin/inquirystatus/answered");
+        mv.setViewName("/admins/inquirystatus/answered");
         return mv;
     }
 
@@ -122,7 +122,7 @@ public class AdminInquiryStatusController {
         ModelAndView mv = new ModelAndView();
         List<InquiryDTO> inquiries = adminInquiryStatusService.getInquiriesPerPage(page,15);
         mv.addObject("inquiries", inquiries);
-        mv.setViewName("/admin/inquirystatus/unanswered");
+        mv.setViewName("/admins/inquirystatus/unanswered");
         return mv;
     }
 

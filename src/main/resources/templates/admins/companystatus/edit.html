@@ -56,7 +56,8 @@
         </ul>
         <!-- 프로필 이미지 및 로그아웃 팝업 -->
         <div class="profile-img-container">
-            <img th:src="@{'/images/user/ ' + ${user?.userImg?.userImg}}" alt="프로필 이미지" id="profileImage">
+            <img th:src="${mypage != null && mypage.userUpdate != null && mypage.userUpdate.userImg != null} ? @{'/images/user/' + mypage.userUpdate.userImg} : @{/images/profile.jpg}" class="rounded-circle mb-4" alt="user profile image" id="profileImage">
+
             <div class="logout-popup" id="logoutPopup">
                 <a href="logout">로그아웃</a>
             </div>
@@ -98,75 +99,120 @@
         });
     </script>
 
-    <!-- === 해당 페이지 설정 ==== -->
-
     <div class="container" style="margin-top: 30px; margin-bottom: 30px;">
-        <h1 class="text-center my-4">유저 정보 수정</h1>
+        <h1 class="text-center my-4">시설 정보 수정</h1>
         <hr class=" border-2 opacity-50">
         <div class="card border-0 shadow-lg rounded">
             <div class="card-body">
                 <div class="text-center">
 
+
         <hr class=" border-2 opacity-50">
-        <form th:action="@{/admin/announcements/edit/{userCode}(userCode=${userCode})}" method="post" enctype="multipart/form-data">
-
+        <form th:action="@{/admins/companystatus/edit/{userCode}(userCode=${userCode})}" method="post" enctype="multipart/form-data">
             <div class="form-group">
-                <label for="annoCode">공지사항 코드:</label>
-                <input type="text" id="annoCode" name="annoCode" th:value="${announcement?.annoCode}" class="form-control" pattern="[가-힣a-zA-Z0-9]{1,20}" title="특수문자, 기호 포함 불가, 한글 및 영어, 숫자로 이루어진 20자 이내" required />
+                <label for="companyCode">업체 코드:</label>
+                <input type="text" id="companyCode" name="companyCode" th:value="${company?.companyCode}" class="form-control" pattern="[가-힣a-zA-Z0-9]{1,20}" title="특수문자, 기호 포함 불가, 한글 및 영어, 숫자로 이루어진 20자 이내" required />
             </div>
 
             <div class="form-group">
-                <label for="annoTitle">공지사항 제목:</label>
-                <input type="text" id="annoTitle" name="annoTitle" th:value="${announcement?.annoTitle}" class="form-control" required />
+                <label for="companyClassi">업체 분류:</label>
+                <input type="text" id="companyClassi" name="companyClassi" th:value="${company?.companyClassi}" class="form-control" required />
             </div>
 
             <div class="form-group">
-                <label for="annoContents">공지사항 내용:</label>
-                <textarea id="annoContents" name="annoContents" class="form-control" th:value="${announcement?.annoContents}" required></textarea>
-            </div>
-
-            <div class="form-group">
-                <label for="annoPin">공지사항 고정 여부:</label>
-                <select id="annoPin" name="annoPin" class="form-control" required>
-                    <option th:selected="${announcement?.annoPin == 'YES'}" value="YES">YES</option>
-                    <option th:selected="${announcement?.annoPin == 'NO'}" value="NO">NO</option>
+                <label for="companyStatus">업체 상태:</label>
+                <select id="companyStatus" name="companyStatus" class="form-control" required>
+                    <option th:selected="${company?.companyStatus == '운영중'}" value="운영중">운영중</option>
+                    <option th:selected="${company?.companyStatus == '폐업'}" value="폐업">폐업</option>
                 </select>
             </div>
 
             <div class="form-group">
-                <label for="annoStatus">공지사항 상태:</label>
-                <select id="annoStatus" name="annoStatus" class="form-control" required>
-                    <option th:selected="${announcement?.annoStatus == 'ACTIVE'}" value="ACTIVE">ACTIVE</option>
-                    <option th:selected="${announcement?.annoStatus == 'INACTIVE'}" value="INACTIVE">INACTIVE</option>
+                <label for="companyName">업체 이름:</label>
+                <input type="text" id="companyName" name="companyName" th:value="${company?.companyName}" class="form-control" required />
+            </div>
+
+            <div class="form-group">
+                <label for="companyAddress">업체 주소:</label>
+                <input type="text" id="companyAddress" name="companyAddress" th:value="${company?.companyAddress}" class="form-control" required />
+            </div>
+
+            <div class="form-group">
+                <label for="companyLat">위도:</label>
+                <input type="text" id="companyLat" name="companyLat" th:value="${company?.companyLat}" class="form-control" required />
+            </div>
+
+            <div class="form-group">
+                <label for="companyHar">경도:</label>
+                <input type="text" id="companyHar" name="companyHar" th:value="${company?.companyHar}" class="form-control" required />
+            </div>
+
+            <div class="form-group">
+                <label for="companyPhoneNumber">연락처:</label>
+                <input type="text" id="companyPhoneNumber" name="companyPhoneNumber" th:value="${company?.companyPhoneNumber}" class="form-control" required />
+            </div>
+
+            <div class="form-group">
+                <label for="companyTime">운영 시간:</label>
+                <input type="text" id="companyTime" name="companyTime" th:value="${company?.companyTime}" class="form-control" required />
+            </div>
+
+            <div class="form-group">
+                <label for="companyPetPosbl">애완동물 입장 가능 여부:</label>
+                <select id="companyPetPosbl" name="companyPetPosbl" class="form-control" required>
+                    <option th:selected="${company?.companyPetPosbl == '가능'}" value="가능">가능</option>
+                    <option th:selected="${company?.companyPetPosbl == '불가능'}" value="불가능">불가능</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="companyCtprvn">시/도:</label>
+                <input type="text" id="companyCtprvn" name="companyCtprvn" th:value="${company?.companyCtprvn}" class="form-control" required />
+            </div>
+
+            <div class="form-group">
+                <label for="companySigngu">시/구/군:</label>
+                <input type="text" id="companySigngu" name="companySigngu" th:value="${company?.companySigngu}" class="form-control" required />
+            </div>
+
+            <div class="form-group">
+                <label for="companyZipNum">우편 번호:</label>
+                <input type="text" id="companyZipNum" name="companyZipNum" th:value="${company?.companyZipNum}" class="form-control" required />
+            </div>
+
+            <div class="form-group">
+                <label for="companyInfo">업체 정보:</label>
+                <textarea id="companyInfo" name="companyInfo" class="form-control" required th:text="${company?.companyInfo}"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="companyUrl">웹사이트 URL:</label>
+                <input type="text" id="companyUrl" name="companyUrl" th:value="${company?.companyUrl}" class="form-control" required />
+            </div>
+
+            <div class="form-group">
+                <label for="companyCertified">인증 여부:</label>
+                <select id="companyCertified" name="companyCertified" class="form-control" required>
+                    <option th:selected="${company?.companyCertified == '인증'}" value="인증">인증</option>
+                    <option th:selected="${company?.companyCertified == '미인증'}" value="미인증">미인증</option>
                 </select>
             </div>
 
+            <h1>시설 이미지 변경</h1>
             <div class="form-group">
-                <label for="userCode">유저 코드:</label>
-                <input type="text" id="userCode" name="userCode" th:value="${announcement?.adminUserTableStatus.userCode}" class="form-control" title="입력 불가" readonly />
-            </div>
-
-            <h1>공지사항 이미지 첨부</h1>
-            <div class="form-group">
-                <label for="image-file">이미지:</label>
+                <label for="image-file">시설 이미지:</label>
                 <input type="file" id="image-file" name="image" accept="image/*" class="form-control-file">
             </div>
-            <input type="hidden" name="_method" value="POST">
-
-            <button type="submit" class="btn btn-primary" style="background-color: #9f775e; border-color: #9f775e;">등록완료</button>
+            <button type="submit" class="btn btn-primary" style="background-color: #9f775e; border-color: #9f775e;">수정완료</button>
         </form>
     </div>
 
 
+
+
     <!-- 돌아가기 버튼 -->
     <div class="col-auto">
-        <a th:href="@{/admin/announcements}" class="btn btn-success my-3" style="background-color: #9f775e; border-color: #9f775e;">전체 시설 목록으로 돌아가기</a>
+        <a th:href="@{/admins/companystatus}" class="btn btn-success my-3" style="background-color: #9f775e; border-color: #9f775e;">전체 시설 목록으로 돌아가기</a>
     </div>
-
-    <!-- 오류 메시지가 있을 때 JavaScript를 통해 alert 표시 -->
-    <script th:if="${error}" th:inline="javascript">
-        alert([[${error}]]);
-    </script>
 
     <!-- 하단 바 -->
     <footer class="bottom-bar">
@@ -181,6 +227,7 @@
 <div th:if="${session.message}">
     <p th:text="${session.message}"></p>
 </div>
+
         </div>
     </div>
 </div>

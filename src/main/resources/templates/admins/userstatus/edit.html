@@ -54,7 +54,8 @@
         </ul>
         <!-- 프로필 이미지 및 로그아웃 팝업 -->
         <div class="profile-img-container">
-            <img th:src="@{'/images/' + ${user?.userImg}}" alt="프로필 이미지" id="profileImage">
+            <img th:src="${mypage != null && mypage.userUpdate != null && mypage.userUpdate.userImg != null} ? @{'/images/user/' + mypage.userUpdate.userImg} : @{/images/profile.jpg}" class="rounded-circle mb-4" alt="user profile image" id="profileImage">
+
             <div class="logout-popup" id="logoutPopup">
                 <a href="logout">로그아웃</a>
             </div>
@@ -105,7 +106,7 @@
                 <div class="text-center">
 
         <hr class=" border-2 opacity-50">
-        <form th:action="@{/admin/userstatus/edit/{userCode}(userCode=${userCode})}" method="post" enctype="multipart/form-data">
+        <form th:action="@{/admins/userstatus/edit/{userCode}(userCode=${userCode})}" method="post" enctype="multipart/form-data">
 
 
             <div class="form-group">
@@ -161,7 +162,7 @@
 
                     <!-- 돌아가기 버튼 -->
                     <div class="col-auto">
-                        <a th:href="@{/admin/userstatus}" class="btn btn-success my-3" style="background-color: #9f775e; border-color: #9f775e;">전체 시설 목록으로 돌아가기</a>
+                        <a th:href="@{/admins/userstatus}" class="btn btn-success my-3" style="background-color: #9f775e; border-color: #9f775e;">전체 시설 목록으로 돌아가기</a>
                     </div>
 
     </div>

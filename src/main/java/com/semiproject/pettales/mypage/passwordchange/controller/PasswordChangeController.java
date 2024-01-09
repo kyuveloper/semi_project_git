@@ -29,7 +29,7 @@ public class PasswordChangeController {
     // 비밀번호 변경 페이지로 이동
     @GetMapping("/mypage/changepass")
     public String changePassword() {
-        return "mypage/changepass";
+        return "/mypage/changepass";
     }
 
     // 비밀번호 변경 처리

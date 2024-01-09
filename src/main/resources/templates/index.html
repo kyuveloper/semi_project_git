@@ -20,9 +20,9 @@
             <a th:href="@{/}"><i class="fa-solid fa-dog"></i> PetTales</a>
         </div>
         <div class="main_menus">
-            <div class="main_menu"><a th:href="@{/}">Home</a></div>
-            <div class="main_menu"><a th:href="@{/anno/allList}">공지사항</a></div>
-            <div class="main_menu"><a th:href="@{/plan/make_plan}">계획 시작</a></div>
+                <div class="main_menu"><a th:href="@{/}">Home</a></div>
+                <div class="main_menu"><a th:href="@{/anno/allList}">공지사항</a></div>
+                <div class="main_menu"><a th:href="@{/plan/make_plan}">계획 시작</a></div>
         </div>
         <div class="main_mypage">
             <a href="#"><i class="fa-solid fa-user" style="color: #ffffff;"></i></a>
@@ -35,8 +35,9 @@
             <ul class="myPage_menus">
                 <li sec:authorize="!hasAnyAuthority('ADMIN','USER')" class="myPage_menu"><a th:href="@{/auth/login}">로그인</a></li>
                 <li sec:authorize="!hasAnyAuthority('ADMIN','USER')" class="myPage_menu"><a th:href="@{/user/signup}">회원가입</a></li>
+                <li sec:authorize="!hasAnyAuthority('ADMIN','USER')" class="myPage_menu"><a th:href="@{/user/mypage}">마이페이지</a></li>
                 <li sec:authorize="hasAnyAuthority('ADMIN','USER')" class="myPage_menu"><a th:href="@{/inquiryPage}">문의하기</a></li>
-                <li sec:authorize="hasAnyAuthority('ADMIN')" class="myPage_menu"><a th:href="@{/templates/admin22/userstatus}">관리자 페이지</a></li>
+                <li sec:authorize="hasAnyAuthority('ADMIN')" class="myPage_menu"><a th:href="@{/admins/userstatus}">관리자 페이지</a></li>
                 <li sec:authorize="hasAnyAuthority('ADMIN','USER')" class="myPage_menu"><a th:href="@{/user/mypage}">마이페이지</a></li>
                 <li sec:authorize="hasAnyAuthority('ADMIN','USER')" class="myPage_menu"><a th:href="@{/auth/logout}">로그아웃</a></li>
             </ul>

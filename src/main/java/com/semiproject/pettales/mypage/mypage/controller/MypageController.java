@@ -47,7 +47,7 @@ public class MypageController {
         mypage.setBookmarkUpdates(bookmarkUpdates);
         mypage.setPetUpdates(petUpdates);
 
-        ModelAndView mav = new ModelAndView("user/mypage");
+        ModelAndView mav = new ModelAndView("/user/mypage");
         mav.addObject("mypage", mypage);
 
         return mav;

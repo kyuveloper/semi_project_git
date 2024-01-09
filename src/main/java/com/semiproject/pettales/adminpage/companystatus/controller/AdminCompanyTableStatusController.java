@@ -20,7 +20,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.servlet.http.HttpServletRequest;
 
 @Controller
-@RequestMapping("/admin")
+@RequestMapping("/admins")
 public class AdminCompanyTableStatusController {
 
     private final AdminCompanyTableStatusService adminCompanyTableStatusService;
@@ -40,7 +40,7 @@ public class AdminCompanyTableStatusController {
         mv.addObject("totalCompanyCount", totalCompanyCount);
         mv.addObject("currentPage", page);
         mv.addObject("companiesCountOnPage", companies.size());
-        mv.setViewName("/admin/companystatus");
+        mv.setViewName("/admins/companystatus");
         return mv;
     }
 
@@ -50,7 +50,7 @@ public class AdminCompanyTableStatusController {
         CompanyTableDTO companyDto = adminCompanyTableStatusService.getCompanyInfo(companyCode);
         ModelAndView mv = new ModelAndView();
         mv.addObject("company", companyDto);
-        mv.setViewName("/admin/companystatus/edit");
+        mv.setViewName("/admins/companystatus/edit");
         return mv;
     }
 
@@ -59,7 +59,7 @@ public class AdminCompanyTableStatusController {
     public ModelAndView updateCompany(@PathVariable int companyCode, @ModelAttribute CompanyTableDTO companyDto, HttpServletRequest request) {
         ModelAndView mv = new ModelAndView();
         adminCompanyTableStatusService.updateCompanyInfo(companyCode, companyDto);
-        mv.setViewName("redirect:/admin/companystatus");
+        mv.setViewName("redirect:/admins/companystatus");
         return mv;
     }
 
@@ -69,7 +69,7 @@ public class AdminCompanyTableStatusController {
         ModelAndView mv = new ModelAndView();
         adminCompanyTableStatusService.deleteCompany(companyCode);
         redirectAttributes.addFlashAttribute("successMessage", "회사가 삭제되었습니다.");
-        mv.setViewName("redirect:/admin/companystatus");
+        mv.setViewName("redirect:/admins/companystatus");
         return mv;
     }
 
@@ -79,14 +79,14 @@ public class AdminCompanyTableStatusController {
         ModelAndView mv = new ModelAndView();
         List<CompanyTableDTO> companies = adminCompanyTableStatusService.searchCompanies(keyword);
         mv.addObject("companies", companies);
-        mv.setViewName("/admin/companystatus/search");
+        mv.setViewName("/admins/companystatus/search");
         return mv;
     }
 
     // 회사 등록 페이지를 표시하는 메소드
     @GetMapping("/companystatus/add")
     public String showAddCompanyForm() {
-        return "/admin/companystatus/add";
+        return "/admins/companystatus/add";
     }
 
     // POST 요청으로 회사 데이터를 등록하는 메소드
@@ -95,7 +95,7 @@ public class AdminCompanyTableStatusController {
         ModelAndView mv = new ModelAndView();
         adminCompanyTableStatusService.addCompany(companyDto);
         redirectAttributes.addFlashAttribute("successMessage", "새 회사가 등록되었습니다.");
-        mv.setViewName("redirect:/admin/companystatus");
+        mv.setViewName("redirect:/admins/companystatus");
         return mv;
     }
 
