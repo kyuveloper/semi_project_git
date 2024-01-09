@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="layout/default_layout">
+<th:block layout:fragment="content">
+    <script type="text/javascript" src="https://oapi.map.naver.com/openapi/v3/maps.js?ncpClientId=z00qc7owtc"></script>
+    <script src="/js/datepicker.js"></script>
+    <div class="plan_body">
+
+        <div id="map" style="width: 400px; height: 700px;">
+            <script>
+                document.addEventListener('DOMContentLoaded', initMap);
+                function getCurrentLocation() {
+                    return new Promise((resolve, reject) => {
+                        navigator.geolocation.getCurrentPosition(
+                            position => {
+                                resolve(position);
+                            },
+                            error => {
+                                reject(error);
+                            }
+                        )
+                    })
+                }
+                async function initMap() {
+                    await fetchMap();
+                }
+                async function fetchMap() {
+                    try {
+                        // 위치
+                        const position = await getCurrentLocation();
+                        let latitude = position.coords.latitude;
+                        let longitude = position.coords.longitude;
+
+                        const data = await fetch(`http://localhost:8080/api/map`) // java에서 업체 정보 받아오는 api 호출
+                            .then(result => result.json());
+                        console.log('data:: ', data)
+
+                        const areaArr = [];
+                        data.forEach(item => {
+                            areaArr.push(
+                                {
+                                    code: `${item.companyCode}`,
+                                    information: `${item.companyCode} \n ${item.companyName}`,
+                                    lat: `${item.companyLat}`,
+                                    lng: `${item.companyHar}`
+                                }
+                            )
+                        })
+
+                        let markers = []; // 마커 정보를 담는 배열
+                        let infoWindows = []; // 정보창을 담는 배열
+
+                        //지도 시작 지점
+                        var map = new naver.maps.Map('map', {
+                            center: new naver.maps.LatLng(latitude, longitude),
+                            zoom: 13,
+                            mapTypeControl: true
+                        });
+
+                        for (var i = 0; i < areaArr.length; i++) {
+                            // 지역을 담은 배열의 길이만큼 for문으로 마커와 정보창을 채워주자
+
+                            var marker = new naver.maps.Marker({
+                                map: map,
+                                title: areaArr[i].information, // 지역구 이름
+                                position: new naver.maps.LatLng(areaArr[i].lat , areaArr[i].lng) // 지역구의 위도 경도 넣기
+                            });
+
+                            /* 정보창 */
+                            var infoWindow = new naver.maps.InfoWindow({
+                                content: '<div style="width:200px;text-align:center;padding:10px;"><b>' + areaArr[i].information + '</b><br> - 펫테일 - </div>'
+                            }); // 클릭했을 때 띄워줄 정보 HTML 작성
+
+                            markers.push(marker); // 생성한 마커를 배열에 담는다.
+                            infoWindows.push(infoWindow); // 생성한 정보창을 배열에 담는다.
+                        }
+
+                        function getClickHandler(seq) {
+
+                            return function (e) {  // 마커를 클릭하는 부분
+                                var marker = markers[seq], // 클릭한 마커의 시퀀스로 찾는다.
+                                    infoWindow = infoWindows[seq]; // 클릭한 마커의 시퀀스로 찾는다
+
+                                if (infoWindow.getMap()) {
+                                    infoWindow.close();
+                                } else {
+                                    infoWindow.open(map, marker); // 표출
+                                }
+                            }
+                        }
+                        for (var i=0, ii=markers.length; i<ii; i++) {
+                            naver.maps.Event.addListener(markers[i], 'click', getClickHandler(i)); // 클릭한 마커 핸들러
+                        }
+
+                        /* (좌측상단 버튼) 내위치로 지도 이동 */
+                        var locationBtnHtml = '<a href="#" class="mapBtn"><span class="mapBtnText">내 위치로</span></a>';
+
+                        var customControl = new naver.maps.CustomControl(locationBtnHtml, {
+                            position: naver.maps.Position.TOP_LEFT
+                        });
+
+                        naver.maps.Event.once(map, 'init', function() {
+                            customControl.setMap(map);
+
+                            naver.maps.Event.addDOMListener(customControl.getElement(), 'click', function() {
+                                map.setCenter(new naver.maps.LatLng(latitude, longitude));
+                                map.setZoom(13)
+                            });
+                        });
+                    } catch (error) {
+                        console.error('Error fetching map data:', error);
+                    }
+                }
+            </script>
+        </div>
+
+        <div class="bookmark_list_div">
+            <div class="bookmark_div" th:each="bookmark : ${bookmark}">
+                <p th:text="${bookmark.companyCtprvn}"></p>
+                <p th:text="${bookmark.companyName}"></p>
+                <p th:text="${bookmark.companyClassi}"></p>
+<!--                <i class="fa-sharp fa-solid fa-trash bookDeleteBtn" ></i>-->
+                <button th:data-bookmark-id="${bookmark.bookmarkCode}">삭제</button>
+            </div>
+        </div>
+
+        <div class="date_div">
+            <p>여행 계획 추가</p>
+            <form id="planForm" onsubmit="submitPlan(event)">
+                제목:<input type="text" id="title" name="planTitle"><br>
+                시작 날:<input type="text" id="startDate" name="startDate" autocomplete='off'><br>
+                마지막 날:<input type="text" id="endDate" name="endDate" autocomplete='off'><br>
+                <button type="submit">확인</button>
+            </form>
+            <button onclick="calculateDays()">일수 계산</button>
+            <p id="result"></p>
+        </div>
+    </div>
+    <script>
+        async function submitPlan(event) {
+            event.preventDefault();
+
+            const formData = {
+                planTitle: document.getElementById('title').value,
+                startDate: document.getElementById('startDate').value,
+                endDate: document.getElementById('endDate').value
+            };
+            try {
+                const response = await fetch('/api/add_plan', {
+                    method: 'POST',
+                    body: JSON.stringify(formData),
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+
+                if (response.ok) {
+                    const result = await response.json();
+                    console.log(result);
+                    location.href = "/plan/plan_select";
+                } else {
+                    console.error('서버 오류:', response.status);
+                }
+            } catch (error) {
+                console.error('네트워크 오류:', error);
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", function() {
+            var deleteButtons = document.querySelectorAll('.bookmark_div button');
+
+            deleteButtons.forEach(function(button) {
+                button.addEventListener('click', function() {
+                    var bookmarkCode = button.getAttribute('data-bookmark-id');
+                    console.log('클릭된 버튼의 PK 값: ' + bookmarkCode);
+
+                    // 여기에서 삭제 로직을 추가하면 됩니다.
+                    // 예: deleteBookmark(bookmarkCode);
+                    deleteBookmark(bookmarkCode);
+                });
+            });
+
+            function deleteBookmark(bookmarkCode) {
+                fetch('/bookmark/delete?bookmarkCode=' + bookmarkCode, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        // 다른 필요한 헤더를 추가할 수 있습니다.
+                    }
+                })
+                    .then(response => {
+                        console.log(response); // 서버 응답을 콘솔에 출력
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok');
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        console.log('삭제 성공:', data);
+                        location.reload();
+                    })
+                    .catch(error => {
+                        console.error('삭제 실패:', error);
+                    });
+            }
+        });
+
+
+    </script>
+</th:block>

@@ -80,4 +80,5 @@
         AND
         BOOKMARK_CODE = #{bookmarkCode}
     </delete>
+
 </mapper>

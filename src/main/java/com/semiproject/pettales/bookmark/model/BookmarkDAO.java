@@ -39,4 +39,8 @@ public interface BookmarkDAO {
             @Param("userCode")int userCode,
             @Param("bookmarkCode")int bookmarkCode
     );
+
+    int countBookmarkByUserCode(
+            @Param("userCode")int userCode
+    );
 }
