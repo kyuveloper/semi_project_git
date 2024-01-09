@@ -96,6 +96,9 @@
             function updateData(page) {
                 var selectedRegion = $("#regionDropdown").val();
                 var selectedCategory = $("#categoryDropdown").val();
+                console.log(selectedRegion);
+                console.log(selectedCategory);
+                console.log(page);
 
                 // page가 undefined이면 1페이지로 설정
                 page = page || 1;
