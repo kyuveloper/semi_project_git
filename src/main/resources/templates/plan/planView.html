@@ -2,21 +2,25 @@
 <!-- thymeleaf 프라그먼트 -->
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="layout/default_layout">
 <th:block layout:fragment="content">
-    <div class="contents">
-        <label for="regionDropdown">지역 선택:</label>
-        <select id="regionDropdown" name="companyCtprvn" th:field="${defaultRegion}">
-            <option th:each="region : ${regions}" th:value="${region}" th:text="${region}"></option>
-        </select>
+    <div class="planContainer">
+        <div class="contents">
+            <div class="dropdownBox">
+                <label for="regionDropdown">지역 선택:</label>
+                <select id="regionDropdown" name="companyCtprvn" th:field="${defaultRegion}">
+                    <option th:each="region : ${regions}" th:value="${region}" th:text="${region}"></option>
+                </select>
 
-        <label for="categoryDropdown">카테고리 선택:</label>
-        <select id="categoryDropdown" name="companyClassi" th:field="${defaultCategory}">
-            <option th:each="category : ${categories}" th:value="${category}" th:text="${category}"></option>
-        </select>
-
-        <div class="com_parent_container">
-            <div id="result"></div>
-            <div id="result-container"></div>
+                <label for="categoryDropdown">카테고리 선택:</label>
+                <select id="categoryDropdown" name="companyClassi" th:field="${defaultCategory}">
+                    <option th:each="category : ${categories}" th:value="${category}" th:text="${category}"></option>
+                </select>
+            </div>
+            <div class="com_parent_container">
+                <div id="result"></div>
+                <div id="result-container"></div>
+            </div>
         </div>
+        <div id="map" style="width: 60rem; height: 80rem; margin-top: 5rem"></div>
     </div>
     <script>
         $(document).ready(function () {
@@ -35,37 +39,47 @@
             // 초기 데이터 렌더링
             function renderInitialData(data) {
                 var companies = data.company;
+                var paging = data.paging;
                 $("#result").empty();
 
                 for (var i = 0; i < companies.length; i++) {
                     var comp = companies[i];
 
-                    var div = $("<div class='com_box_list'></div>");
+                    var div = $("<div class='com_box_list'><div class='comImg' data-company-code='" + comp.companyDTO.companyCode + "'></div><div class='comText'></div></div>");
 
                     var bookmarkButton;
                     if (comp.bookmarkDTO == null || comp.bookmarkDTO == "") {
-                        bookmarkButton = $("<img src='/image/heart-regular.svg' class='insertBookmarkBtn' data-company-id='" + comp.companyDTO.companyCode + "'/>");
+                        bookmarkButton = $("<div class='bookmarkImg'><img src='/image/heart-regular.svg' class='insertBookmarkBtn' data-company-id='" + comp.companyDTO.companyCode + "'/></div>");
                     } else {
-                        bookmarkButton = $("<img src='/image/heart-solid.svg' class='insertBookmarkBtn' data-company-id='" + comp.companyDTO.companyCode + "'/>");
+                        bookmarkButton = $("<div class='bookmarkImg'><img src='/image/heart-solid.svg' class='insertBookmarkBtn' data-company-id='" + comp.companyDTO.companyCode + "'/></div>");
                     }
 
-                    // 추가된 부분: a 태그 생성 및 클릭 이벤트 핸들러 추가
-                    var anchorTag = $("<a href='#' class='companyLink' data-company-code='" + comp.companyDTO.companyCode + "'>상세 정보</a>");
-                    anchorTag.click(function (event) {
+                    // comText div에 회사 정보를 넣음
+                    var comTextDiv = $("<div class='comTextDiv'></div>");
+                    comTextDiv.append($("<p>companyName: </p>").text(comp.companyDTO.companyName));
+                    comTextDiv.append($("<p>companyClassi: </p>").text(comp.companyDTO.companyClassi));
+                    comTextDiv.append($("<p>companyCtprvn: </p>").text(comp.companyDTO.companyCtprvn));
+                    comTextDiv.append(bookmarkButton);
+
+                    // comText div를 com_box_list에 추가
+                    div.find('.comText').append(comTextDiv);
+
+                    // 추가된 부분: comImg div에 클릭 이벤트 추가
+                    div.find('.comImg').click(function (event) {
                         event.preventDefault();
                         var companyCode = $(this).data('company-code');
-                        // 여기에서 companyCode를 사용하여 새로운 페이지로 이동하거나 필요한 작업을 수행
+                        // 여기에서 companyCode를 사용하여 필요한 작업을 수행
                         window.location.href = '/plan/comDetail?companyCode=' + companyCode;
                     });
 
-
-                    div.append($("<p>companyCode: </p>").text(comp.companyDTO.companyCode));
-                    div.append($("<p>companyName: </p>").text(comp.companyDTO.companyName));
-                    div.append($("<p>companyClassi: </p>").text(comp.companyDTO.companyClassi));
-                    div.append($("<p>companyCtprvn: </p>").text(comp.companyDTO.companyCtprvn));
-
-                    div.append(bookmarkButton);
-                    div.append(anchorTag); // a 태그를 div에 추가
+                    // // 추가된 부분: a 태그 생성 및 클릭 이벤트 핸들러 추가
+                    // var anchorTag = $("<a href='#' class='companyLink' data-company-code='" + comp.companyDTO.companyCode + "'>상세 정보</a>");
+                    // anchorTag.click(function (event) {
+                    //     event.preventDefault();
+                    //     var companyCode = $(this).data('company-code');
+                    //     // 여기에서 companyCode를 사용하여 새로운 페이지로 이동하거나 필요한 작업을 수행
+                    //     window.location.href = '/plan/comDetail?companyCode=' + companyCode;
+                    // });
 
                     $("#result").append(div);
                 }
@@ -74,6 +88,8 @@
                 $("#regionDropdown, #categoryDropdown").change(function () {
                     updateData();
                 });
+
+                renderPaging(paging)
             }
 
             // 조건에 따른 데이터 업데이트
@@ -110,22 +126,32 @@
                 for (var i = 0; i < companies.length; i++) {
                     var comp = companies[i];
 
-                    var div = $("<div class='com_box_list'></div>");
+                    var div = $("<div class='com_box_list'><div class='comImg' data-company-code='" + comp.companyDTO.companyCode + "'></div><div class='comText'></div></div>");
 
                     var bookmarkButton;
                     if (comp.bookmarkDTO == null || comp.bookmarkDTO == "") {
-                        // 회사 코드
-                        bookmarkButton = $("<img src='/image/heart-regular.svg' class='insertBookmarkBtn' data-company-id='" + comp.companyDTO.companyCode + "'/>");
+                        bookmarkButton = $("<div class='bookmarkImg'><img src='/image/heart-regular.svg' class='insertBookmarkBtn' data-company-id='" + comp.companyDTO.companyCode + "'/></div>");
                     } else {
-                        bookmarkButton = $("<img src='/image/heart-solid.svg' class='insertBookmarkBtn' data-company-id='" + comp.companyDTO.companyCode + "'/>");
+                        bookmarkButton = $("<div class='bookmarkImg'><img src='/image/heart-solid.svg' class='insertBookmarkBtn' data-company-id='" + comp.companyDTO.companyCode + "'/></div>");
                     }
 
-                    div.append($("<p>companyCode: </p>").text(comp.companyDTO.companyCode));
-                    div.append($("<p>companyName: </p>").text(comp.companyDTO.companyName));
-                    div.append($("<p>companyClassi: </p>").text(comp.companyDTO.companyClassi));
-                    div.append($("<p>companyCtprvn: </p>").text(comp.companyDTO.companyCtprvn));
+                    // comText div에 회사 정보를 넣음
+                    var comTextDiv = $("<div class='comTextDiv'></div>");
+                    comTextDiv.append($("<p>companyName: </p>").text(comp.companyDTO.companyName));
+                    comTextDiv.append($("<p>companyClassi: </p>").text(comp.companyDTO.companyClassi));
+                    comTextDiv.append($("<p>companyCtprvn: </p>").text(comp.companyDTO.companyCtprvn));
+                    comTextDiv.append(bookmarkButton);
 
-                    div.append(bookmarkButton);
+                    // comText div를 com_box_list에 추가
+                    div.find('.comText').append(comTextDiv);
+
+                    // 추가된 부분: comImg div에 클릭 이벤트 추가
+                    div.find('.comImg').click(function (event) {
+                        event.preventDefault();
+                        var companyCode = $(this).data('company-code');
+                        // 여기에서 companyCode를 사용하여 필요한 작업을 수행
+                        window.location.href = '/plan/comDetail?companyCode=' + companyCode;
+                    });
 
                     $("#result").append(div);
                 }

@@ -1,0 +1,98 @@
+:root {
+    --main-color: rgb(136, 100, 78);
+}
+
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+    list-style: none;
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    font-family: 'Noto Sans KR', sans-serif;
+    line-height: normal;
+}
+
+div {
+    display: block;
+}
+
+a {
+    color: black;
+    text-decoration: none;
+}
+
+.planContainer {
+    display: flex;
+    justify-content: space-between;
+    padding: 4rem 5rem;
+}
+
+.dropdownBox {
+    margin-bottom: 3rem;
+    text-align: center;
+    font-size: 1.2rem;
+}
+
+#regionDropdown, #categoryDropdown {
+    border-radius: 0.5rem;
+}
+#regionDropdown {
+    margin-right: 3rem;
+}
+
+#result {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-gap: 2rem;
+    margin-bottom: 3rem;
+}
+
+.pagination {
+    margin: 0;
+    justify-content: center;
+}
+.page-item.active .page-link {
+    background-color: var(--main-color);
+    border-color: var(--main-color);
+    color: white;
+}
+.page-link {
+    color: var(--main-color);
+}
+
+.com_box_list {
+    width: 20rem;
+    height: 30rem;
+    border: 0.3rem solid var(--main-color);
+    border-radius: 0.5rem;
+    transition: 0.5s;
+}
+.com_box_list:hover {
+    transform: translateY(-2%);
+}
+
+.comImg {
+    height: 80%;
+    cursor: pointer;
+    background-image: url("https://images.unsplash.com/photo-1520824596941-f5f578149ec8?q=80&w=4480&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
+    background-size: cover;
+}
+
+.comTextDiv {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    font-size: 1.2rem;
+    padding: 1rem;
+    text-align: center;
+}
+.comTextDiv p {
+    margin: 0;
+}
+.bookmarkImg img {
+    font-size: 1.5rem;
+}

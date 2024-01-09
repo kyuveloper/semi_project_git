@@ -13,12 +13,12 @@ public class InquiryController {
     @Autowired
     private InquiryService inquiryService;
 
-    @GetMapping("inquiryPage")
+    @GetMapping("/inquiryPage")
     public String insert() {
-        return "inquiry/insertInquiry";
+        return "/inquiry/insertInquiry";
     }
 
-    @PostMapping("insertInquiry")
+    @PostMapping("/insertInquiry")
     public String insertInquiry(InquiryDTO inquiryDTO) {
         inquiryService.insertInquiry(inquiryDTO);
         return "redirect:/";

@@ -26,8 +26,8 @@ public class UserController {
 
     //회원가입
     @GetMapping("/signup")
-    public void signup(){
-
+    public String signup(){
+        return "/user/signup";
     }
 
     @PostMapping("/signup")
@@ -56,10 +56,10 @@ public class UserController {
         String message;
         if(result>0){
             message = "회원가입 완료";
-            mv.setViewName("auth/clearSignup");
+            mv.setViewName("/auth/clearSignup");
         }else {
             message = "회원가입 실패";
-            mv.setViewName("auth/fail");
+            mv.setViewName("/auth/fail");
         }
         System.out.println(result);
         mv.addObject("message",message);
@@ -68,8 +68,8 @@ public class UserController {
     }
 
     @GetMapping("/find-pass")
-    public void findPass(){
-
+    public String findPass(){
+        return "/user/find-pass";
     }
 
     @PostMapping("/find-pass")
@@ -82,10 +82,10 @@ public class UserController {
         String message;
         if(result > 0){
             message = "비밀번호 변경 완료";
-            mv.setViewName("auth/clearChangePass");
+            mv.setViewName("/auth/clearChangePass");
         }else {
             message = "비밀번호 변경 실패";
-            mv.setViewName("auth/failChangePass");
+            mv.setViewName("/auth/failChangePass");
         }
         System.out.println(result);
         mv.addObject("message", message);

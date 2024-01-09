@@ -26,7 +26,7 @@ public class CompanyService {
     @Autowired
     private BookmarkService bookmarkService;
 
-    private static final int PAGE_LIMIT = 9; // 한 페이지당 보여줄 회사 갯수
+    private static final int PAGE_LIMIT = 12; // 한 페이지당 보여줄 회사 갯수
 
     private static final int BLOCK_LIMIT = 10; // 하단에 보여줄 페이지 번호 갯수
 

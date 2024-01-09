@@ -15,7 +15,8 @@ import org.springframework.web.servlet.ModelAndView;
 public class AuthController {
 
     @GetMapping("/login")
-    public void login(){
+    public String login(){
+        return "/auth/login";
     }
 
     @GetMapping("/fail") // 로그인 실패시

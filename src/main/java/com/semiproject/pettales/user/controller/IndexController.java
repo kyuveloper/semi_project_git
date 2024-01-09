@@ -10,12 +10,12 @@ public class IndexController {
 
     @RequestMapping("/index")
     public String index() {
-        return "/";
+        return "/index";
     }
 
-    @GetMapping("comInfo")
+    @GetMapping("/comInfo")
     public String comInfo() {
-        return "schedule/com_info";
+        return "/schedule/com_info";
     }
 
     @GetMapping
@@ -25,13 +25,13 @@ public class IndexController {
 
     @GetMapping("/admin/page") // 관리자 페이지로 이동
     public ModelAndView admin(ModelAndView mv){ // (2023-12-24 오타 수정)
-        mv.setViewName("admin/admin");
+        mv.setViewName("/admins/userstatus");
         return mv;
     }
 
     @GetMapping("/user/page") // 사용자 페이지로 이동
     public ModelAndView user(ModelAndView mv){
-        mv.setViewName("/user/user");
+        mv.setViewName("/user/mypage");
         return mv;
     }
 

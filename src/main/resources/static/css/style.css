@@ -170,7 +170,7 @@ a {
 .slider_container {
     width: 90rem;
     height: 45rem;
-    margin: 2rem auto;
+    margin: 3rem auto;
     border-radius: 2rem;
     position: relative;
     overflow: hidden;
@@ -256,3 +256,30 @@ a {
     display: none;
 }
 
+.line {
+    width: 95%;
+    height: 0;
+    margin: 2rem auto 3rem auto;
+    border: none;
+    border-top: 0.3rem solid var(--main-color);
+    opacity: 0.5;
+}
+
+.subContents {
+    max-width: 100rem;
+    margin: 0 auto 3rem;
+    display: flex;
+    justify-content: space-between;
+}
+.subConBox {
+    background-color: rgb(200, 190, 170);
+    width: 25rem;
+    height: 35rem;
+    border-radius: 0.5rem;
+    transition: 0.5s;
+    box-shadow: 7px 7px 20px 1px darkgrey;
+}
+
+.subConBox:hover {
+    transform: translateY(-2%);
+}
