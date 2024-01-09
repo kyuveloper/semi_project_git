@@ -30,7 +30,7 @@ public class NodeController {
 
     @GetMapping("/admin/anno")
     public String anno() {
-        return "announcement/announcement";
+        return "annoList";
     }
 
     @GetMapping("/insertAnno")

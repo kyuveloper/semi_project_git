@@ -4,7 +4,7 @@
 
 .inquiryContainer {
     width: 40rem;
-    height: 30rem;
+    height: 35rem;
     margin: 5rem auto 5rem;
     border-radius: 2rem;
     background-color: var(--main-color);
@@ -14,7 +14,8 @@
 }
 
 .inquiryText {
-    padding: 3rem 0 1.5rem 4rem;
+    padding: 3rem 1.5rem 2rem 1.5rem;
+    text-align: center;
 }
 .inquiryText h2 {
     margin-bottom: 1rem;
@@ -22,12 +23,29 @@
 
 .inquiryContents {
     text-align: center;
+    margin: 0 4rem;
 }
 
 .titleBox, .categoryBox {
     resize: none;
     border-radius: 0.3rem;
-    padding: 1rem 0 0 1.3rem;
+    padding: 1rem 1rem 0 1.3rem;
+}
+
+.boxFlex {
+    display: flex;
+}
+.titleBox {
+    flex: 4;
+    width: 100%;
+}
+.categoryBox {
+    flex: 1;
+    width: 100%;
+}
+
+.textBox {
+    width: 100%;
 }
 
 .textBox {
@@ -38,7 +56,7 @@
 
 .submitBtn {
     position: absolute;
-    bottom: 3.5%;
+    bottom: 2%;
     left: 50%;
     transform: translate(-50%, -50%);
 }

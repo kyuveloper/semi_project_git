@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns="">
 <th:block th:fragment="headerFragment">
   <head>
     <meta charset="UTF-8">
@@ -11,23 +11,31 @@
     <!-- 부트스트랩 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
-    <!-- 메인 css -->
+    <script type="text/javascript" src="https://oapi.map.naver.com/openapi/v3/maps.js?ncpClientId=z00qc7owtc"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+
+    <!-- css -->
     <link rel="stylesheet" th:href="@{/css/style.css}"/>
     <!-- 메인 js-->
     <script defer th:src="@{/js/main.js}"></script>
+    <link rel="stylesheet" th:href="@{/css/planMap.css}"/>
+<!--    <link rel="stylesheet" th:href="@{/css/plan.css}"/>-->
+    <!-- js-->
+    <script defer th:src="@{/js/main.js}"></script>
+    <script defer th:src="@{/js/map.js}"></script>
 
     <!-- plan css -->
     <link rel="stylesheet" th:href="@{/css/comInfo.css}" />
     <!-- plan js -->
 
 
-    <script defer src="/js/comInfo.js"></script>
+<!--    <script defer src="/js/comInfo.js"></script>-->
 
-    <!-- 유저 css-->
-    <link rel="stylesheet" href="/css/user.css">
+<!--    &lt;!&ndash; 유저 css&ndash;&gt;-->
+<!--    <link rel="stylesheet" href="/css/user.css">-->
 
-    <!-- 계획표 페이지 -->
-    <link rel="stylesheet" href="/css/plan.css">
+<!--    &lt;!&ndash; 계획표 페이지 &ndash;&gt;-->
+<!--    <link rel="stylesheet" href="/css/plan.css">-->
 
     <!-- jQuery -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
@@ -38,6 +46,7 @@
     <script defer src="/js/main.js"></script>
 
     <title>Semi Project Main Page</title>
+    <title>PetTales</title>
   </head>
 
   <header id="header_bar">
@@ -47,9 +56,8 @@
       </div>
       <div class="main_menus">
         <div class="main_menu"><a th:href="@{/}">Home</a></div>
-        <div class="main_menu"><a th:href="@{/comInfo}">Start</a></div>
-        <div class="main_menu"><a th:href="@{/plan/make_plan}">Support</a></div>
-        <div class="main_menu"><a href="#">Contact Us</a></div>
+        <div class="main_menu"><a th:href="@{/anno/allList}">공지사항</a></div>
+        <div class="main_menu"><a th:href="@{/plan/make_plan}">계획 시작</a></div>
       </div>
       <div class="main_mypage">
         <a href="#"><i class="fa-solid fa-user" style="color: #ffffff;"></i></a>

@@ -7,5 +7,5 @@ import org.apache.ibatis.annotations.Mapper;
 public interface InquiryDAO {
     int insertInquiry(InquiryDTO inquiryDTO);
 
-    int updateInqAns(InquiryDTO inquiryDTO);
+//    int updateInqAns(InquiryDTO inquiryDTO);
 }

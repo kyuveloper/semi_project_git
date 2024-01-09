@@ -1,221 +1,219 @@
 package com.semiproject.pettales.adminpage.model.dto;
 
-import java.sql.Date;
 
+import java.util.Date;
 public class CompanyTableDTO {
 
-    private int companyCode;
-    private String companyClassi;
-    private String companyStatus;
-    private String companyName;
-    private String companyAddress;
-    private String companyLat;
-    private String companyHar;
-    private String companyPhoneNumber;
-    private String companyTime;
-    private Date registDate;
-    private Date updateDate;
-    private String companyPetPosbl;
-    private String companyCtprvn;
-    private String companySigngu;
-    private String companyZipNum;
-    private String companyInfo;
-    private String companyUrl;
-    private String companyCertified;
+        private int companyCode;
+        private String companyClassi;
+        private String companyStatus;
+        private String companyName;
+        private String companyAddress;
+        private String companyLat;
+        private String companyHar;
+        private String companyPhoneNumber;
+        private String companyTime;
+        private Date registDate;
+        private Date updateDate;
+        private String companyPetPosbl;
+        private String companyCtprvn;
+        private String companySigngu;
+        private String companyZipNum;
+        private String companyInfo;
+        private String companyUrl;
+        private String companyCertified;
 
-    public CompanyTableDTO() {
-    }
+        public CompanyTableDTO() {
+        }
 
-    public int getCompanyCode() {
-        return companyCode;
-    }
+        public CompanyTableDTO(int companyCode, String companyClassi, String companyStatus, String companyName, String companyAddress, String companyLat, String companyHar, String companyPhoneNumber, String companyTime, Date registDate, Date updateDate, String companyPetPosbl, String companyCtprvn, String companySigngu, String companyZipNum, String companyInfo, String companyUrl, String companyCertified) {
+                this.companyCode = companyCode;
+                this.companyClassi = companyClassi;
+                this.companyStatus = companyStatus;
+                this.companyName = companyName;
+                this.companyAddress = companyAddress;
+                this.companyLat = companyLat;
+                this.companyHar = companyHar;
+                this.companyPhoneNumber = companyPhoneNumber;
+                this.companyTime = companyTime;
+                this.registDate = registDate;
+                this.updateDate = updateDate;
+                this.companyPetPosbl = companyPetPosbl;
+                this.companyCtprvn = companyCtprvn;
+                this.companySigngu = companySigngu;
+                this.companyZipNum = companyZipNum;
+                this.companyInfo = companyInfo;
+                this.companyUrl = companyUrl;
+                this.companyCertified = companyCertified;
+        }
 
-    public void setCompanyCode(int companyCode) {
-        this.companyCode = companyCode;
-    }
+        public int getCompanyCode() {
+                return companyCode;
+        }
 
-    public String getCompanyClassi() {
-        return companyClassi;
-    }
+        public void setCompanyCode(int companyCode) {
+                this.companyCode = companyCode;
+        }
 
-    public void setCompanyClassi(String companyClassi) {
-        this.companyClassi = companyClassi;
-    }
+        public String getCompanyClassi() {
+                return companyClassi;
+        }
 
-    public String getCompanyStatus() {
-        return companyStatus;
-    }
+        public void setCompanyClassi(String companyClassi) {
+                this.companyClassi = companyClassi;
+        }
 
-    public void setCompanyStatus(String companyStatus) {
-        this.companyStatus = companyStatus;
-    }
+        public String getCompanyStatus() {
+                return companyStatus;
+        }
 
-    public String getCompanyName() {
-        return companyName;
-    }
+        public void setCompanyStatus(String companyStatus) {
+                this.companyStatus = companyStatus;
+        }
 
-    public void setCompanyName(String companyName) {
-        this.companyName = companyName;
-    }
+        public String getCompanyName() {
+                return companyName;
+        }
 
-    public String getCompanyAddress() {
-        return companyAddress;
-    }
+        public void setCompanyName(String companyName) {
+                this.companyName = companyName;
+        }
 
-    public void setCompanyAddress(String companyAddress) {
-        this.companyAddress = companyAddress;
-    }
+        public String getCompanyAddress() {
+                return companyAddress;
+        }
 
-    public String getCompanyLat() {
-        return companyLat;
-    }
+        public void setCompanyAddress(String companyAddress) {
+                this.companyAddress = companyAddress;
+        }
 
-    public void setCompanyLat(String companyLat) {
-        this.companyLat = companyLat;
-    }
+        public String getCompanyLat() {
+                return companyLat;
+        }
 
-    public String getCompanyHar() {
-        return companyHar;
-    }
+        public void setCompanyLat(String companyLat) {
+                this.companyLat = companyLat;
+        }
 
-    public void setCompanyHar(String companyHar) {
-        this.companyHar = companyHar;
-    }
+        public String getCompanyHar() {
+                return companyHar;
+        }
 
-    public String getCompanyPhoneNumber() {
-        return companyPhoneNumber;
-    }
+        public void setCompanyHar(String companyHar) {
+                this.companyHar = companyHar;
+        }
 
-    public void setCompanyPhoneNumber(String companyPhoneNumber) {
-        this.companyPhoneNumber = companyPhoneNumber;
-    }
+        public String getCompanyPhoneNumber() {
+                return companyPhoneNumber;
+        }
 
-    public String getCompanyTime() {
-        return companyTime;
-    }
+        public void setCompanyPhoneNumber(String companyPhoneNumber) {
+                this.companyPhoneNumber = companyPhoneNumber;
+        }
 
-    public void setCompanyTime(String companyTime) {
-        this.companyTime = companyTime;
-    }
+        public String getCompanyTime() {
+                return companyTime;
+        }
 
-    public Date getRegistDate() {
-        return registDate;
-    }
+        public void setCompanyTime(String companyTime) {
+                this.companyTime = companyTime;
+        }
 
-    public void setRegistDate(Date registDate) {
-        this.registDate = registDate;
-    }
+        public Date getRegistDate() {
+                return registDate;
+        }
 
-    public Date getUpdateDate() {
-        return updateDate;
-    }
+        public void setRegistDate(Date registDate) {
+                this.registDate = registDate;
+        }
 
-    public void setUpdateDate(Date updateDate) {
-        this.updateDate = updateDate;
-    }
+        public Date getUpdateDate() {
+                return updateDate;
+        }
 
-    public String getCompanyPetPosbl() {
-        return companyPetPosbl;
-    }
+        public void setUpdateDate(Date updateDate) {
+                this.updateDate = updateDate;
+        }
 
-    public void setCompanyPetPosbl(String companyPetPosbl) {
-        this.companyPetPosbl = companyPetPosbl;
-    }
+        public String getCompanyPetPosbl() {
+                return companyPetPosbl;
+        }
 
-    public String getCompanyCtprvn() {
-        return companyCtprvn;
-    }
+        public void setCompanyPetPosbl(String companyPetPosbl) {
+                this.companyPetPosbl = companyPetPosbl;
+        }
 
-    public void setCompanyCtprvn(String companyCtprvn) {
-        this.companyCtprvn = companyCtprvn;
-    }
+        public String getCompanyCtprvn() {
+                return companyCtprvn;
+        }
 
-    public String getCompanySigngu() {
-        return companySigngu;
-    }
+        public void setCompanyCtprvn(String companyCtprvn) {
+                this.companyCtprvn = companyCtprvn;
+        }
 
-    public void setCompanySigngu(String companySigngu) {
-        this.companySigngu = companySigngu;
-    }
+        public String getCompanySigngu() {
+                return companySigngu;
+        }
 
-    public String getCompanyZipNum() {
-        return companyZipNum;
-    }
+        public void setCompanySigngu(String companySigngu) {
+                this.companySigngu = companySigngu;
+        }
 
-    public void setCompanyZipNum(String companyZipNum) {
-        this.companyZipNum = companyZipNum;
-    }
+        public String getCompanyZipNum() {
+                return companyZipNum;
+        }
 
-    public String getCompanyInfo() {
-        return companyInfo;
-    }
+        public void setCompanyZipNum(String companyZipNum) {
+                this.companyZipNum = companyZipNum;
+        }
 
-    public void setCompanyInfo(String companyInfo) {
-        this.companyInfo = companyInfo;
-    }
+        public String getCompanyInfo() {
+                return companyInfo;
+        }
 
-    public String getCompanyUrl() {
-        return companyUrl;
-    }
+        public void setCompanyInfo(String companyInfo) {
+                this.companyInfo = companyInfo;
+        }
 
-    public void setCompanyUrl(String companyUrl) {
-        this.companyUrl = companyUrl;
-    }
+        public String getCompanyUrl() {
+                return companyUrl;
+        }
 
-    public String getCompanyCertified() {
-        return companyCertified;
-    }
+        public void setCompanyUrl(String companyUrl) {
+                this.companyUrl = companyUrl;
+        }
 
-    public void setCompanyCertified(String companyCertified) {
-        this.companyCertified = companyCertified;
-    }
+        public String getCompanyCertified() {
+                return companyCertified;
+        }
 
-    @Override
-    public String toString() {
-        return "CompanyTableDTO{" +
-                "companyCode=" + companyCode +
-                ", companyClassi='" + companyClassi + '\'' +
-                ", companyStatus='" + companyStatus + '\'' +
-                ", companyName='" + companyName + '\'' +
-                ", companyAddress='" + companyAddress + '\'' +
-                ", companyLat='" + companyLat + '\'' +
-                ", companyHar='" + companyHar + '\'' +
-                ", companyPhoneNumber='" + companyPhoneNumber + '\'' +
-                ", companyTime='" + companyTime + '\'' +
-                ", registDate=" + registDate +
-                ", updateDate=" + updateDate +
-                ", companyPetPosbl='" + companyPetPosbl + '\'' +
-                ", companyCtprvn='" + companyCtprvn + '\'' +
-                ", companySigngu='" + companySigngu + '\'' +
-                ", companyZipNum='" + companyZipNum + '\'' +
-                ", companyInfo='" + companyInfo + '\'' +
-                ", companyUrl='" + companyUrl + '\'' +
-                ", companyCertified='" + companyCertified + '\'' +
-                '}';
-    }
+        public void setCompanyCertified(String companyCertified) {
+                this.companyCertified = companyCertified;
+        }
 
-    public CompanyTableDTO(int companyCode, String companyClassi, String companyStatus, String companyName, String companyAddress, String companyLat, String companyHar, String companyPhoneNumber, String companyTime, Date registDate, Date updateDate, String companyPetPosbl, String companyCtprvn, String companySigngu, String companyZipNum, String companyInfo, String companyUrl, String companyCertified) {
-        this.companyCode = companyCode;
-        this.companyClassi = companyClassi;
-        this.companyStatus = companyStatus;
-        this.companyName = companyName;
-        this.companyAddress = companyAddress;
-        this.companyLat = companyLat;
-        this.companyHar = companyHar;
-        this.companyPhoneNumber = companyPhoneNumber;
-        this.companyTime = companyTime;
-        this.registDate = registDate;
-        this.updateDate = updateDate;
-        this.companyPetPosbl = companyPetPosbl;
-        this.companyCtprvn = companyCtprvn;
-        this.companySigngu = companySigngu;
-        this.companyZipNum = companyZipNum;
-        this.companyInfo = companyInfo;
-        this.companyUrl = companyUrl;
-        this.companyCertified = companyCertified;
-
-
-
-
-    }
+        @Override
+        public String toString() {
+                return "CompanyTableDTO{" +
+                        "companyCode=" + companyCode +
+                        ", companyClassi='" + companyClassi + '\'' +
+                        ", companyStatus='" + companyStatus + '\'' +
+                        ", companyName='" + companyName + '\'' +
+                        ", companyAddress='" + companyAddress + '\'' +
+                        ", companyLat='" + companyLat + '\'' +
+                        ", companyHar='" + companyHar + '\'' +
+                        ", companyPhoneNumber='" + companyPhoneNumber + '\'' +
+                        ", companyTime='" + companyTime + '\'' +
+                        ", registDate=" + registDate +
+                        ", updateDate=" + updateDate +
+                        ", companyPetPosbl='" + companyPetPosbl + '\'' +
+                        ", companyCtprvn='" + companyCtprvn + '\'' +
+                        ", companySigngu='" + companySigngu + '\'' +
+                        ", companyZipNum='" + companyZipNum + '\'' +
+                        ", companyInfo='" + companyInfo + '\'' +
+                        ", companyUrl='" + companyUrl + '\'' +
+                        ", companyCertified='" + companyCertified + '\'' +
+                        '}';
+        }
 }
+
+

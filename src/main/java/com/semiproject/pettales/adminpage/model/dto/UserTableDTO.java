@@ -14,11 +14,20 @@ public class UserTableDTO {
     private String companyCodeList;
     private Date registDate;
     private Date updateDate;
+    private String userImg; // 사용자의 프로필 이미지 경로
 
-    public UserTableDTO() {
+    // 기존의 메소드들...
+
+
+    public String getUserImg() {
+        return this.userImg;
     }
 
-    public UserTableDTO(int userCode, String userNickname, String userEmail, String userPassword, String userStatus, String userAuth, String petCodeList, String companyCodeList, Date registDate, Date updateDate) {
+    public void setUserImg(String userImg) {
+        this.userImg = userImg;
+    }
+
+    public UserTableDTO(int userCode, String userNickname, String userEmail, String userPassword, String userStatus, String userAuth, String petCodeList, String companyCodeList, Date registDate, Date updateDate, String userImg) {
         this.userCode = userCode;
         this.userNickname = userNickname;
         this.userEmail = userEmail;
@@ -29,6 +38,10 @@ public class UserTableDTO {
         this.companyCodeList = companyCodeList;
         this.registDate = registDate;
         this.updateDate = updateDate;
+        this.userImg = userImg;
+    }
+
+    public UserTableDTO() {
     }
 
     public int getUserCode() {
@@ -124,6 +137,7 @@ public class UserTableDTO {
                 ", companyCodeList='" + companyCodeList + '\'' +
                 ", registDate=" + registDate +
                 ", updateDate=" + updateDate +
+                ", userImg='" + userImg + '\'' +
                 '}';
     }
 }
