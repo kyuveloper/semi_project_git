@@ -40,4 +40,6 @@ public interface PlanDAO {
             @Param("userCode")int userCode
     );
 
+    PlanDTO selectRegionByPlan(int planDetailCode);
+
 }

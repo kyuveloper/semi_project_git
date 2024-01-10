@@ -154,6 +154,15 @@
         )
     </insert>
 
+    <select id="selectRegionByPlan" resultMap="planDetailResult">
+        SELECT
+        PT.PLAN_REGION
+        FROM PLAN_TABLE AS PT
+        JOIN PLAN_DETAIL_TABLE AS PDT
+        ON PT.PLAN_CODE = PDT.PLAN_CODE
+        WHERE PDT.PLAN_DETAIL_CODE = #{planDetailCode}
+    </select>
+
     <select id="selectPlanBookmark" resultMap="planDetailResult">
         SELECT
             PDT.TRAVEL_DATE,

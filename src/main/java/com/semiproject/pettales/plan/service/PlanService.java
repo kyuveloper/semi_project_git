@@ -58,4 +58,8 @@ public class PlanService {
         return planDAO.selectPlanBookmark(travelDate, planDetailCode, userCode);
     }
 
+    public PlanDTO selectRegionByPlan(int planDetailCode){
+        return planDAO.selectRegionByPlan(planDetailCode);
+    }
+
 }

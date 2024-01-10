@@ -143,12 +143,21 @@
     <script>
         async function submitPlan(event) {
             event.preventDefault();
+            planTitle = document.getElementById('title').value;
+            startDate = document.getElementById('startDate').value;
+            endDate = document.getElementById('endDate').value;
+            planRegion = document.getElementById('regionDropdown').value;
 
+            if (!planTitle || !startDate || !endDate || !planRegion) {
+                // 어떤 입력 필드라도 비어있으면 제출을 막고 알림을 표시
+                event.preventDefault();
+                alert('모든 입력 필드를 채워주세요.');
+            }
             const formData = {
-                planTitle: document.getElementById('title').value,
-                startDate: document.getElementById('startDate').value,
-                endDate: document.getElementById('endDate').value,
-                planRegion: document.getElementById('regionDropdown').value
+                planTitle,
+                startDate,
+                endDate,
+                planRegion
             };
             try {
                 const response = await fetch('/api/add_plan', {
