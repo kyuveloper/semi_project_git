@@ -37,6 +37,11 @@ public class BookmarkService {
         return bookmarkDAO.selectBookmarkByComCode(userCode, companyCode);
     }
 
+    // 여행지 별 북마크 출력
+    public List<BookmarkDTO> selectBookmarkByRegion(int userCode, String companyCtprvn){
+        return bookmarkDAO.selectBookmarkByRegion(userCode, companyCtprvn);
+    }
+
     // 찜 목록 토글
     public void bookmarkToggle(int companyCode, int userCode){
         // 로그인 한 사용자의 해당 시설의 찜 목록 개수

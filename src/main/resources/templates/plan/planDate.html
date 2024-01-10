@@ -128,6 +128,10 @@
             <p>여행 계획 추가</p>
             <form id="planForm" onsubmit="submitPlan(event)">
                 제목:<input type="text" id="title" name="planTitle"><br>
+                <label for="regionDropdown">지역 선택:</label>
+                <select id="regionDropdown" name="companyCtprvn">
+                    <option th:each="region : ${regions}" th:value="${region}" th:text="${region}"></option>
+                </select>
                 시작 날:<input type="text" id="startDate" name="startDate" autocomplete='off'><br>
                 마지막 날:<input type="text" id="endDate" name="endDate" autocomplete='off'><br>
                 <button type="submit">확인</button>
@@ -143,7 +147,8 @@
             const formData = {
                 planTitle: document.getElementById('title').value,
                 startDate: document.getElementById('startDate').value,
-                endDate: document.getElementById('endDate').value
+                endDate: document.getElementById('endDate').value,
+                planRegion: document.getElementById('regionDropdown').value
             };
             try {
                 const response = await fetch('/api/add_plan', {

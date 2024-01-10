@@ -65,6 +65,12 @@ public class PlanController {
         AuthDetails auth = (AuthDetails)authentication.getPrincipal();
         int userCode = auth.getLoginUserDTO().getUserCode();
 
+        List<String> regions = companyService.getAllRegion();
+        List<String> categories = companyService.getAllCategory();
+
+        model.addAttribute("regions", regions);
+        model.addAttribute("categories", categories);
+
         List<BookmarkDTO> userBookmarkList = bookmarkService.selectBookmarkByUserCode(userCode);
         model.addAttribute("bookmark", userBookmarkList);
         return "plan/planDate";
@@ -89,12 +95,13 @@ public class PlanController {
         AuthDetails auth = (AuthDetails)authentication.getPrincipal();
         int userCode = auth.getLoginUserDTO().getUserCode();
 
-        List<BookmarkDTO> userBookmarkList = bookmarkService.selectBookmarkByUserCode(userCode);
         // 서비스를 통해 시작일과 종료일을 가져온다. (planService에서 해당 메서드를 정의해야 함)
         LocalDate startDate = planService.getStartDateByPlanCodeAndUserCode(planCode, userCode);
         LocalDate endDate = planService.getEndDateByPlanCodeAndUserCode(planCode, userCode);
 
         PlanDTO planInfo = planService.selectPlanByPlanCode(planCode, userCode);
+
+        List<BookmarkDTO> userBookmarkList = bookmarkService.selectBookmarkByRegion(userCode, planInfo.getPlanRegion());
 
         model.addAttribute("bookmark", userBookmarkList);
         model.addAttribute("planInfo", planInfo);

@@ -3,6 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.semiproject.pettales.plan.dao.PlanDAO">
+
     <resultMap id="planResult" type="com.semiproject.pettales.plan.dto.PlanDTO">
         <id property="planCode" column="PLAN_CODE" />
         <result property="userCode" column="USER_CODE"/>
@@ -10,6 +11,7 @@
         <result property="endDate" column="END_DATE"/>
         <result property="planTitle" column="PLAN_TITLE"/>
         <result property="planStatus" column="PLAN_STATUS"/>
+        <result property="planRegion" column="PLAN_REGION" />
     </resultMap>
 
     <resultMap id="planDetailResult" type="com.semiproject.pettales.plan.dto.DetailPlanDTO">
@@ -64,7 +66,8 @@
             PLAN_TITLE,
             START_DATE,
             END_DATE,
-            PLAN_STATUS
+            PLAN_STATUS,
+            PLAN_REGION
         )
         VALUES
         (
@@ -73,7 +76,8 @@
             #{planTitle},
             #{startDate},
             #{endDate},
-            'Y'
+            'Y',
+            #{planRegion}
         )
     </insert>
 
@@ -83,6 +87,8 @@
         FROM PLAN_TABLE
         WHERE
         USER_CODE = #{userCode}
+        AND
+        PLAN_STATUS = 'Y'
     </select>
 
     <select id="selectPlanByPlanCode" resultMap="planResult">

@@ -1,5 +1,6 @@
 package com.semiproject.pettales.plan.service;
 
+import com.semiproject.pettales.bookmark.dto.BookmarkDTO;
 import com.semiproject.pettales.plan.dao.PlanDAO;
 import com.semiproject.pettales.plan.dto.BookmarkMappingDTO;
 import com.semiproject.pettales.plan.dto.DetailPlanDTO;
@@ -56,4 +57,5 @@ public class PlanService {
     public DetailPlanDTO selectPlanBookmark(Date travelDate, int planDetailCode, int userCode){
         return planDAO.selectPlanBookmark(travelDate, planDetailCode, userCode);
     }
+
 }

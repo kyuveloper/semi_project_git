@@ -8,7 +8,8 @@
         시작일:<p th:text="${#dates.format(plans.startDate, 'yyyy-MM-dd')}"></p>
         ~
         종료일:<p th:text="${#dates.format(plans.endDate, 'yyyy-MM-dd')}"></p>
-        <a th:href="@{/plan/plan_detail(planCode=${plans.planCode})}">이동</a>
+        여행 지역:<p th:text="${plans.planRegion}"></p>
+        <a th:href="@{/plan/plan_detail(planCode=${plans.planCode}, planRegion=${plans.planRegion})}">이동</a>
         <hr>
     </div>
     </div>

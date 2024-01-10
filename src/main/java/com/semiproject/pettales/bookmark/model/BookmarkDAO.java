@@ -43,4 +43,9 @@ public interface BookmarkDAO {
     int countBookmarkByUserCode(
             @Param("userCode")int userCode
     );
+    // 여행지 별 북마크 출력
+    List<BookmarkDTO> selectBookmarkByRegion(
+            @Param("userCode")int userCode,
+            @Param("companyCtprvn")String companyCtprvn
+    );
 }

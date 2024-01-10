@@ -9,17 +9,19 @@ public class PlanDTO {
     private Date endDate;
     private char planStatus;
     private String planTitle;
+    private String planRegion;
 
     public PlanDTO() {
     }
 
-    public PlanDTO(int planCode, int userCode, Date startDate, Date endDate, char planStatus, String planTitle) {
+    public PlanDTO(int planCode, int userCode, Date startDate, Date endDate, char planStatus, String planTitle, String planRegion) {
         this.planCode = planCode;
         this.userCode = userCode;
         this.startDate = startDate;
         this.endDate = endDate;
         this.planStatus = planStatus;
         this.planTitle = planTitle;
+        this.planRegion = planRegion;
     }
 
     public int getPlanCode() {
@@ -70,6 +72,14 @@ public class PlanDTO {
         this.planTitle = planTitle;
     }
 
+    public String getPlanRegion() {
+        return planRegion;
+    }
+
+    public void setPlanRegion(String planRegion) {
+        this.planRegion = planRegion;
+    }
+
     @Override
     public String toString() {
         return "PlanDTO{" +
@@ -79,6 +89,7 @@ public class PlanDTO {
                 ", endDate=" + endDate +
                 ", planStatus=" + planStatus +
                 ", planTitle='" + planTitle + '\'' +
+                ", planRegion='" + planRegion + '\'' +
                 '}';
     }
 }
