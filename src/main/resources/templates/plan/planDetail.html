@@ -21,7 +21,8 @@
             <div th:each="day : ${#numbers.sequence(0, T(java.time.temporal.ChronoUnit).DAYS.between(startDate, endDate) )}">
                 <th:block th:with="currentDate=${startDate.plusDays(day)}">
                     <!-- 수정된 부분: 클래스 추가, data-date 속성 추가 -->
-                    <p class="clickable-date" style="cursor: pointer;" th:text="${#temporals.format(currentDate, 'yyyy-MM-dd')}" th:data-date="${#temporals.format(currentDate, 'yyyy-MM-dd')}"></p>
+                    <p class="clickable-date" style="cursor: pointer;" th:text="${#temporals.format(currentDate, 'yyyy-MM-dd')}"
+                       th:data-date="${#temporals.format(currentDate, 'yyyy-MM-dd')}"></p>
                 </th:block>
             </div>
         </div>
@@ -74,6 +75,11 @@
                     if (result.planDetailCode !== undefined) {
                         console.log('성공');
                         var planDetailCode = result.planDetailCode;
+
+                        // 여기에서 planDetailCode를 사용하여 다음 동작을 수행
+                        console.log('받아온 planDetailCode:', planDetailCode);
+
+                        // 예: 다른 동작 수행 또는 페이지 이동
                         location.href = '/plan/plan_detail_date?travelDate=' + travelDate + '&planDetailCode=' + planDetailCode;
                     } else {
                         console.log('실패: 서버 응답에 planDetailCode가 정의되지 않았습니다.');
@@ -199,42 +205,39 @@
                 <p th:text="${bookmark.companyCtprvn}"></p>
                 <p th:text="${bookmark.companyName}"></p>
                 <p th:text="${bookmark.companyClassi}"></p>
-                <button class="addBookmarkButton" th:data-bookmark-id="${bookmark.bookmarkCode}">추가</button>
+                <button class="delBookmarkButton" th:data-bookmark-id="${bookmark.bookmarkCode}">삭제</button>
             </div>
         </div>
 
         <script>
-                document.addEventListener('DOMContentLoaded', function () {
-                var addButtonList = document.querySelectorAll('.addBookmarkButton');
+            document.addEventListener('DOMContentLoaded', function () {
+                let delBookmarkButton = document.querySelectorAll('.delBookmarkButton');
+                delBookmarkButton.forEach(function (button){
+                   button.addEventListener('click', function(event){
+                       let bookmarkCode = button.getAttribute('data-bookmark-id');
+                       console.log(bookmarkCode);
 
-                addButtonList.forEach(function (button) {
-                button.addEventListener('click', function (event) {
-                var bookmarkCode = event.target.dataset.bookmarkId;
-
-                // 서버에 데이터 전송
-                fetch('/api/insert_mapping', {
-                method: 'POST',
-                headers: {
-                'Content-Type': 'application/json',
-            },
-                body: JSON.stringify({ bookmarkCode: bookmarkCode }),
-            })
-                .then(response => response.json())
-                .then(result => {
-                // 서버로부터의 응답 처리
-                if (result < 0) {
-                console.log('실패');
-            } else {
-                console.log('성공');
-                // 성공적으로 추가된 경우에 필요한 작업 수행
-                // 예: 성공 메시지 출력, 화면 갱신 등
-            }
-            })
-                .catch(error => {
-                console.error('에러 발생:', error);
-            });
-            });
-            });
+                       fetch('/bookmark/delete?bookmarkCode=' + bookmarkCode,{
+                           method: 'POST',
+                           headers: {
+                               'Content-Type': 'application/json',
+                           },
+                       })
+                           .then(response => {
+                               if (!response.ok) {
+                                   throw new Error('Network response was not ok');
+                               }
+                               return response.json();
+                           })
+                           .then(data => {
+                               console.log('삭제 성공:', data);
+                               location.reload();
+                           })
+                           .catch(error => {
+                               console.error('삭제 실패:', error);
+                           });
+                   });
+               });
             });
         </script>
 

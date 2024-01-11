@@ -10,8 +10,45 @@
         종료일:<p th:text="${#dates.format(plans.endDate, 'yyyy-MM-dd')}"></p>
         여행 지역:<p th:text="${plans.planRegion}"></p>
         <a th:href="@{/plan/plan_detail(planCode=${plans.planCode}, planRegion=${plans.planRegion})}">이동</a>
+        <button class="planDeleteBtn" th:data-plan-id="${plans.planCode}">삭제</button>
         <hr>
     </div>
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            let planDeleteBtn = document.querySelectorAll('.planDeleteBtn');
+
+            planDeleteBtn.forEach(function (button) {
+                button.addEventListener('click', function (event) {
+                    let planCode = button.getAttribute('data-plan-id');
+                    console.log(planCode);
+
+                    // 삭제를 위한 fetch 호출
+                    fetch('/api/hide_plan?planCode=' + planCode, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            // 필요한 다른 헤더들을 추가할 수 있습니다.
+                        },
+                        // 필요한 경우에 body에 데이터를 추가할 수 있습니다.
+                    })
+                        .then(response => {
+                            if (!response.ok) {
+                                throw new Error('Network response was not ok');
+                            }
+                            return response.json();
+                        })
+                        .then(data => {
+                            console.log('삭제 성공:', data);
+                            location.reload();
+                        })
+                        .catch(error => {
+                            console.error('삭제 실패:', error);
+                        });
+                });
+            });
+        });
+    </script>
 </th:block>
 </html>

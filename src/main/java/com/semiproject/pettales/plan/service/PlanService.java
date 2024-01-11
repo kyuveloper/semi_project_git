@@ -62,4 +62,8 @@ public class PlanService {
         return planDAO.selectRegionByPlan(planDetailCode);
     }
 
+    public void hidePlanByPlanCode(int planCode, int userCode){
+        planDAO.hidePlanByPlanCode(planCode, userCode);
+    }
+
 }

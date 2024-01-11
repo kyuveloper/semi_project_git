@@ -84,7 +84,7 @@ public class PlanRestController {
     }
 
     @PostMapping("/insert_detail")
-    public int insertDetailPlan(@RequestBody DetailPlanDTO detailPlanDTO){
+    public ResponseEntity<Map<String, Object>> insertDetailPlan(@RequestBody DetailPlanDTO detailPlanDTO) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         AuthDetails auth = (AuthDetails) authentication.getPrincipal();
         int userCode = auth.getLoginUserDTO().getUserCode();
@@ -95,12 +95,18 @@ public class PlanRestController {
         System.out.println("Received date: " + detailPlanDTO.getTravelDate());
         System.out.println("Received planCode: " + detailPlanDTO.getPlanCode());
 
-        if(result < 0){
+        Map<String, Object> response = new HashMap<>();
+        if (result < 0) {
             System.out.println("실패");
-        }else{
+            response.put("result", "failure");
+        } else {
             System.out.println("성공");
+            response.put("result", "success");
+            response.put("planDetailCode", detailPlanDTO.getPlanDetailCode()); // 이 부분을 추가
         }
-        return result;
+        System.out.println(detailPlanDTO.getPlanDetailCode());
+
+        return ResponseEntity.ok(response);
     }
 
     @PostMapping("/insert_mapping")
@@ -116,6 +122,27 @@ public class PlanRestController {
             System.out.println("실패");
         }else{
             System.out.println("성공");
+        }
+        return result;
+    }
+
+    @PostMapping("/hide_plan")
+    public Map<String, Object> hidePlan(
+            @RequestParam("planCode")int planCode){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        AuthDetails auth = (AuthDetails) authentication.getPrincipal();
+        Integer userCode = auth.getLoginUserDTO().getUserCode();
+
+        planService.hidePlanByPlanCode(planCode, userCode);
+        Map<String, Object> result = new HashMap<>();
+
+        if (userCode == null) {
+            result.put("code", "0");
+            result.put("result", "error");
+            result.put("errorMessage", "유저 정보를 찾을 수 없습니다.");
+        } else {
+            result.put("code", "1");
+            result.put("result", "성공");
         }
         return result;
     }

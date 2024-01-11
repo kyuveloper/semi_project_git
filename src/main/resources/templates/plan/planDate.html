@@ -131,11 +131,12 @@
                 <label for="regionDropdown">지역 선택:</label>
                 <select id="regionDropdown" name="companyCtprvn">
                     <option th:each="region : ${regions}" th:value="${region}" th:text="${region}"></option>
-                </select>
+                </select><br>
                 시작 날:<input type="text" id="startDate" name="startDate" autocomplete='off'><br>
                 마지막 날:<input type="text" id="endDate" name="endDate" autocomplete='off'><br>
                 <button type="submit">확인</button>
             </form>
+
             <button onclick="calculateDays()">일수 계산</button>
             <p id="result"></p>
         </div>
@@ -147,6 +148,18 @@
             startDate = document.getElementById('startDate').value;
             endDate = document.getElementById('endDate').value;
             planRegion = document.getElementById('regionDropdown').value;
+
+            // 시작 날짜와 마지막 날짜를 Date 객체로 변환
+            var startDateObj = new Date(startDate);
+            var endDateObj = new Date(endDate);
+
+            // 마지막 날짜가 시작 날짜보다 이전인지 확인
+            if (endDateObj < startDateObj) {
+                // 마지막 날짜가 시작 날짜보다 이전일 경우 제출을 막고 경고 메시지 표시
+                event.preventDefault();
+                alert('마지막 날짜는 시작 날짜보다 과거일 수 없습니다.');
+                return;
+            }
 
             if (!planTitle || !startDate || !endDate || !planRegion) {
                 // 어떤 입력 필드라도 비어있으면 제출을 막고 알림을 표시

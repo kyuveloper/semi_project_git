@@ -42,4 +42,10 @@ public interface PlanDAO {
 
     PlanDTO selectRegionByPlan(int planDetailCode);
 
+    void hidePlanByPlanCode(
+            @Param("planCode")int planCode,
+            @Param("userCode")int userCode
+    );
+
+
 }

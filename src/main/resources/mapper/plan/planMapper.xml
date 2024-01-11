@@ -179,4 +179,13 @@
         and PBM.USER_CODe = #{userCode}
     </select>
 
+    <update id="hidePlanByPlanCode" parameterType="map">
+        UPDATE PLAN_TABLE
+        SET PLAN_STATUS = 'N'
+        WHERE
+        PLAN_CODE = #{planCode}
+        AND
+        USER_CODE = #{userCode}
+    </update>
+
 </mapper>
