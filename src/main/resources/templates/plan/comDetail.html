@@ -30,7 +30,9 @@
         </div>
     </nav>
 </header>
+<div id="comTitle"></div>
 <div id="infoContainer">
+
     <div class="imagesContainer">
         <div class="firstImg">
             <img th:src="@{/image/picsea-EScCHx_ZR8Y-unsplash.jpg}" alt="">
@@ -48,13 +50,20 @@
     <div class="comInfoContainer">
         <div id="comDetail"></div>
     </div>
-    <div class="reviewContainer"></div>
+    <div id="reviewContainer">
+
+        <div id="avgReview">
+            <i class="fa-solid fa-paw" style="font-size: 2rem;position: absolute;top: 50%;left: 20%;transform: translate(-50%, -50%) rotate(-45deg)"></i>
+            <div class="gradeText">평균 평점</div>
+            <i class="fa-solid fa-paw" style="font-size: 2rem;position: absolute;top: 50%;right: 10%;transform: translate(-50%, -50%) rotate(45deg)"></i>
+        </div>
+    </div>
 </div>
 
 
 <script>
     document.addEventListener('DOMContentLoaded', sendCompanyCode);
-
+    document.addEventListener('DOMContentLoaded', companyReview);
     const getCompanyCode = () => {
         return new Promise((resolve, reject) => {
             const urlParams = new URLSearchParams(window.location.search);
@@ -62,7 +71,6 @@
             code ? resolve(code) : reject("Error");
         });
     };
-
     async function sendCompanyCode() {
         try {
             const companyCode = await getCompanyCode();
@@ -73,6 +81,7 @@
             }
 
             const data = await response.json();
+            console.log(data)
             const areaArr = [];
             data.forEach(item => {
                 areaArr.push(
@@ -87,12 +96,12 @@
                 )
             })
             // 새로운 div 요소들을 생성합니다.
-            var nameDiv = document.createElement('div');
-            var addressDiv = document.createElement('div');
-            var phoneDiv = document.createElement('div');
-            var timeDiv = document.createElement('div');
-            var urlDiv = document.createElement('div');
-            var infoDiv = document.createElement('div');
+            let nameDiv = document.createElement('div');
+            let addressDiv = document.createElement('div');
+            let phoneDiv = document.createElement('div');
+            let timeDiv = document.createElement('div');
+            let urlDiv = document.createElement('div');
+            let infoDiv = document.createElement('div');
 
             // 각 div에 해당하는 정보를 설정합니다.
             nameDiv.textContent = areaArr[0].name;
@@ -100,7 +109,7 @@
             phoneDiv.textContent = '전화 번호: ' + areaArr[0].phone;
             timeDiv.textContent = '운영 시간: ' + areaArr[0].time;
             urlDiv.textContent = '사이트 주소: ' + areaArr[0].url;
-            infoDiv.textContent = '기본 정보: ' + areaArr[0].info;
+            infoDiv.textContent = areaArr[0].info;
 
             // 각 div에 클래스 이름을 추가합니다.
             nameDiv.classList.add('infoName');
@@ -110,16 +119,17 @@
             urlDiv.classList.add('infoUrl');
             infoDiv.classList.add('infoInfo');
 
+            const titleById = document.getElementById('comTitle')
+
+            titleById.appendChild(nameDiv);
+
             const dataById = document.getElementById('comDetail')
             // 각 div를 dataById에 추가합니다.
-            dataById.appendChild(nameDiv);
             dataById.appendChild(addressDiv);
             dataById.appendChild(phoneDiv);
             dataById.appendChild(timeDiv);
             dataById.appendChild(urlDiv);
             dataById.appendChild(infoDiv);
-            // console.log(areaArr)
-            // console.log(areaArr.name)
 
             // console.log(dataById)
             // dataById.innerHTML = areaArr[0].name+areaArr[0].address+areaArr[0].phone+areaArr[0].time+areaArr[0].url+areaArr[0].info
@@ -130,33 +140,82 @@
         }
     }
 
-    // async function comDetail(data) {
-    //     try {
-    //         const companyCode = await getCompanyCode();
-    //         console.log(companyCode);
-    //
-    //         const data = await fetch(`http://localhost:8080/api/comDetail`)
-    //             .then(result => result.json())
-    //         console.log('data:: ', data)
-    //
-    //         const areaArr = [];
-    //         data.forEach(item => {
-    //             areaArr.push(
-    //                 {
-    //                     name: `${item.companyName}`,
-    //                     address: `${item.companyAddress}`,
-    //                     phone: `${item.companyPhone}`,
-    //                     time: `${item.companyTime}`,
-    //                     url: `${item.companyUrl}`,
-    //                     info: `${item.companyInfo}`
-    //                 }
-    //             )
-    //         })
-    //         console.log(areaArr)
-    //     } catch (error) {
-    //         console.log('Error Getting Company Detail ', error);
-    //     }
-    // }
+    async function companyReview() {
+        try {
+            let companyCode = await getCompanyCode();
+            console.log(companyCode)
+            let response = await fetch(`http://localhost:8083/api/comReview?companyCode=${companyCode}`)
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`)
+            }
+
+            let reviewList = await response.json()
+            console.log(reviewList)
+            let reviewArr = []
+            reviewList.forEach(item => {
+                reviewArr.push(
+                    {
+                        userName: `${item.userNickname}`,
+                        grade: `${item.companyGrade}`,
+                        contents: `${item.reviewContents}`
+                    }
+                )
+            })
+            console.log(reviewArr)
+
+            let reviewContainer = document.getElementById('reviewContainer');
+            let reviewContents = document.createElement('div')
+            reviewContents.className = 'reviewContents';
+
+            let totalGrade = 0;
+
+            for (let i = 0; i < reviewArr.length; i++) {
+                let reviewDiv = document.createElement('div'); // 각 리뷰에 대한 div를 생성
+                reviewDiv.className = 'reviews'; // 리뷰 div에 클래스 이름 추가
+
+                let nicknameDiv = document.createElement('div');
+                nicknameDiv.className = 'reviewer'; // 닉네임 div에 클래스 이름 추가
+
+                let gradeDiv = document.createElement('div');
+                gradeDiv.className = 'revGrade'; // 등급 div에 클래스 이름 추가
+
+                let contentsDiv = document.createElement('div');
+                contentsDiv.className = 'revContents'; // 내용 div에 클래스 이름 추가
+
+
+
+                // 각 div에 데이터를 할당
+                nicknameDiv.textContent = reviewArr[i].userName;
+                gradeDiv.textContent = reviewArr[i].grade;
+                contentsDiv.textContent = reviewArr[i].contents;
+
+                totalGrade += parseFloat(reviewArr[i].grade);
+
+                // 리뷰 div에 각각의 div를 추가
+                reviewDiv.appendChild(nicknameDiv);
+                reviewDiv.appendChild(gradeDiv);
+                reviewDiv.appendChild(contentsDiv);
+
+                // 부모 div에 리뷰 div를 추가
+                reviewContents.appendChild(reviewDiv);
+            }
+            reviewContainer.appendChild(reviewContents)
+
+            let avgGrade = (totalGrade/(reviewArr.length)).toFixed(2);
+            console.log(avgGrade);
+            let avgGradeDiv = document.createElement('div');
+            avgGradeDiv.className = 'avgGrade'
+            avgGradeDiv.textContent = avgGrade;
+            let avgGradeBox = document.getElementById('avgReview');
+            avgGradeBox.appendChild(avgGradeDiv)
+
+
+        } catch (error) {
+            console.error('Error Getting Review List:', error);
+        }
+    }
+
+
 </script>
 <footer>
     <div id="footer">

@@ -1,7 +1,5 @@
 package com.semiproject.pettales.company.dto;
 
-import com.semiproject.pettales.review.dto.ReviewDTO;
-
 
 public class CompanyDetailDTO {
     private int companyCode;
@@ -12,18 +10,11 @@ public class CompanyDetailDTO {
     private String companyTime;
     private String companyUrl;
     private String companyInfo;
-    private String companyGrade;
-    private String reviewContents;
 
     public CompanyDetailDTO() {
     }
-    public void review(ReviewDTO reviewDTO) {
-        this.companyGrade = reviewDTO.getCompanyGrade();
-        this.reviewContents = reviewDTO.getReviewContents();
-        this.companyCode = reviewDTO.getCompanyCode();
-    }
 
-    public CompanyDetailDTO(int companyCode, String companyClassi, String companyName, String companyAddress, String companyPhone, String companyTime, String companyUrl, String companyInfo, String companyGrade, String reviewContents) {
+    public CompanyDetailDTO(int companyCode, String companyClassi, String companyName, String companyAddress, String companyPhone, String companyTime, String companyUrl, String companyInfo) {
         this.companyCode = companyCode;
         this.companyClassi = companyClassi;
         this.companyName = companyName;
@@ -32,8 +23,6 @@ public class CompanyDetailDTO {
         this.companyTime = companyTime;
         this.companyUrl = companyUrl;
         this.companyInfo = companyInfo;
-        this.companyGrade = companyGrade;
-        this.reviewContents = reviewContents;
     }
 
     public int getCompanyCode() {
@@ -100,22 +89,6 @@ public class CompanyDetailDTO {
         this.companyInfo = companyInfo;
     }
 
-    public String getCompanyGrade() {
-        return companyGrade;
-    }
-
-    public void setCompanyGrade(String companyGrade) {
-        this.companyGrade = companyGrade;
-    }
-
-    public String getReviewContents() {
-        return reviewContents;
-    }
-
-    public void setReviewContents(String reviewContents) {
-        this.reviewContents = reviewContents;
-    }
-
     @Override
     public String toString() {
         return "CompanyDetailDTO{" +
@@ -127,8 +100,6 @@ public class CompanyDetailDTO {
                 ", companyTime='" + companyTime + '\'' +
                 ", companyUrl='" + companyUrl + '\'' +
                 ", companyInfo='" + companyInfo + '\'' +
-                ", companyGrade='" + companyGrade + '\'' +
-                ", reviewContents='" + reviewContents + '\'' +
                 '}';
     }
 }

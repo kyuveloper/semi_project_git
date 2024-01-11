@@ -26,6 +26,10 @@ a {
     text-decoration: none;
 }
 
+ul {
+    padding: 0;
+}
+
 /* Header랑 footer 양식 */
 #header_bar {
     background-color: var(--main-color);
@@ -281,5 +285,5 @@ a {
 }
 
 .subConBox:hover {
-    transform: translateY(-2%);
+    transform: scale(1.05);
 }

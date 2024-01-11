@@ -1,8 +1,9 @@
-package com.semiproject.pettales.review.dto;
+package com.semiproject.pettales.plan.dto;
 
 import java.util.Date;
 
 public class ReviewDTO {
+
     private int reviewCode;
     private String companyGrade;
     private String reviewContents;
@@ -11,11 +12,12 @@ public class ReviewDTO {
     private Date updateDate;
     private int companyCode;
     private int userCode;
+    private String userNickname;
 
     public ReviewDTO() {
     }
 
-    public ReviewDTO(int reviewCode, String companyGrade, String reviewContents, String reviewStatus, Date registDate, Date updateDate, int companyCode, int userCode) {
+    public ReviewDTO(int reviewCode, String companyGrade, String reviewContents, String reviewStatus, Date registDate, Date updateDate, int companyCode, int userCode, String userNickname) {
         this.reviewCode = reviewCode;
         this.companyGrade = companyGrade;
         this.reviewContents = reviewContents;
@@ -24,6 +26,7 @@ public class ReviewDTO {
         this.updateDate = updateDate;
         this.companyCode = companyCode;
         this.userCode = userCode;
+        this.userNickname = userNickname;
     }
 
     public int getReviewCode() {
@@ -90,6 +93,14 @@ public class ReviewDTO {
         this.userCode = userCode;
     }
 
+    public String getUserNickname() {
+        return userNickname;
+    }
+
+    public void setUserNickname(String userNickname) {
+        this.userNickname = userNickname;
+    }
+
     @Override
     public String toString() {
         return "ReviewDTO{" +
@@ -101,6 +112,7 @@ public class ReviewDTO {
                 ", updateDate=" + updateDate +
                 ", companyCode=" + companyCode +
                 ", userCode=" + userCode +
+                ", userNickname='" + userNickname + '\'' +
                 '}';
     }
 }

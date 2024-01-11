@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.semiproject.pettales.plan.dao.ReviewDAO">
+    <resultMap id="reviewResult" type="com.semiproject.pettales.plan.dto.ReviewDTO">
+        <id property="reviewCode" column="REVIEW_CODE"/>
+        <result property="companyGrade" column="COMPANY_GRADE"/>
+        <result property="reviewContents" column="REVIEW_CONTENTS"/>
+        <result property="reviewStatus" column="REVIEW_STATUS"/>
+        <result property="registDate" column="REGIST_DATE"/>
+        <result property="updateDate" column="UPDATE_DATE"/>
+        <result property="companyCode" column="COMPANY_CODE"/>
+        <result property="userCode" column="USER_CODE"/>
+        <result property="userNickname" column="USER_NICKNAME"/>
+    </resultMap>
+
+    <select id="selectReviewByCompanyCode" resultMap="reviewResult">
+        SELECT
+        cr.REVIEW_CODE,
+        cr.COMPANY_GRADE,
+        cr.REVIEW_CONTENTS,
+        cr.REVIEW_STATUS,
+        cr.REGIST_DATE,
+        cr.UPDATE_DATE,
+        cr.USER_CODE,
+        ut.USER_NICKNAME
+        FROM COMPANY_REVIEW cr
+        JOIN USER_TABLE ut ON cr.USER_CODE = ut.USER_CODE
+        WHERE COMPANY_CODE=#{companyCode}
+    </select>
+</mapper>

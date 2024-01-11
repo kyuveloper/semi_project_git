@@ -32,8 +32,8 @@ spring:
         client:
           registration:
             google:
-              client-id: 872355310097-us4s0i239pm42eog5c78dc7qcg6hc00k.apps.googleusercontent.com
-              client-secret: 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
+              client-id:
+              client-secret:
               scope: email, profile
 #  thymeleaf:
 #    prefix: classpath:/templates

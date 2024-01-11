@@ -12,20 +12,18 @@
         <result property="companyTime" column="COMPANY_TIME"/>
         <result property="companyUrl" column="COMPANY_URL"/>
         <result property="companyInfo" column="COMPANY_INFO"/>
-        <result property="companyGrade" column="COMPANY_GRADE"/>
-        <result property="reviewContents" column="REVIEW_CONTENTS"/>
     </resultMap>
 
     <select id="comDetailInfo" resultMap="companyDetail">
         SELECT
-        ct.COMPANY_NAME,
-        ct.COMPANY_ADDRESS,
-        ct.COMPANY_PHONE_NUMBER,
-        ct.COMPANY_TIME,
-        ct.COMPANY_URL,
-        ct.COMPANY_INFO
-        FROM COMPANY_TABLE ct
-        WHERE ct.COMPANY_CODE=#{companyCode};
+        COMPANY_NAME,
+        COMPANY_ADDRESS,
+        COMPANY_PHONE_NUMBER,
+        COMPANY_TIME,
+        COMPANY_URL,
+        COMPANY_INFO
+        FROM COMPANY_TABLE
+        WHERE COMPANY_CODE=#{companyCode};
     </select>
 
 
