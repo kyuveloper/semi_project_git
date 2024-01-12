@@ -9,16 +9,22 @@ import com.semiproject.pettales.plan.dto.BookmarkMappingDTO;
 import com.semiproject.pettales.plan.dto.DetailPlanDTO;
 import com.semiproject.pettales.plan.dto.PlanDTO;
 import com.semiproject.pettales.plan.service.PlanService;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
+import java.util.stream.LongStream;
 
 @RestController
 @RequestMapping("/api")
@@ -66,21 +72,79 @@ public class PlanRestController {
         return result;
     }
 
+//    @PostMapping("/add_plan")
+//    public int addPlan(@RequestBody PlanDTO planDTO) {
+//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//        AuthDetails auth = (AuthDetails) authentication.getPrincipal();
+//        int userCode = auth.getLoginUserDTO().getUserCode();
+//
+//        planDTO.setUserCode(userCode);
+//        int result = planService.insertPlan(planDTO);
+//
+//        if(result < 0){
+//            System.out.println("실패");
+//        }else{
+//            System.out.println("성공");
+//        }
+//        return result;
+//    }
+
     @PostMapping("/add_plan")
-    public int addPlan(@RequestBody PlanDTO planDTO) {
+    @Transactional
+    public ResponseEntity<Map<String, Object>> addPlan(@RequestBody PlanDTO planDTO) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         AuthDetails auth = (AuthDetails) authentication.getPrincipal();
         int userCode = auth.getLoginUserDTO().getUserCode();
 
         planDTO.setUserCode(userCode);
-        int result = planService.insertPlan(planDTO);
 
-        if(result < 0){
-            System.out.println("실패");
-        }else{
-            System.out.println("성공");
+        // PLAN_TABLE에 데이터 삽입
+        int planResult = planService.insertPlan(planDTO);
+
+        if (planResult < 0) {
+            System.out.println("PLAN_TABLE 삽입 실패");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
         }
-        return result;
+
+        System.out.println("생성된 planCode: " + planDTO.getPlanCode());
+        // PLAN_TABLE에 데이터 삽입 후에 DETAIL_PLAN_TABLE에 데이터 삽입
+        List<Date> dateRange = getDatesBetween(planDTO.getStartDate(), planDTO.getEndDate());
+
+        for (Date currentDate : dateRange) {
+            DetailPlanDTO detailPlanDTO = new DetailPlanDTO();
+            detailPlanDTO.setPlanCode(planDTO.getPlanCode());
+            detailPlanDTO.setUserCode(userCode);
+            detailPlanDTO.setTravelDate(currentDate);
+            System.out.println("반복문 돌아갈 때 planCode: " + planDTO.getPlanCode());
+            System.out.println(currentDate);
+            System.out.println(planDTO.getStartDate());
+            System.out.println(planDTO.getEndDate());
+
+            int detailPlanResult = planService.insertDetailPlan(detailPlanDTO);
+
+            if (detailPlanResult < 0) {
+                System.out.println("DETAIL_PLAN_TABLE 삽입 실패");
+                // 실패 시 PLAN_TABLE 작업 롤백
+                throw new RuntimeException("DETAIL_PLAN_TABLE 삽입 실패");
+            }
+        }
+
+        // 성공 시 응답 반환
+        System.out.println("성공");
+        Map<String, Object> response = new HashMap<>();
+        response.put("result", "success");
+        response.put("planCode", planDTO.getPlanCode());
+        return ResponseEntity.ok(response);
+    }
+
+    public static List<Date> getDatesBetween(Date startDate, Date endDate) {
+        LocalDate localStartDate = startDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        LocalDate localEndDate = endDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+
+        return LongStream.range(0, localEndDate.toEpochDay() - localStartDate.toEpochDay() + 1)
+                .mapToObj(localStartDate::plusDays)
+                .map(date -> Date.from(date.atStartOfDay(ZoneId.systemDefault()).toInstant()))
+                .collect(Collectors.toList());
     }
 
     @PostMapping("/insert_detail")
