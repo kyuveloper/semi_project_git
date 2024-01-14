@@ -106,16 +106,18 @@ public class PlanRestController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
         }
 
+        int generatedPlanCode = planDTO.getPlanCode();
+
         System.out.println("생성된 planCode: " + planDTO.getPlanCode());
         // PLAN_TABLE에 데이터 삽입 후에 DETAIL_PLAN_TABLE에 데이터 삽입
         List<Date> dateRange = getDatesBetween(planDTO.getStartDate(), planDTO.getEndDate());
 
         for (Date currentDate : dateRange) {
             DetailPlanDTO detailPlanDTO = new DetailPlanDTO();
-            detailPlanDTO.setPlanCode(planDTO.getPlanCode());
+            detailPlanDTO.setPlanCode(generatedPlanCode);
             detailPlanDTO.setUserCode(userCode);
             detailPlanDTO.setTravelDate(currentDate);
-            System.out.println("반복문 돌아갈 때 planCode: " + planDTO.getPlanCode());
+            System.out.println("반복문 돌아갈 때 planCode: " + generatedPlanCode);
             System.out.println(currentDate);
             System.out.println(planDTO.getStartDate());
             System.out.println(planDTO.getEndDate());

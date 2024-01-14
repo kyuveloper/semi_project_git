@@ -24,6 +24,7 @@ public class PlanService {
         }else{
             System.out.println("성공");
             System.out.println(planDTO.getPlanTitle());
+            System.out.println("service: " + planDTO.getPlanCode());
         }
         return result;
     }
@@ -58,8 +59,8 @@ public class PlanService {
         return planDAO.selectPlanBookmark(travelDate, planDetailCode, userCode);
     }
 
-    public PlanDTO selectRegionByPlan(int planDetailCode){
-        return planDAO.selectRegionByPlan(planDetailCode);
+    public PlanDTO selectRegionByPlan(int planCode, int userCode){
+        return planDAO.selectRegionByPlan(planCode, userCode);
     }
 
     public void hidePlanByPlanCode(int planCode, int userCode){

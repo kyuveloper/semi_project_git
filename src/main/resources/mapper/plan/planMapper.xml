@@ -58,10 +58,9 @@
         <result property="companyCertified" column="COMPANY_CERTIFIED" />
     </resultMap>
 
-    <insert id="insertPlan" parameterType="com.semiproject.pettales.plan.dto.PlanDTO">
+    <insert id="insertPlan" parameterType="com.semiproject.pettales.plan.dto.PlanDTO"  useGeneratedKeys="true" keyProperty="planCode">
         INSERT INTO PLAN_TABLE
         (
-            PLAN_CODE,
             USER_CODE,
             PLAN_TITLE,
             START_DATE,
@@ -71,7 +70,6 @@
         )
         VALUES
         (
-            NULL,
             #{userCode},
             #{planTitle},
             #{startDate},
@@ -160,7 +158,8 @@
         FROM PLAN_TABLE AS PT
         JOIN PLAN_DETAIL_TABLE AS PDT
         ON PT.PLAN_CODE = PDT.PLAN_CODE
-        WHERE PDT.PLAN_DETAIL_CODE = #{planDetailCode}
+        WHERE PDT.PLAN_CODE = #{planCode}
+        AND PT.USER_CODE = #{userCode}
     </select>
 
     <select id="selectPlanBookmark" resultMap="planDetailResult">

@@ -20,76 +20,15 @@
         <div th:if="${startDate != null and endDate != null}">
             <div th:each="day : ${#numbers.sequence(0, T(java.time.temporal.ChronoUnit).DAYS.between(startDate, endDate) )}">
                 <th:block th:with="currentDate=${startDate.plusDays(day)}">
-                    <!-- 수정된 부분: 클래스 추가, data-date 속성 추가 -->
-                    <p class="clickable-date" style="cursor: pointer;" th:text="${#temporals.format(currentDate, 'yyyy-MM-dd')}"
-                       th:data-date="${#temporals.format(currentDate, 'yyyy-MM-dd')}"></p>
+                    <!-- 수정된 부분: a 태그 추가 -->
+                    <a th:href="@{/plan/plan_detail_date(travelDate=${#temporals.format(currentDate, 'yyyy-MM-dd')}, planCode=${planInfo.planCode})}"
+                       style="cursor: pointer;">
+                        <p class="clickable-date" th:text="${#temporals.format(currentDate, 'yyyy-MM-dd')}"></p>
+                    </a>
                 </th:block>
             </div>
         </div>
     </div>
-
-    <!-- JavaScript 부분 -->
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            var dateVals = document.querySelectorAll('.clickable-date');
-
-            dateVals.forEach(function (dateVal) {
-                dateVal.addEventListener('click', function (event) {
-                    // 클릭된 요소가 <p>이고 클래스가 clickable-date인 경우에만 처리
-                    console.log('Click event triggered');
-                    // 클릭된 요소의 정보를 콘솔에 출력
-                    console.log('Clicked element:', event.target);
-                    if (event.target.tagName === 'P' && event.target.classList.contains('clickable-date')) {
-                        var travelDate = event.target.dataset.date;
-                        console.log(travelDate);
-                        sendDetailPlan(travelDate);
-                    }
-                });
-            });
-        });
-
-        function sendDetailPlan(travelDate) {
-            var urlParams = new URLSearchParams(window.location.search);
-            var planCode = urlParams.get('planCode');
-            console.log(travelDate);
-            console.log(planCode);
-
-            // 서버로 전송할 데이터 생성
-            var detailPlanDTO = {
-                travelDate: travelDate,
-                planCode: planCode
-                // 다른 필요한 데이터 추가
-            };
-
-            // Fetch를 사용하여 서버에 데이터 전송
-            fetch('/api/insert_detail', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(detailPlanDTO),
-            })
-                .then(response => response.json())
-                .then(result => {
-                    // 서버로부터의 응답 처리
-                    if (result.planDetailCode !== undefined) {
-                        console.log('성공');
-                        var planDetailCode = result.planDetailCode;
-
-                        // 여기에서 planDetailCode를 사용하여 다음 동작을 수행
-                        console.log('받아온 planDetailCode:', planDetailCode);
-
-                        // 예: 다른 동작 수행 또는 페이지 이동
-                        location.href = '/plan/plan_detail_date?travelDate=' + travelDate + '&planDetailCode=' + planDetailCode;
-                    } else {
-                        console.log('실패: 서버 응답에 planDetailCode가 정의되지 않았습니다.');
-                    }
-                })
-                .catch(error => {
-                    console.error('에러 발생:', error);
-                });
-        }
-    </script>
 
     <div class="plan_body">
         <div id="map" style="width: 400px; height: 700px;">

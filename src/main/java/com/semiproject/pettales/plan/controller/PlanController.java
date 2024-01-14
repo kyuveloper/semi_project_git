@@ -114,19 +114,18 @@ public class PlanController {
 
     @GetMapping("/plan_detail_date")
     public String planDetailDate(Model model,
-                                 @RequestParam("travelDate")Date travelDate,
+                                 @RequestParam("planCode")int planCode,
                                  @RequestParam("planDetailCode")int planDetailCode){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         AuthDetails auth = (AuthDetails)authentication.getPrincipal();
         int userCode = auth.getLoginUserDTO().getUserCode();
-        //List<BookmarkDTO> userBookmarkList = bookmarkService.selectBookmarkByUserCode(userCode);
 
-        PlanDTO plan = planService.selectRegionByPlan(planDetailCode);
-        DetailPlanDTO detailPlanDTO = planService.selectPlanBookmark(travelDate, planDetailCode, userCode);
+        PlanDTO plan = planService.selectRegionByPlan(planCode, userCode);
+//        DetailPlanDTO detailPlanDTO = planService.selectPlanBookmark(travelDate, planDetailCode, userCode);
         List<BookmarkDTO> userBookmarkList = bookmarkService.selectBookmarkByRegion(userCode, plan.getPlanRegion());
 
         model.addAttribute("bookmark", userBookmarkList);
-        model.addAttribute("detailPlan", detailPlanDTO);
+        model.addAttribute("plan", plan);
 
 
         return "plan/planDetailDate";

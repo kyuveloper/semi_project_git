@@ -40,7 +40,9 @@ public interface PlanDAO {
             @Param("userCode")int userCode
     );
 
-    PlanDTO selectRegionByPlan(int planDetailCode);
+    PlanDTO selectRegionByPlan(
+            @Param("planCode")int planCode,
+            @Param("userCode")int userCode);
 
     void hidePlanByPlanCode(
             @Param("planCode")int planCode,
