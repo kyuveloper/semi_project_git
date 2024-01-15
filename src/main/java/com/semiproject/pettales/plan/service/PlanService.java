@@ -55,7 +55,7 @@ public class PlanService {
         return planDAO.insertBookmarkMapping(bookmarkMappingDTO);
     }
 
-    public DetailPlanDTO selectPlanBookmark(Date travelDate, int planCode, int userCode){
+    public List<DetailPlanDTO> selectPlanBookmark(Date travelDate, int planCode, int userCode){
         return planDAO.selectPlanBookmark(travelDate, planCode, userCode);
     }
 
@@ -65,6 +65,14 @@ public class PlanService {
 
     public void hidePlanByPlanCode(int planCode, int userCode){
         planDAO.hidePlanByPlanCode(planCode, userCode);
+    }
+
+    public DetailPlanDTO selectPlanDetailByPlanCodeAndTravelDate(int planCode, Date travelDate, int userCode){
+        return planDAO.selectPlanDetailByPlanCodeAndTravelDate(planCode, travelDate, userCode);
+    }
+
+    public void deleteMappingById(int bookmarkCode, int userCode){
+        planDAO.deleteMappingById(bookmarkCode, userCode);
     }
 
 }

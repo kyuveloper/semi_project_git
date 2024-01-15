@@ -122,11 +122,15 @@ public class PlanController {
         int userCode = auth.getLoginUserDTO().getUserCode();
 
         PlanDTO plan = planService.selectRegionByPlan(planCode, userCode, travelDate);
-        DetailPlanDTO detailPlanDTO = planService.selectPlanBookmark(travelDate, planCode, userCode);
+        List<DetailPlanDTO> detailPlanDTO = planService.selectPlanBookmark(travelDate, planCode, userCode);
         List<BookmarkDTO> userBookmarkList = bookmarkService.selectBookmarkByRegion(userCode, plan.getPlanRegion());
+
+        DetailPlanDTO planDetail = planService.selectPlanDetailByPlanCodeAndTravelDate(planCode, travelDate, userCode);
+        int planDetailCode = planDetail.getPlanDetailCode();
 
         model.addAttribute("detailPlan", detailPlanDTO);
         model.addAttribute("bookmark", userBookmarkList);
+        model.addAttribute("planDetailCode", planDetailCode);
 
         return "plan/planDetailDate";
     }

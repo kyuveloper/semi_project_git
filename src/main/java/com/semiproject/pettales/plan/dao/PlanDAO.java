@@ -5,6 +5,7 @@ import com.semiproject.pettales.plan.dto.DetailPlanDTO;
 import com.semiproject.pettales.plan.dto.PlanDTO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.security.core.parameters.P;
 
 import java.time.LocalDate;
 import java.util.Date;
@@ -34,7 +35,7 @@ public interface PlanDAO {
 
     int insertBookmarkMapping(BookmarkMappingDTO bookmarkMappingDTO);
 
-    DetailPlanDTO selectPlanBookmark(
+    List<DetailPlanDTO> selectPlanBookmark(
             @Param("travelDate") Date travelDate,
             @Param("planCode") int planCode,
             @Param("userCode")int userCode
@@ -50,5 +51,15 @@ public interface PlanDAO {
             @Param("userCode")int userCode
     );
 
+    DetailPlanDTO selectPlanDetailByPlanCodeAndTravelDate(
+            @Param("planCode")int planCode,
+            @Param("travelDate")Date travelDate,
+            @Param("userCode")int userCode
+    );
+
+    void deleteMappingById(
+            @Param("bookmarkCode")int bookmarkCode,
+            @Param("userCode")int userCode
+    );
 
 }

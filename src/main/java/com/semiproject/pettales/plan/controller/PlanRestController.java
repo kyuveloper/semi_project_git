@@ -213,6 +213,26 @@ public class PlanRestController {
         return result;
     }
 
+    @PostMapping("/delete_mapping")
+    public Map<String, Object> deleteMapping(
+            @RequestParam("bookmarkCode")int bookmarkCode){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        AuthDetails auth = (AuthDetails) authentication.getPrincipal();
+        Integer userCode = auth.getLoginUserDTO().getUserCode();
+
+        planService.deleteMappingById(bookmarkCode, userCode);
+        Map<String, Object> result = new HashMap<>();
+        if (userCode == null) {
+            result.put("code", "0");
+            result.put("result", "error");
+            result.put("errorMessage", "유저 정보를 찾을 수 없습니다.");
+        } else {
+            result.put("code", "1");
+            result.put("result", "성공");
+        }
+        return result;
+    }
+
 //    @GetMapping("/detail_plan_view")
 //    public Map<String, Object> detailPlanView(
 //            @RequestParam("travleDate") Date travelDate,

@@ -18,13 +18,16 @@
         <id property="planDetailCode" column="PLAN_DETAIL_CODE" />
         <result property="planCode" column="PLAN_CODE"/>
         <result property="userCode" column="USER_CODE"/>
-        <result property="travelCode" column="TRAVEL_DATE"/>
+        <result property="travelDate" column="TRAVEL_DATE"/>
     </resultMap>
 
     <resultMap id="mappingResult" type="com.semiproject.pettales.plan.dto.BookmarkMappingDTO">
         <result property="planDetailCode" column="PLAN_DETAIL_CODE"/>
         <result property="bookmarkCode" column="BOOKMARK_CODE"/>
         <result property="userCode" column="USER_CODE"/>
+        <result property="companyClassi" column="COMPANY_CLASSI"/>
+        <result property="companyName" column="COMPANY_NAME"/>
+        <result property="companyCtprvn" column="COMPANY_CTPRVN"/>
     </resultMap>
 
     <resultMap id="bookmarkResult" type="com.semiproject.pettales.bookmark.dto.BookmarkDTO">
@@ -163,20 +166,23 @@
         AND PDT.TRAVEL_DATE = #{travelDate}
     </select>
 
-    <select id="selectPlanBookmark" resultMap="planDetailResult">
+    <select id="selectPlanBookmark" resultMap="mappingResult">
         SELECT
-            PDT.TRAVEL_DATE,
-            CP.COMPANY_NAME,
-            CP.COMPANY_CLASSI,
-            CP.COMPANY_CTPRVN
-        FROM PLAN_DETAIL_TABLE AS PDT
-        JOIN PLAN_BOOKMARK_MAPPING AS PBM
-        ON PDT.PLAN_DETAIL_CODE = PBM.PLAN_DETAIL_CODE
-        JOIN BOOKMARK_TABLE AS BM ON PBM.BOOKMARK_CODE = BM.BOOKMARK_CODE
-        JOIN COMPANY_TABLE AS CP ON BM.COMPANY_CODE = CP.COMPANY_CODE
-        WHERE PDT.TRAVEL_DATE = #{travelDate}
-        and PDT.PLAN_CODE = #{planCode}
-        and PBM.USER_CODe = #{userCode}
+        PBM.BOOKMARK_CODE,
+        CT.COMPANY_NAME,
+        CT.COMPANY_CLASSI,
+        CT.COMPANY_CTPRVN,
+        PDT.TRAVEL_DATE
+        FROM PLAN_BOOKMARK_MAPPING as PBM
+        JOIN PLAN_DETAIL_TABLE as PDT
+        ON PBM.PLAN_DETAIL_CODE = PDT.PLAN_DETAIL_CODE
+        JOIN BOOKMARK_TABLE as BT
+        ON BT.BOOKMARK_CODE = PBM.BOOKMARK_CODE
+        JOIN COMPANY_TABLE as CT
+        ON BT.COMPANY_CODE = CT.COMPANY_CODE
+        WHERE BT.user_code = #{userCode}
+        AND PDT.PLAN_CODE = #{planCode}
+        and PDT.TRAVEL_DATE = #{travelDate}
     </select>
 
     <update id="hidePlanByPlanCode" parameterType="map">
@@ -198,5 +204,26 @@
         WHERE
         PLAN_CODE = #{planCode}
     </select>
+
+    <select id="selectPlanDetailByPlanCodeAndTravelDate" resultMap="planDetailResult">
+        SELECT
+        *
+        FROM PLAN_DETAIL_TABLE
+        WHERE
+        PLAN_CODE = #{planCode}
+        AND
+        TRAVEL_DATE = #{travelDate}
+        AND
+        USER_CODE = #{userCode}
+    </select>
+
+    <delete id="deleteMappingById" parameterType="map">
+        DELETE
+        FROM PLAN_BOOKMARK_MAPPING
+        WHERE
+        BOOKMARK_CODE = #{bookmarkCode}
+        AND
+        USER_CODE = #{userCode}
+    </delete>
 
 </mapper>

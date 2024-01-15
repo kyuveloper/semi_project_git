@@ -2,7 +2,10 @@
 <!-- thymeleaf 프라그먼트 -->
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="layout/default_layout">
 <th:block layout:fragment="content">
+    <script type="text/javascript" src="https://oapi.map.naver.com/openapi/v3/maps.js?ncpClientId=z00qc7owtc"></script>
+    <link rel="stylesheet" th:href="@{/../static/css/plan.css}">
 
+    <div class="plan_body">
     <div class="bookmark_list_div">
         <div class="bookmark_div" th:each="bookmark, iterStat : ${bookmark}">
             <p th:text="${bookmark.companyCtprvn}"></p>
@@ -19,6 +22,7 @@
             addButtonList.forEach(function (button) {
                 button.addEventListener('click', function (event) {
                     var bookmarkCode = event.target.dataset.bookmarkId;
+                    var planDetailCode = [[${planDetailCode}]];
 
                     // 서버에 데이터 전송
                     fetch('/api/insert_mapping', {
@@ -26,7 +30,10 @@
                         headers: {
                             'Content-Type': 'application/json',
                         },
-                        body: JSON.stringify({ bookmarkCode: bookmarkCode }),
+                        body: JSON.stringify({
+                            bookmarkCode: bookmarkCode,
+                            planDetailCode: planDetailCode
+                        }),
                     })
                         .then(response => response.json())
                         .then(result => {
@@ -46,9 +53,46 @@
         });
     </script>
 
-    <div th:each="detailPlan:${detailPlan}">
-        <p th:text="${detailPlan.companyName}"></p>
+        추가한 계획
+    <div th:each="detailPlan : ${detailPlan}" class="bookmark_div">
+        <p th:if="${detailPlan != null}" th:text="${detailPlan.companyCtprvn}"></p>
+        <p th:if="${detailPlan != null}" th:text="${detailPlan.companyName}"></p>
+        <p th:if="${detailPlan != null}" th:text="${detailPlan.companyClassi}"></p>
+        <button class="deleteMappingBtn" th:data-bookmark-id="${detailPlan.bookmarkCode}">삭제</button>
     </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            let delBookmarkButton = document.querySelectorAll('.deleteMappingBtn');
+            delBookmarkButton.forEach(function (button){
+                button.addEventListener('click', function(event){
+                    let bookmarkCode = button.getAttribute('data-bookmark-id');
+                    console.log(bookmarkCode);
+
+                    fetch('/api/delete_mapping?bookmarkCode=' + bookmarkCode,{
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                    })
+                        .then(response => {
+                            if (!response.ok) {
+                                throw new Error('Network response was not ok');
+                            }
+                            return response.json();
+                        })
+                        .then(data => {
+                            console.log('삭제 성공:', data);
+                            location.reload();
+                        })
+                        .catch(error => {
+                            console.error('삭제 실패:', error);
+                        });
+                });
+            });
+        });
+    </script>
 
 </th:block>
 </html>
