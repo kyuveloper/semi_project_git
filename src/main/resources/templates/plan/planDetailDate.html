@@ -35,8 +35,7 @@
                                 console.log('실패');
                             } else {
                                 console.log('성공');
-                                // 성공적으로 추가된 경우에 필요한 작업 수행
-                                // 예: 성공 메시지 출력, 화면 갱신 등
+                                location.reload();
                             }
                         })
                         .catch(error => {
@@ -47,8 +46,8 @@
         });
     </script>
 
-    <div>
-
+    <div th:each="detailPlan:${detailPlan}">
+        <p th:text="${detailPlan.companyName}"></p>
     </div>
 
 </th:block>

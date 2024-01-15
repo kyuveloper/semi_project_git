@@ -8,6 +8,7 @@ import com.semiproject.pettales.plan.dto.DetailPlanDTO;
 import com.semiproject.pettales.plan.dto.PlanDTO;
 import com.semiproject.pettales.plan.service.PlanService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -115,18 +116,17 @@ public class PlanController {
     @GetMapping("/plan_detail_date")
     public String planDetailDate(Model model,
                                  @RequestParam("planCode")int planCode,
-                                 @RequestParam("planDetailCode")int planDetailCode){
+                                 @RequestParam("travelDate") @DateTimeFormat(pattern = "yyyy-MM-dd") Date travelDate){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         AuthDetails auth = (AuthDetails)authentication.getPrincipal();
         int userCode = auth.getLoginUserDTO().getUserCode();
 
-        PlanDTO plan = planService.selectRegionByPlan(planCode, userCode);
-//        DetailPlanDTO detailPlanDTO = planService.selectPlanBookmark(travelDate, planDetailCode, userCode);
+        PlanDTO plan = planService.selectRegionByPlan(planCode, userCode, travelDate);
+        DetailPlanDTO detailPlanDTO = planService.selectPlanBookmark(travelDate, planCode, userCode);
         List<BookmarkDTO> userBookmarkList = bookmarkService.selectBookmarkByRegion(userCode, plan.getPlanRegion());
 
+        model.addAttribute("detailPlan", detailPlanDTO);
         model.addAttribute("bookmark", userBookmarkList);
-        model.addAttribute("plan", plan);
-
 
         return "plan/planDetailDate";
     }

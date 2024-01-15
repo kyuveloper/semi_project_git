@@ -55,12 +55,12 @@ public class PlanService {
         return planDAO.insertBookmarkMapping(bookmarkMappingDTO);
     }
 
-    public DetailPlanDTO selectPlanBookmark(Date travelDate, int planDetailCode, int userCode){
-        return planDAO.selectPlanBookmark(travelDate, planDetailCode, userCode);
+    public DetailPlanDTO selectPlanBookmark(Date travelDate, int planCode, int userCode){
+        return planDAO.selectPlanBookmark(travelDate, planCode, userCode);
     }
 
-    public PlanDTO selectRegionByPlan(int planCode, int userCode){
-        return planDAO.selectRegionByPlan(planCode, userCode);
+    public PlanDTO selectRegionByPlan(int planCode,int userCode,Date travelDate){
+        return planDAO.selectRegionByPlan(planCode, userCode, travelDate);
     }
 
     public void hidePlanByPlanCode(int planCode, int userCode){

@@ -36,13 +36,14 @@ public interface PlanDAO {
 
     DetailPlanDTO selectPlanBookmark(
             @Param("travelDate") Date travelDate,
-            @Param("planDetailCode") int planDetailCode,
+            @Param("planCode") int planCode,
             @Param("userCode")int userCode
     );
 
     PlanDTO selectRegionByPlan(
             @Param("planCode")int planCode,
-            @Param("userCode")int userCode);
+            @Param("userCode")int userCode,
+            @Param("travelDate")Date travelDate);
 
     void hidePlanByPlanCode(
             @Param("planCode")int planCode,

@@ -152,7 +152,7 @@
         )
     </insert>
 
-    <select id="selectRegionByPlan" resultMap="planDetailResult">
+    <select id="selectRegionByPlan" resultMap="planResult">
         SELECT
         PT.PLAN_REGION
         FROM PLAN_TABLE AS PT
@@ -160,6 +160,7 @@
         ON PT.PLAN_CODE = PDT.PLAN_CODE
         WHERE PDT.PLAN_CODE = #{planCode}
         AND PT.USER_CODE = #{userCode}
+        AND PDT.TRAVEL_DATE = #{travelDate}
     </select>
 
     <select id="selectPlanBookmark" resultMap="planDetailResult">
@@ -174,7 +175,7 @@
         JOIN BOOKMARK_TABLE AS BM ON PBM.BOOKMARK_CODE = BM.BOOKMARK_CODE
         JOIN COMPANY_TABLE AS CP ON BM.COMPANY_CODE = CP.COMPANY_CODE
         WHERE PDT.TRAVEL_DATE = #{travelDate}
-        and PDT.PLAN_DETAIL_CODE = #{planDetailCode}
+        and PDT.PLAN_CODE = #{planCode}
         and PBM.USER_CODe = #{userCode}
     </select>
 
@@ -186,5 +187,16 @@
         AND
         USER_CODE = #{userCode}
     </update>
+
+    <select id="selectDetailPlanByPlanCode" resultMap="planDetailResult">
+        SELECT
+        PLAN_DETAIL_CODE,
+        PLAN_CODE,
+        USER_CODE,
+        TRAVEL_DATE
+        FROM PLAN_DETAIL_TABLE
+        WHERE
+        PLAN_CODE = #{planCode}
+    </select>
 
 </mapper>

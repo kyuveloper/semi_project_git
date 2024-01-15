@@ -21,7 +21,7 @@
             <div th:each="day : ${#numbers.sequence(0, T(java.time.temporal.ChronoUnit).DAYS.between(startDate, endDate) )}">
                 <th:block th:with="currentDate=${startDate.plusDays(day)}">
                     <!-- 수정된 부분: a 태그 추가 -->
-                    <a th:href="@{/plan/plan_detail_date(travelDate=${#temporals.format(currentDate, 'yyyy-MM-dd')}, planCode=${planInfo.planCode})}"
+                    <a th:href="@{/plan/plan_detail_date(planCode=${planInfo.planCode},travelDate=${#temporals.format(currentDate, 'yyyy-MM-dd')})}"
                        style="cursor: pointer;">
                         <p class="clickable-date" th:text="${#temporals.format(currentDate, 'yyyy-MM-dd')}"></p>
                     </a>
