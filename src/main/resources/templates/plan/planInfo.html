@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<!-- thymeleaf 프라그먼트 -->
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="layout/default_layout">
+<th:block layout:fragment="content">
+    <div th:each="groupedPlan : ${planList}">
+        <h3 th:text="${groupedPlan.planTitle}"></h3>
+        <p th:text="${groupedPlan.travelDate}"></p>
+        <ul>
+            <li th:each="companyName : ${groupedPlan.companyNames}" th:text="${companyName}"></li>
+            <li th:each="companyCtprvn : ${groupedPlan.companyCtprvns}" th:text="${companyCtprvn}"></li>
+            <li th:each="companyClassi : ${groupedPlan.companyClassis}" th:text="${companyClassi}"></li>
+        </ul>
+    </div>
+
+</th:block>
+</html>

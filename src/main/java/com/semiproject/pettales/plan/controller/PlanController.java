@@ -5,6 +5,7 @@ import com.semiproject.pettales.bookmark.dto.BookmarkDTO;
 import com.semiproject.pettales.bookmark.service.BookmarkService;
 import com.semiproject.pettales.company.service.CompanyService;
 import com.semiproject.pettales.plan.dto.DetailPlanDTO;
+import com.semiproject.pettales.plan.dto.GroupedPlanDTO;
 import com.semiproject.pettales.plan.dto.PlanDTO;
 import com.semiproject.pettales.plan.service.PlanService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -133,6 +134,21 @@ public class PlanController {
         model.addAttribute("planDetailCode", planDetailCode);
 
         return "plan/planDetailDate";
+    }
+
+    @GetMapping("/plan_info")
+    public String planInfo(Model model,
+                           @RequestParam("planCode")int planCode){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        AuthDetails auth = (AuthDetails)authentication.getPrincipal();
+        int userCode = auth.getLoginUserDTO().getUserCode();
+
+        List<GroupedPlanDTO> groupedPlanList = planService.selectDetailPlanList(userCode, planCode);
+
+        model.addAttribute("planList", groupedPlanList);
+
+        return "plan/planInfo";
+
     }
 
 }

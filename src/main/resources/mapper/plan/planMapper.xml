@@ -61,6 +61,14 @@
         <result property="companyCertified" column="COMPANY_CERTIFIED" />
     </resultMap>
 
+    <resultMap id="groupedPlanResultMap" type="com.semiproject.pettales.plan.dto.GroupedPlanDTO">
+        <id property="planTitle" column="PLAN_TITLE"/>
+        <id property="travelDate" column="TRAVEL_DATE"/>
+        <result property="companyCtprvns" column="companyCtprvns" typeHandler="com.semiproject.pettales.plan.dto.TypeHandler"/>
+        <result property="companyClassis" column="companyClassis" typeHandler="com.semiproject.pettales.plan.dto.TypeHandler"/>
+        <result property="companyNames" column="companyNames" typeHandler="com.semiproject.pettales.plan.dto.TypeHandler"/>
+    </resultMap>
+
     <insert id="insertPlan" parameterType="com.semiproject.pettales.plan.dto.PlanDTO"  useGeneratedKeys="true" keyProperty="planCode">
         INSERT INTO PLAN_TABLE
         (
@@ -225,5 +233,22 @@
         AND
         USER_CODE = #{userCode}
     </delete>
+
+    <select id="selectDetailPlanList" resultMap="groupedPlanResultMap">
+        SELECT
+        PT.PLAN_TITLE,
+        PDT.TRAVEL_DATE,
+        GROUP_CONCAT(CT.COMPANY_NAME) as companyNames,
+        GROUP_CONCAT(CT.COMPANY_CTPRVN) as companyCtprvns,
+        GROUP_CONCAT(CT.COMPANY_CLASSI) as companyClassis
+        FROM plan_detail_table as PDT
+        JOIN plan_table AS PT ON PT.PLAN_CODE = PDT.PLAN_CODE
+        JOIN plan_bookmark_mapping AS PBM ON PBM.PLAN_DETAIL_CODE = pdt.PLAN_DETAIL_CODE
+        JOIN bookmark_table AS BT ON PBM.BOOKMARK_CODE = BT.BOOKMARK_CODE
+        JOIN company_table AS CT ON bt.COMPANY_CODE = CT.COMPANY_CODE
+        WHERE PT.USER_CODE = #{userCode}
+        AND PT.PLAN_CODE = #{planCode}
+        GROUP BY PDT.TRAVEL_DATE, PT.PLAN_TITLE;
+    </select>
 
 </mapper>

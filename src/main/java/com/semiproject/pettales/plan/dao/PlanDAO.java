@@ -2,6 +2,7 @@ package com.semiproject.pettales.plan.dao;
 
 import com.semiproject.pettales.plan.dto.BookmarkMappingDTO;
 import com.semiproject.pettales.plan.dto.DetailPlanDTO;
+import com.semiproject.pettales.plan.dto.GroupedPlanDTO;
 import com.semiproject.pettales.plan.dto.PlanDTO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -60,6 +61,11 @@ public interface PlanDAO {
     void deleteMappingById(
             @Param("bookmarkCode")int bookmarkCode,
             @Param("userCode")int userCode
+    );
+
+    List<GroupedPlanDTO> selectDetailPlanList(
+            @Param("userCode")int userCode,
+            @Param("planCode")int planCode
     );
 
 }

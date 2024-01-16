@@ -4,6 +4,7 @@ import com.semiproject.pettales.bookmark.dto.BookmarkDTO;
 import com.semiproject.pettales.plan.dao.PlanDAO;
 import com.semiproject.pettales.plan.dto.BookmarkMappingDTO;
 import com.semiproject.pettales.plan.dto.DetailPlanDTO;
+import com.semiproject.pettales.plan.dto.GroupedPlanDTO;
 import com.semiproject.pettales.plan.dto.PlanDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -73,6 +74,10 @@ public class PlanService {
 
     public void deleteMappingById(int bookmarkCode, int userCode){
         planDAO.deleteMappingById(bookmarkCode, userCode);
+    }
+
+    public List<GroupedPlanDTO> selectDetailPlanList(int userCode, int planCode){
+        return planDAO.selectDetailPlanList(userCode, planCode);
     }
 
 }
