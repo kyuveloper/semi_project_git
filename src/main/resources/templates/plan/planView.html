@@ -218,28 +218,34 @@
             }
 
             // 북마크 버튼 클릭 시 이벤트 처리
-            $(document).on('click', '.insertBookmarkBtn', function (e) {
+            $(document).on('click', '.insertBookmarkBtn', async function (e) {
                 e.preventDefault();
                 var currentPage = window.location.search.match(/page=(\d+)/);
                 var currentPageParam = currentPage ? "&page=" + currentPage[1] : "";
                 // 회사 코드
                 let companyCode = $(this).data('company-id');
-                $.ajax({
-                    type: "POST",
-                    url: "/bookmark/toggle",
-                    data: {
-                        companyCode: companyCode,
-                        currentPage: currentPageParam
-                    },
-                    cache: false,
-                    success: function (data) {
-                        console.log(currentPageParam);
-                        updateData(currentPageParam);
-                    },
-                    error: function (request, status, error) {
-                        alert("다시 시도해주세요");
-                    }
-                });
+                try {
+                    // AJAX 요청을 비동기로 수행
+                    const data = await $.ajax({
+                        type: "POST",
+                        url: "/bookmark/toggle",
+                        data: {
+                            companyCode: companyCode,
+                            currentPage: currentPageParam
+                        },
+                        cache: false
+                    });
+
+                    console.log(currentPageParam);
+                    updateData(currentPageParam); // 북마크 상태 업데이트
+
+                    // 북마크를 추가하거나 제거한 후에 지도를 업데이트
+                    await fetchMap();
+
+                } catch (error) {
+                    alert("다시 시도해주세요");
+                    console.error('Error during bookmark toggle:', error);
+                }
             });
         });
     </script>
