@@ -20,7 +20,12 @@
                 <div id="result-container"></div>
             </div>
         </div>
+<<<<<<< HEAD
         <div id="map" style="width: 60rem; height: 80rem; margin-top: 5rem; margin-left: 2rem;"></div>
+=======
+        <div id="map" style="width: 60rem; height: 80rem; margin-top: 5rem"></div>
+        <a th:href="@{/plan/plan_date}">계획 짜러 가기</a>
+>>>>>>> feature/plan
     </div>
     <script>
         $(document).ready(function () {
@@ -87,6 +92,9 @@
             function updateData(page) {
                 var selectedRegion = $("#regionDropdown").val();
                 var selectedCategory = $("#categoryDropdown").val();
+                console.log(selectedRegion);
+                console.log(selectedCategory);
+                console.log(page);
 
                 // page가 undefined이면 1페이지로 설정
                 page = page || 1;

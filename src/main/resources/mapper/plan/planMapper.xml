@@ -3,30 +3,252 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.semiproject.pettales.plan.dao.PlanDAO">
-    <resultMap id="bookmarkResult" type="com.semiproject.pettales.plan.dto.PlanDTO">
+
+    <resultMap id="planResult" type="com.semiproject.pettales.plan.dto.PlanDTO">
         <id property="planCode" column="PLAN_CODE" />
         <result property="userCode" column="USER_CODE"/>
         <result property="startDate" column="START_DATE"/>
         <result property="endDate" column="END_DATE"/>
+        <result property="planTitle" column="PLAN_TITLE"/>
         <result property="planStatus" column="PLAN_STATUS"/>
+        <result property="planRegion" column="PLAN_REGION" />
     </resultMap>
 
-    <insert id="insertPlan" parameterType="com.semiproject.pettales.plan.dto.PlanDTO">
+    <resultMap id="planDetailResult" type="com.semiproject.pettales.plan.dto.DetailPlanDTO">
+        <id property="planDetailCode" column="PLAN_DETAIL_CODE" />
+        <result property="planCode" column="PLAN_CODE"/>
+        <result property="userCode" column="USER_CODE"/>
+        <result property="travelDate" column="TRAVEL_DATE"/>
+    </resultMap>
+
+    <resultMap id="mappingResult" type="com.semiproject.pettales.plan.dto.BookmarkMappingDTO">
+        <result property="planDetailCode" column="PLAN_DETAIL_CODE"/>
+        <result property="bookmarkCode" column="BOOKMARK_CODE"/>
+        <result property="userCode" column="USER_CODE"/>
+        <result property="companyClassi" column="COMPANY_CLASSI"/>
+        <result property="companyName" column="COMPANY_NAME"/>
+        <result property="companyCtprvn" column="COMPANY_CTPRVN"/>
+    </resultMap>
+
+    <resultMap id="bookmarkResult" type="com.semiproject.pettales.bookmark.dto.BookmarkDTO">
+        <id property="bookmarkCode" column="BOOKMARK_CODE" />
+        <result property="companyCode" column="COMPANY_CODE"/>
+        <result property="userCode" column="USER_CODE"/>
+        <result property="bookmarked" column="BOOKMARKED"/>
+        <result property="companyCtprvn" column="COMPANY_CTPRVN"/>
+        <result property="companyName" column="COMPANY_NAME"/>
+        <result property="companyClassi" column="COMPANY_CLASSI"/>
+    </resultMap>
+
+    <resultMap id="companyResult" type="com.semiproject.pettales.company.dto.CompanyDTO">
+        <id property="companyCode" column="COMPANY_CODE" />
+        <result property="companyClassi" column="COMPANY_CLASSI"/>
+        <result property="companyStatus" column="COMPANY_STATUS" />
+        <result property="companyName" column="COMPANY_NAME" />
+        <result property="endDate" column="COMPANY_ADDRESS" />
+        <result property="companyLat" column="COMPANY_LAT" />
+        <result property="companyHar" column="COMAPNY_HAR" />
+        <result property="phoneNumber" column="COMPANY_PHONE_NUMBER" />
+        <result property="companyTime" column="COMPANY_TIME" />
+        <result property="registDate" column="REGIST_DATE" />
+        <result property="updateDate" column="UPDATE_DATE" />
+        <result property="petPosbl" column="COMPANY_PET_POSBL" />
+        <result property="companyCtprvn" column="COMPANY_CTPRVN" />
+        <result property="companySigngu" column="COMPANY_SIGNGU" />
+        <result property="zipNum" column="COMPANY_ZIP_NUM" />
+        <result property="info" column="COMPANY_INFO" />
+        <result property="url" column="COMPANY_URL" />
+        <result property="companyCertified" column="COMPANY_CERTIFIED" />
+    </resultMap>
+
+    <resultMap id="groupedPlanResultMap" type="com.semiproject.pettales.plan.dto.GroupedPlanDTO">
+        <id property="planTitle" column="PLAN_TITLE"/>
+        <id property="travelDate" column="TRAVEL_DATE"/>
+        <result property="companyCtprvns" column="companyCtprvns" typeHandler="com.semiproject.pettales.plan.dto.TypeHandler"/>
+        <result property="companyClassis" column="companyClassis" typeHandler="com.semiproject.pettales.plan.dto.TypeHandler"/>
+        <result property="companyNames" column="companyNames" typeHandler="com.semiproject.pettales.plan.dto.TypeHandler"/>
+    </resultMap>
+
+    <insert id="insertPlan" parameterType="com.semiproject.pettales.plan.dto.PlanDTO"  useGeneratedKeys="true" keyProperty="planCode">
         INSERT INTO PLAN_TABLE
         (
-            PLAN_CODE,
             USER_CODE,
+            PLAN_TITLE,
             START_DATE,
             END_DATE,
-            PLAN_STATUS
+            PLAN_STATUS,
+            PLAN_REGION
+        )
+        VALUES
+        (
+            #{userCode},
+            #{planTitle},
+            #{startDate},
+            #{endDate},
+            'Y',
+            #{planRegion}
+        )
+    </insert>
+
+    <select id="selectPlanByUserCode" resultMap="planResult">
+        SELECT
+        *
+        FROM PLAN_TABLE
+        WHERE
+        USER_CODE = #{userCode}
+        AND
+        PLAN_STATUS = 'Y'
+    </select>
+
+    <select id="selectPlanByPlanCode" resultMap="planResult">
+    SELECT
+        *
+        FROM PLAN_TABLE
+        WHERE
+        PLAN_CODE = #{planCode}
+        AND
+        USER_CODE = #{userCode}
+    </select>
+
+    <select id="getStartDateByPlanCodeAndUserCode" resultType="java.time.LocalDate">
+        SELECT
+            START_DATE
+        FROM
+            PLAN_TABLE
+        WHERE
+            PLAN_CODE = #{planCode}
+        AND
+            USER_CODE = #{userCode}
+    </select>
+
+    <select id="getEndDateByPlanCodeAndUserCode" resultType="java.time.LocalDate">
+        SELECT
+            END_DATE
+        FROM PLAN_TABLE
+        WHERE
+            PLAN_CODE = #{planCode}
+        AND
+            USER_CODE = #{userCode}
+    </select>
+
+    <insert id="insertDetailPlan" parameterType="com.semiproject.pettales.plan.dto.DetailPlanDTO">
+        INSERT INTO PLAN_DETAIL_TABLE
+        (
+            PLAN_DETAIL_CODE,
+            PLAN_CODE,
+            USER_CODE,
+            TRAVEL_DATE
         )
         VALUES
         (
             NULL,
+            #{planCode},
             #{userCode},
-            #{startDate},
-            #{endDate},
-            'Y'
+            #{travelDate}
         )
     </insert>
+
+    <insert id="insertBookmarkMapping" parameterType="com.semiproject.pettales.plan.dto.BookmarkMappingDTO">
+        INSERT INTO PLAN_BOOKMARK_MAPPING
+        (
+            PLAN_DETAIL_CODE,
+            BOOKMARK_CODE,
+            USER_CODE
+        )
+        VALUES
+        (
+            #{planDetailCode},
+            #{bookmarkCode},
+            #{userCode}
+        )
+    </insert>
+
+    <select id="selectRegionByPlan" resultMap="planResult">
+        SELECT
+        PT.PLAN_REGION
+        FROM PLAN_TABLE AS PT
+        JOIN PLAN_DETAIL_TABLE AS PDT
+        ON PT.PLAN_CODE = PDT.PLAN_CODE
+        WHERE PDT.PLAN_CODE = #{planCode}
+        AND PT.USER_CODE = #{userCode}
+        AND PDT.TRAVEL_DATE = #{travelDate}
+    </select>
+
+    <select id="selectPlanBookmark" resultMap="mappingResult">
+        SELECT
+        PBM.BOOKMARK_CODE,
+        CT.COMPANY_NAME,
+        CT.COMPANY_CLASSI,
+        CT.COMPANY_CTPRVN,
+        PDT.TRAVEL_DATE
+        FROM PLAN_BOOKMARK_MAPPING as PBM
+        JOIN PLAN_DETAIL_TABLE as PDT
+        ON PBM.PLAN_DETAIL_CODE = PDT.PLAN_DETAIL_CODE
+        JOIN BOOKMARK_TABLE as BT
+        ON BT.BOOKMARK_CODE = PBM.BOOKMARK_CODE
+        JOIN COMPANY_TABLE as CT
+        ON BT.COMPANY_CODE = CT.COMPANY_CODE
+        WHERE BT.user_code = #{userCode}
+        AND PDT.PLAN_CODE = #{planCode}
+        and PDT.TRAVEL_DATE = #{travelDate}
+    </select>
+
+    <update id="hidePlanByPlanCode" parameterType="map">
+        UPDATE PLAN_TABLE
+        SET PLAN_STATUS = 'N'
+        WHERE
+        PLAN_CODE = #{planCode}
+        AND
+        USER_CODE = #{userCode}
+    </update>
+
+    <select id="selectDetailPlanByPlanCode" resultMap="planDetailResult">
+        SELECT
+        PLAN_DETAIL_CODE,
+        PLAN_CODE,
+        USER_CODE,
+        TRAVEL_DATE
+        FROM PLAN_DETAIL_TABLE
+        WHERE
+        PLAN_CODE = #{planCode}
+    </select>
+
+    <select id="selectPlanDetailByPlanCodeAndTravelDate" resultMap="planDetailResult">
+        SELECT
+        *
+        FROM PLAN_DETAIL_TABLE
+        WHERE
+        PLAN_CODE = #{planCode}
+        AND
+        TRAVEL_DATE = #{travelDate}
+        AND
+        USER_CODE = #{userCode}
+    </select>
+
+    <delete id="deleteMappingById" parameterType="map">
+        DELETE
+        FROM PLAN_BOOKMARK_MAPPING
+        WHERE
+        BOOKMARK_CODE = #{bookmarkCode}
+        AND
+        USER_CODE = #{userCode}
+    </delete>
+
+    <select id="selectDetailPlanList" resultMap="groupedPlanResultMap">
+        SELECT
+        PT.PLAN_TITLE,
+        PDT.TRAVEL_DATE,
+        GROUP_CONCAT(CT.COMPANY_NAME) as companyNames,
+        GROUP_CONCAT(CT.COMPANY_CTPRVN) as companyCtprvns,
+        GROUP_CONCAT(CT.COMPANY_CLASSI) as companyClassis
+        FROM plan_detail_table as PDT
+        JOIN plan_table AS PT ON PT.PLAN_CODE = PDT.PLAN_CODE
+        JOIN plan_bookmark_mapping AS PBM ON PBM.PLAN_DETAIL_CODE = pdt.PLAN_DETAIL_CODE
+        JOIN bookmark_table AS BT ON PBM.BOOKMARK_CODE = BT.BOOKMARK_CODE
+        JOIN company_table AS CT ON bt.COMPANY_CODE = CT.COMPANY_CODE
+        WHERE PT.USER_CODE = #{userCode}
+        AND PT.PLAN_CODE = #{planCode}
+        GROUP BY PDT.TRAVEL_DATE, PT.PLAN_TITLE;
+    </select>
+
 </mapper>

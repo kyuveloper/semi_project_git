@@ -80,4 +80,20 @@
         AND
         BOOKMARK_CODE = #{bookmarkCode}
     </delete>
+
+    <select id="selectBookmarkByRegion" resultMap="bookmarkResult">
+        SELECT
+            BOOKMARK_CODE,
+            COMPANY_CTPRVN,
+            COMPANY_NAME,
+            COMPANY_CLASSI
+        FROM BOOKMARK_TABLE AS A
+        JOIN COMPANY_TABLE AS B
+        ON A.COMPANY_CODE = B.COMPANY_CODE
+        WHERE
+            USER_CODE = #{userCode}
+        AND
+            COMPANY_CTPRVN = #{companyCtprvn}
+    </select>
+
 </mapper>

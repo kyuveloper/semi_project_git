@@ -1,12 +1,71 @@
 package com.semiproject.pettales.plan.dao;
 
+import com.semiproject.pettales.plan.dto.BookmarkMappingDTO;
+import com.semiproject.pettales.plan.dto.DetailPlanDTO;
+import com.semiproject.pettales.plan.dto.GroupedPlanDTO;
 import com.semiproject.pettales.plan.dto.PlanDTO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.security.core.parameters.P;
 
+import java.time.LocalDate;
 import java.util.Date;
+import java.util.List;
 
 @Mapper
 public interface PlanDAO {
     int insertPlan(PlanDTO planDTO);
+
+    List<PlanDTO> selectPlanByUserCode(int userCode);
+
+    PlanDTO selectPlanByPlanCode(
+            @Param("planCode")int planCode,
+            @Param("userCode")int userCode);
+
+    LocalDate getStartDateByPlanCodeAndUserCode(
+            @Param("planCode")int planCode,
+            @Param("userCode")int userCode
+    );
+
+    LocalDate getEndDateByPlanCodeAndUserCode(
+            @Param("planCode")int planCode,
+            @Param("userCode")int userCode
+    );
+
+    int insertDetailPlan(DetailPlanDTO detailPlanDTO);
+
+    int insertBookmarkMapping(BookmarkMappingDTO bookmarkMappingDTO);
+
+    List<DetailPlanDTO> selectPlanBookmark(
+            @Param("travelDate") Date travelDate,
+            @Param("planCode") int planCode,
+            @Param("userCode")int userCode
+    );
+
+    PlanDTO selectRegionByPlan(
+            @Param("planCode")int planCode,
+            @Param("userCode")int userCode,
+            @Param("travelDate")Date travelDate);
+
+    void hidePlanByPlanCode(
+            @Param("planCode")int planCode,
+            @Param("userCode")int userCode
+    );
+
+    DetailPlanDTO selectPlanDetailByPlanCodeAndTravelDate(
+            @Param("planCode")int planCode,
+            @Param("travelDate")Date travelDate,
+            @Param("userCode")int userCode
+    );
+
+    void deleteMappingById(
+            @Param("bookmarkCode")int bookmarkCode,
+            @Param("userCode")int userCode
+    );
+
+    List<GroupedPlanDTO> selectDetailPlanList(
+            @Param("userCode")int userCode,
+            @Param("planCode")int planCode
+    );
+
 }

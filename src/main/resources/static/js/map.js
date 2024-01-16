@@ -43,11 +43,19 @@ async function fetchMap() {
         let infoWindows = []; // 정보창을 담는 배열
 
         // if (!map) {
+<<<<<<< HEAD
             map = new naver.maps.Map('map', {
                 center: new naver.maps.LatLng(areaArr[0].lat, areaArr[0].lng),
                 zoom: 10,
                 mapTypeControl: true,
             });
+=======
+        map = new naver.maps.Map('map', {
+            center: new naver.maps.LatLng(areaArr[0].lat, areaArr[0].lng),
+            zoom: 10,
+            mapTypeControl: true,
+        });
+>>>>>>> feature/plan
         // }
         // else if (previousMapOption) {
         //     map.setCenter(previousMapOption.center)
