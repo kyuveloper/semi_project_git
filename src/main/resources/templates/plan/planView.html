@@ -1,7 +1,18 @@
 <!DOCTYPE html>
 <!-- thymeleaf 프라그먼트 -->
-<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="layout/default_layout">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="layout/default_layout">
 <th:block layout:fragment="content">
+    <div class="myPage_box">
+        <ul class="myPage_menus">
+            <li sec:authorize="!hasAnyAuthority('ADMIN','USER')" class="myPage_menu"><a th:href="@{/auth/login}">로그인</a></li>
+            <li sec:authorize="!hasAnyAuthority('ADMIN','USER')" class="myPage_menu"><a th:href="@{/user/signup}">회원가입</a></li>
+            <li sec:authorize="!hasAnyAuthority('ADMIN','USER')" class="myPage_menu"><a th:href="@{/user/mypage}">마이페이지</a></li>
+            <li sec:authorize="hasAnyAuthority('ADMIN','USER')" class="myPage_menu"><a th:href="@{/inquiryPage}">문의하기</a></li>
+            <li sec:authorize="hasAnyAuthority('ADMIN')" class="myPage_menu"><a th:href="@{/admins/userstatus}">관리자 페이지</a></li>
+            <li sec:authorize="hasAnyAuthority('ADMIN','USER')" class="myPage_menu"><a th:href="@{/user/mypage}">마이페이지</a></li>
+            <li sec:authorize="hasAnyAuthority('ADMIN','USER')" class="myPage_menu"><a th:href="@{/auth/logout}">로그아웃</a></li>
+        </ul>
+    </div>
     <div class="planContainer">
         <div class="contents">
             <div class="dropdownBox">

@@ -1,26 +1,10 @@
 document.addEventListener('DOMContentLoaded', fetchMap);
 
-// async function getCurrentLocation() {
-//     return new Promise((resolve, reject) => {
-//         navigator.geolocation.getCurrentPosition(
-//             position => {
-//                 resolve(position);
-//             },
-//             error => {
-//                 reject(error);
-//             }
-//         );
-//     });
-// }
-let map
-let previousMapOption = null
-let markers = []
+
 async function fetchMap() {
+    let map
+    let markers = []
     try {
-        // 위치
-        // const position = await getCurrentLocation();
-        // let latitude = position.coords.latitude;
-        // let longitude = position.coords.longitude;
         const data = await fetch(`http://localhost:8083/api/map`) // java에서 업체 정보 받아오는 api 호출
             .then(result => result.json());
         const areaArr = [];
@@ -39,26 +23,13 @@ async function fetchMap() {
             )
         })
 
-        // let markers = []; // 마커 정보를 담는 배열
         let infoWindows = []; // 정보창을 담는 배열
 
-        // if (!map) {
         map = new naver.maps.Map('map', {
             center: new naver.maps.LatLng(areaArr[0].lat, areaArr[0].lng),
             zoom: 10,
             mapTypeControl: true,
         });
-        // }
-        // else if (previousMapOption) {
-        //     map.setCenter(previousMapOption.center)
-        //     map.setZoom(previousMapOption.zoom)
-        //
-        //     // 기존 마커들 제거
-        //     markers.forEach(marker => marker.setMap(null))
-        //     markers = [] // 배열 초기화
-        // }
-        // //지도 시작 지점
-        // let
 
         for (let i = 0; i < areaArr.length; i++) {
             // 지역을 담은 배열의 길이만큼 for문으로 마커와 정보창을 채워주자
