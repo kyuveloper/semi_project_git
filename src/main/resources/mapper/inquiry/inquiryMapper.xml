@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.semiproject.pettales.inquiry.dao.InquiryDAO">
+    <resultMap id="inquiryResult" type="com.semiproject.pettales.inquiry.dto.InquiryDTO">
+        <id property="inqCode" column="INQ_CODE"/>
+        <result property="inqTitle" column="INQ_TITLE"/>
+        <result property="inqClassi" column="INQ_CLASSI"/>
+        <result property="inqContents" column="INQ_CONTENTS"/>
+        <result property="registDate" column="REGIST_DATE"/>
+        <result property="answerCode" column="ANSWER_CODE"/>
+        <result property="answerContents" column="ANSWER_CONTENTS"/>
+        <result property="answerDate" column="ANSWER_REGIST_DATE"/>
+        <result property="answerUpdateDate" column="ANSWER_UPDATE_DATE"/>
+        <result property="userCode" column="USER_CODE"/>
+    </resultMap>
+
+    <insert id="insertInquiry" parameterType="com.semiproject.pettales.inquiry.dto.InquiryDTO">
+        INSERT INTO INQUIRY (
+        INQ_CODE,
+        INQ_TITLE,
+        INQ_CLASSI,
+        INQ_CONTENTS,
+        REGIST_DATE,
+        ANSWER_CODE,
+        ANSWER_CONTENTS,
+        ANSWER_REGIST_DATE,
+        ANSWER_UPDATE_DATE,
+        USER_CODE
+        ) VALUES (
+        NULL,
+        #{ inqTitle },
+        #{ inqClassi },
+        #{ inqContents },
+        DATE_FORMAT(now(), '%Y-%m-%d'),
+        NULL,
+        NULL,
+        NULL,
+        NULL,
+        #{userCode}
+        )
+    </insert>
+
+    <update id="updateInqAns" parameterType="com.semiproject.pettales.inquiry.dto.InquiryDTO">
+        UPDATE INQUIRY
+        SET
+        ANSWER_CODE=#{inqCode},
+        ANSWER_CONTENTS=#{answerContents},
+        ANSWER_REGIST_DATE=DATE_FORMAT(now(), '%Y-%m-%d'),
+        ANSWER_UPDATE_DATE=DATE_FORMAT(now(), '%Y-%m-%d')
+        WHERE INQ_CODE=#{inqCode}
+    </update>
+</mapper>

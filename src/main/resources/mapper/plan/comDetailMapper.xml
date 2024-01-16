@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.semiproject.pettales.company.model.CompanyDAO">
+    <resultMap id="companyDetail" type="com.semiproject.pettales.company.dto.CompanyDetailDTO">
+        <id property="companyCode" column="COMPANY_CODE" />
+        <result property="companyClassi" column="COMPANY_CLASSI"/>
+        <result property="companyName" column="COMPANY_NAME"/>
+        <result property="companyAddress" column="COMPANY_ADDRESS"/>
+        <result property="companyPhone" column="COMPANY_PHONE_NUMBER"/>
+        <result property="companyTime" column="COMPANY_TIME"/>
+        <result property="companyUrl" column="COMPANY_URL"/>
+        <result property="companyInfo" column="COMPANY_INFO"/>
+        <result property="companyGrade" column="COMPANY_GRADE"/>
+        <result property="reviewContents" column="REVIEW_CONTENTS"/>
+    </resultMap>
+
+    <select id="comDetailInfo" resultMap="companyDetail">
+        SELECT
+        ct.COMPANY_NAME,
+        ct.COMPANY_ADDRESS,
+        ct.COMPANY_PHONE_NUMBER,
+        ct.COMPANY_TIME,
+        ct.COMPANY_URL,
+        ct.COMPANY_INFO
+        FROM COMPANY_TABLE ct
+        WHERE ct.COMPANY_CODE=#{companyCode};
+    </select>
+
+
+</mapper>

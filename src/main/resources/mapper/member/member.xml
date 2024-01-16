@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.semiproject.pettales.user.dao.UserMapper">
+
+    <resultMap id="login" type="com.semiproject.pettales.user.model.dto.LoginUserDTO">
+        <id property="userCode" column="USER_CODE"/>
+        <result property="userNickName" column="USER_NICKNAME"/>
+        <result property="userEmail" column="USER_EMAIL"/>
+        <result property="password" column="USER_PASSWORD"/>
+        <result property="userStatus" column="USER_STATUS"/>
+        <result property="provider" column="PROVIDER"/>
+        <result property="providerId" column="PROVIDER_ID"/>
+        <result property="userAuth" column="USER_AUTH"/>
+        <result property="petCode" column="PET_CODELIST"/>
+        <result property="companyCode" column="COMPANY_CODELIST"/>
+        <result property="registDate" column="REGIST_DATE"/>
+        <result property="updateDate" column="UPDATE_DATE"/>
+        <result property="answer" column="ANSWER"/>
+    </resultMap>
+    <select id="findByUserNickName" resultMap="login">
+        SELECT
+            USER_NICKNAME
+          FROM USER_TABLE
+         WHERE USER_NICKNAME=#{userNickName}
+    </select>
+
+    <select id="findByUserEmail" resultMap="login">
+        SELECT
+            USER_CODE,
+            USER_EMAIL,
+            USER_NICKNAME,
+            USER_PASSWORD,
+            PROVIDER,
+            PROVIDER_ID,
+            USER_AUTH,
+            USER_STATUS,
+            PET_CODELIST,
+            COMPANY_CODELIST,
+            REGIST_DATE,
+            UPDATE_DATE
+          FROM USER_TABLE
+         WHERE USER_EMAIL=#{userEmail}
+    </select>
+
+    <select id="findUserByEmailAndAnswer" resultMap="login">
+        SELECT
+            USER_EMAIL,
+            ANSWER
+          FROM USER_TABLE
+         WHERE USER_EMAIL = #{userEmail}
+           AND ANSWER = #{answer}
+    </select>
+
+
+    <insert id="regist" parameterType="com.semiproject.pettales.user.model.dto.SignupDTO">
+        INSERT INTO USER_TABLE(
+        USER_EMAIL,
+        USER_NICKNAME,
+        USER_PASSWORD,
+        USER_AUTH,
+        USER_STATUS,
+        ANSWER,
+        REGIST_DATE,
+        UPDATE_DATE
+        )VALUES(
+        #{userEmail},
+        #{userNickName},
+        #{password},
+        'USER',
+        '기본',
+        #{answer},
+        now(),
+        now()
+        )
+    </insert>
+
+    <select id="checkEmail" parameterType="com.semiproject.pettales.user.model.dto.LoginUserDTO">
+        SELECT
+        COUNT(*)
+        FROM USER_TABLE
+        WHERE USER_EMAIL = #{userEmail}
+    </select>
+
+    <select id="selectUserByUserCode" resultMap="login">
+        SELECT
+            *
+        FROM USER_TABLE
+        WHERE USER_CODE = #{userCode}
+    </select>
+    
+    <update id="changePassword" parameterType="com.semiproject.pettales.user.model.dto.LoginUserDTO">
+        UPDATE USER_TABLE
+            SET
+        USER_PASSWORD = #{userPassword}
+        WHERE USER_EMAIL = #{userEmail}
+        AND ANSWER = #{answer}
+    </update>
+</mapper>

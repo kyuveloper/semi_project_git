@@ -1,0 +1,90 @@
+.paging {
+    display: flex;
+    align-items: center;
+}
+
+.paging a {
+    padding: 0 5px;  /* 링크의 좌우 패딩 조절 */
+}
+
+.com_parent_div {
+    display: flex;
+    background-color: rgba(255, 255, 255, 0.4);
+    flex-wrap: wrap;
+    flex-direction: row; /* 아이템을 가로로 배치하도록 설정 */
+}
+
+#result {
+    display: flex; /* Flex 컨테이너로 설정 */
+    flex-wrap: wrap; /* flex 아이템을 여러 줄로 나열하도록 설정 */
+    justify-content: center; /* 아이템들을 좌우로 최대한 분산 배치 */
+}
+
+.com_box_list {
+    width: calc(33.33% - 10px); /* 3개의 아이템을 한 줄에 배치하고 간격을 주기 위해 너비 설정 */
+    margin-bottom: 10px; /* 아이템 아래에 간격을 줍니다. */
+    background-color: rgba(255, 255, 255, 0.4);
+    border: 4px dashed #bcbcbc;
+}
+
+.favorite_box {
+    background-color: #9F775F;
+    width: 200px;
+}
+
+#result-container {
+    width: 100%; /* 부모의 100%를 차지하도록 설정 */
+    order: 1; /* 순서 변경, .com_parent_div에서 먼저 나오도록 설정 */
+}
+
+.plan_body{
+    display: flex;
+    justify-content: center;
+}
+
+#map{
+    margin-right: 120px;
+}
+
+.bookmark_list_div{
+    margin-right: 100px;
+    display: flex;
+    background-color: #B9A89D;
+    width: 500px;
+    max-height: 700px;
+    flex-wrap: wrap;
+    overflow-y: auto;
+}
+
+.bookmark_div{
+   background-color: #9F775F;
+    width: 200px;
+    height: 150px;
+    border-radius: 20%;
+    margin-bottom: 20px;
+    margin-left: 140px;
+}
+
+.bookDeleteBtn{
+    color:#9F775F;
+    position: absolute;
+    left: 1100px; /* 원하는 위치로 조절 */
+}
+
+.date_div{
+    margin-right: 100px;
+}
+
+.plan_list_div{
+    display: flex;
+}
+
+.detail_div{
+    display: flex;
+    justify-content: center;
+}
+
+.detail_date_div{
+    display: flex;
+}
+

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.semiproject.pettales.announcement.dao.AnnoDAO">
+
+    <resultMap id="annoResult" type="com.semiproject.pettales.announcement.dto.AnnoDTO">
+        <id property="annoCode" column="ANNO_CODE"/>
+        <result property="annoTitle" column="ANNO_TITLE"/>
+        <result property="annoContents" column="ANNO_CONTENTS"/>
+        <result property="annoPin" column="ANNO_PIN"/>
+        <result property="annoStatus" column="ANNO_STATUS"/>
+        <result property="registDate" column="REGIST_DATE"/>
+        <result property="updateDate" column="UPDATE_DATE"/>
+        <result property="userCode" column="USER_CODE"/>
+    </resultMap>
+
+    <select id="selectAllAnno" resultMap="annoResult">
+        SELECT
+        *
+        FROM ANNOUNCEMENT
+        WHERE ANNO_STATUS="act"
+    </select>
+
+    <insert id="insertAnno" parameterType="com.semiproject.pettales.announcement.dto.AnnoDTO">
+        INSERT INTO ANNOUNCEMENT (
+        ANNO_CODE,
+        ANNO_TITLE,
+        ANNO_CONTENTS,
+        ANNO_PIN,
+        ANNO_STATUS,
+        REGIST_DATE,
+        UPDATE_DATE,
+        USER_CODE
+        ) VALUES (
+        NULL,
+        #{ annoTitle },
+        #{ annoContents },
+        #{ annoPin },
+        #{ annoStatus },
+        DATE_FORMAT(now(), '%Y-%m-%d'),
+        DATE_FORMAT(now(), '%Y-%m-%d'),
+        #{ userCode }
+        )
+    </insert>
+
+    <update id="updateAnno" parameterType="com.semiproject.pettales.announcement.dto.AnnoDTO">
+        UPDATE ANNOUNCEMENT
+        SET
+        ANNO_TITLE=${annoTitle},
+        ANNO_CONTENTS=${annoContents},
+        ANNO_PIN=${annoPin},
+        ANNO_STATUS=${annoStatus},
+        UPDATE_DATE=DATE_FORMAT(now(), '%Y-%m-%d')
+        WHERE ANNO_CODE=${annoCode}
+    </update>
+</mapper>

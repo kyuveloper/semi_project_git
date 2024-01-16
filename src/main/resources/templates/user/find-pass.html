@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <script src="https://kit.fontawesome.com/e8f09b5de5.js" crossorigin="anonymous"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
+    <link rel="stylesheet" th:href="@{/css/findPwd.css}"/>
+
+    <script defer th:src="@{/js/main.js}"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+            integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+            crossorigin="anonymous"></script>
+    <title>Semi Project Company Information</title>
+</head>
+<body>
+<header id="header_bar">
+    <nav id="nav_bar">
+        <div class="main_title">
+            <a th:href="@{/}"><i class="fa-solid fa-dog"></i> PetTales</a>
+        </div>
+        <div class="main_menus">
+            <div class="main_menu"><a th:href="@{/}">Home</a></div>
+            <div class="main_menu"><a th:href="@{/anno/allList}">공지사항</a></div>
+            <div class="main_menu"><a th:href="@{/plan/make_plan}">계획 시작</a></div>
+        </div>
+        <div class="main_mypage">
+            <a href="#"><i class="fa-solid fa-user" style="color: #ffffff;"></i></a>
+        </div>
+    </nav>
+</header>
+<article>
+    <div class="myPage_box">
+        <ul class="myPage_menus">
+            <li sec:authorize="!hasAnyAuthority('ADMIN','USER')" class="myPage_menu"><a th:href="@{/auth/login}">로그인</a></li>
+            <li sec:authorize="!hasAnyAuthority('ADMIN','USER')" class="myPage_menu"><a th:href="@{/user/signup}">회원가입</a></li>
+            <li sec:authorize="hasAnyAuthority('ADMIN','USER')" class="myPage_menu"><a th:href="@{/inquiryPage}">문의하기</a></li>
+            <li sec:authorize="hasAnyAuthority('ADMIN')" class="myPage_menu"><a th:href="@{/templates/admin22/userstatus}">관리자 페이지</a></li>
+            <li sec:authorize="hasAnyAuthority('ADMIN','USER')" class="myPage_menu">마이페이지</li>
+            <li sec:authorize="hasAnyAuthority('ADMIN','USER')" class="myPage_menu"><a th:href="@{/auth/logout}">로그아웃</a></li>
+        </ul>
+    </div>
+</article>
+
+<!--회원가입시 문제를 내서 거기에 대한 답을 적고 비밀번호 찾기때 유저 이메일과 답이 일치할 시 비밀번호 변경 페이지로 넘어감-->
+<form th:action="@{/user/find-pass}" th:method="POST">
+    <div class="findPwdContainer">
+        <div class="findPwdContents">
+            <div class="findPwdText">비밀번호 찾기</div>
+            <div class="inputBox">
+                <div class="inputEmail">
+                    <input type="email" name="userEmail" placeholder="이메일" id="userEmail"/>
+                </div>
+                <div class="inputQAns">
+                    <input type="text" name="answer" placeholder="본인의 고등학교 이름은?" id="answer"/>
+                </div>
+                <div class="btnReason">
+                    <button type="button" class="checkBtn" onclick="checkAnswer()">확인</button>
+                    <div class="ansReason">답변이 일치해야 비밀번호를 입력할 수 있습니다.</div>
+                </div>
+
+                <div class="inputPwd">
+                    <input type="password" name="password" placeholder="새 비밀번호" id="password" disabled/>
+                </div>
+                <div class="pwdRequired">비밀번호는 6~16자리수여야 하며, 영소문자, 숫자, 특수문자 1개씩 포함되어야 합니다.</div>
+                <div class="inputPwd2">
+                    <input type="password" name="newCheckPassword" placeholder="새 비밀번호 확인" id="password2" disabled>
+                </div>
+                <button type="button" class="checkBtn" onclick="newPassCheck()">확인</button>
+                <div class="submitBtn">
+                    <button>변경하기</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+<!--    <div class="find-back-block">-->
+<!--    <h2>비밀번호 찾기</h2>-->
+<!--    <div class="signUpEmailDiv">-->
+<!--    <p>-->
+
+<!--    </div>-->
+<!--        <div class="findPassCheck">-->
+<!--            <p>-->
+
+
+<!--        </div>-->
+<!--        <div class="center">-->
+<!--            <p><small>답변이 일치해야 비밀번호를 입력할 수 있습니다.</small></p>-->
+<!--        </div>-->
+
+<!--        &lt;!&ndash;새 비밀번호 입력&ndash;&gt;-->
+<!--        <div class="passwordDiv">-->
+<!--            <p>-->
+<!--                </p>-->
+<!--        </div>-->
+<!--        <div class="center">-->
+<!--            <p><small>비밀번호는 6~16자리수여야 합니다. 영문 소문자, 숫자, 특수문자를 1개 이상 포함해야 합니다.</small></p>-->
+<!--        </div>-->
+
+<!--        &lt;!&ndash;새 비밀번호 확인&ndash;&gt;-->
+<!--        <div class="findPassCheck">-->
+<!--            <p>-->
+<!--                -->
+<!--                </p>-->
+<!--        </div>-->
+
+<!--        <div class="findPass">-->
+<!--            -->
+<!--        </div>-->
+<!--    </div>-->
+</form>
+</body>
+<script>
+    const checkAnswer = () => {
+        const userEmail = document.getElementById("userEmail").value;
+        const answer = document.getElementById("answer").value;
+
+        console.log("입력한 이메일", userEmail + "입력한 답", answer);
+        $.ajax({
+            type: "post",
+            url: "/user/check-answer",
+            data: {
+                "userEmail": userEmail,
+                "answer": answer
+            },
+            success: function (res) {
+                console.log("요청성공", res);
+                if (res === 1) {
+                    console.log("답변이 일치합니다");
+                    // 비밀번호 입력란과 확인란 활성화
+                    document.getElementById("password").disabled = false;
+                    document.getElementById("password2").disabled = false;
+                    alert("답변이 일치합니다.");
+                } else {
+                    console.log("답변이 일치하지 않습니다");
+                    alert("답변이 일치하지 않습니다.");
+                }
+            },
+            error: function (err) {
+                console.log("에러발생", err);
+            }
+        });
+    }
+
+    function newPassCheck(){
+        var v1 = document.getElementById('password').value;
+        var v2 = document.getElementById('password2').value;
+        console.log(v1, v2)
+        if(v1 != v2) {
+            alert("비밀번호가 일치하지 않습니다");
+            return false;
+        } else {
+            alert("비밀번호가 일치합니다");
+            return true;
+        }
+    }
+</script>
+</html>

@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<!-- thymeleaf 프라그먼트 -->
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="layout/default_layout">
+<th:block layout:fragment="content">
+    <div>
+    <div class="plan_list_div" th:each="plans : ${plans}">
+        제목: <p th:text="${plans.planTitle}"></p>
+        시작일:<p th:text="${#dates.format(plans.startDate, 'yyyy-MM-dd')}"></p>
+        ~
+        종료일:<p th:text="${#dates.format(plans.endDate, 'yyyy-MM-dd')}"></p>
+        <a th:href="@{/plan/plan_detail(planCode=${plans.planCode})}">이동</a>
+        <hr>
+    </div>
+    </div>
+</th:block>
+</html>

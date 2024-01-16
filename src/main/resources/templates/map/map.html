@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="layout/default_layout">
+<th:block layout:fragment="content">
+    <script type="text/javascript" src="https://oapi.map.naver.com/openapi/v3/maps.js?ncpClientId=z00qc7owtc"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <script defer th:src="@{/js/map.js}"></script>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>Map</h1>
+<div id="map" style="width: 400px; height: 700px;"></div>
+<div class="bookmark_div" th:each="bookmark : ${bookmark}">
+    <p th:text="${bookmark.companyCtprvn}"></p>
+    <p th:text="${bookmark.companyName}"></p>
+    <p th:text="${bookmark.companyClassi}"></p>
+</div>
+    <div class="date_div">
+    <p>여행 계획 추가</p>
+        <form id="planForm" onsubmit="submitPlan(event)">
+            시작 날:<input type="text" id="startDate" name="startDate" autocomplete='off'><br>
+            마지막 날:<input type="text" id="endDate" name="endDate" autocomplete='off'><br>
+            <button type="submit">확인</button>
+        </form>
+    <button onclick="calculateDays()">일수 계산</button>
+    <p id="result"></p>
+    </div>
+</div>
+<script>
+    async function submitPlan(event) {
+        event.preventDefault();
+
+        const formData = {
+            startDate: document.getElementById('startDate').value,
+            endDate: document.getElementById('endDate').value
+        };
+        try {
+            const response = await fetch('/api/add_plan', {
+                method: 'POST',
+                body: JSON.stringify(formData),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+
+            if (response.ok) {
+                const result = await response.json();
+                console.log(result);
+            } else {
+                console.error('서버 오류:', response.status);
+            }
+        } catch (error) {
+            console.error('네트워크 오류:', error);
+        }
+    }
+</script>
+</body>
+</th:block>

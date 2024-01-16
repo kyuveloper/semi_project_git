@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Insert Announcement</title>
+</head>
+<body>
+<form action="anno" method="post">
+    제목 : <input type="text" name="annoTitle">
+    내용 : <input type="text" name="annoContents">
+    상단고정 : <input type="text" name="annoPin">
+    상태 : <input type="text" name="annoStatus">
+    <input type="hidden" name="userCode" th:value="${#authentication.principal.userCode}">
+    <button type="submit">등록</button>
+</form>
+
+</body>
+</html>

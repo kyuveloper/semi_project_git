@@ -1,0 +1,578 @@
+:root {
+    --main-color: rgb(136, 100, 78);
+}
+body {
+    height: 1vw;
+    position: relative;
+    color: white;
+}
+
+.signUpContainer {
+    width: 40rem;
+    height: 30rem;
+    margin: auto;
+    padding: 2rem;
+    border-radius: 2rem;
+    background-color: var(--main-color);
+    opacity: 0.9;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, 40%);
+    box-shadow: 7px 7px 20px 15px darkgrey;
+}
+
+.signUpContents {
+    display: flex;
+    flex-direction: column;
+}
+
+.signUpText {
+    font-size: 2rem;
+    text-align: center;
+    margin-bottom: 0.5rem;
+}
+
+#userEmail, #userNickName, #answer, #password1,#password2 {
+    width: 100%;
+    height: 2rem;
+    margin: 0.5rem 0 0.5rem 0;
+    border-radius: 0.5rem;
+    border: none;
+}
+
+.checkBtn {
+    padding: 0.2rem;
+    border-radius: 0.5rem;
+    border: none;
+}
+.signBtn {
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    border: none;
+}
+
+.etcBtn {
+    position: absolute;
+    bottom: 1%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/*#choosePet{*/
+/*    border-radius: 30px;*/
+/*}*/
+/*.center{*/
+/*    text-align: center;*/
+/*}*/
+/*h1{*/
+/*    text-align: center;*/
+/*    margin-top: 100px;*/
+/*    color:#9F775F;*/
+/*}*/
+/*h2{*/
+/*    text-align: center;*/
+/*    color:#9F775F;*/
+/*    margin-bottom: 30px;*/
+/*}*/
+/*.clearSignup-login button{*/
+/*    margin-left: 725px;*/
+/*    margin-top: 30px;*/
+/*    background-color:#9F775F;*/
+/*    width: 80px;*/
+/*    height: 40px;*/
+/*    border-radius: 10px;*/
+/*    color: white;*/
+/*    !*margin-bottom: 100px;*!*/
+/*}*/
+
+/*.fail{*/
+/*    font-size: 40px;*/
+/*    text-align: center;*/
+/*    margin-top: 80px;*/
+/*    margin-bottom: 50px;*/
+/*}*/
+
+/*.questionMarkDiv{*/
+/*    !*display: flex;*!*/
+/*    justify-content: center;*/
+/*    margin-top: 30px;*/
+/*    margin-left: 500px;*/
+/*}*/
+
+/*.questionMarkDiv img{*/
+/*    height: 30px;*/
+/*    width: 30px;*/
+/*}*/
+
+/*.questionMarkDiv input{*/
+/*    background-color: #E7DFD7;*/
+/*    height: 40px; margin-left: 10px;*/
+/*    border-color: white;*/
+/*    outline: none;*/
+/*    border-radius: 5px;*/
+/*}*/
+
+/*.login-final button{*/
+/*    margin-left: 650px;*/
+/*    margin-top: 30px;*/
+/*    background-color:#9F775F;*/
+/*    width: 80px;*/
+/*    height: 40px;*/
+/*    border-radius: 10px;*/
+/*    color: white;*/
+/*}*/
+
+/*.signup-final button{*/
+/*    margin-left: 30px;*/
+/*    margin-top: 30px;*/
+/*    background-color:#9F775F;*/
+/*    width: 80px;*/
+/*    height: 40px;*/
+/*    border-radius: 10px;*/
+/*    color: white;*/
+/*    !*margin-bottom: 100px;*!*/
+/*}*/
+/*.left-margin{*/
+/*    margin-left: 20px;*/
+/*}*/
+
+/*.firecracker{*/
+/*    text-align: center;*/
+/*    margin-top: 30px;*/
+/*    height: 90px;*/
+/*    width: 90px;*/
+/*}*/
+
+/*.oneLine{*/
+/*    display: flex;*/
+/*}*/
+
+/*.back-block{*/
+/*    !*width: 500px;*!*/
+/*    height: 400px;*/
+/*}*/
+
+/*.find-back-block{*/
+/*    margin-top: 30px;*/
+/*    height: 500px;*/
+/*}*/
+
+/*.change-back-block{*/
+/*    margin-top: 80px;*/
+/*    height: 450px;*/
+/*}*/
+
+/*.findPassCheck button{*/
+/*    background-color:#9F775F;*/
+/*    width: 40px;*/
+/*    height: 30px;*/
+/*    border-radius: 10px;*/
+/*    color: white;*/
+/*}*/
+
+/*.findPassCheck input{*/
+/*    background-color: #E7DFD7;*/
+/*    height: 40px; margin-left: 10px;*/
+/*    border-color: white;*/
+/*    outline: none;*/
+/*    border-radius: 5px;*/
+/*}*/
+
+/*.findPassCheck img{*/
+/*    height: 30px;*/
+/*    width: 30px;*/
+/*}*/
+
+/*.signup-check button{*/
+/*    margin-left: 650px;*/
+/*    margin-top: 30px;*/
+/*    background-color:#9F775F;*/
+/*    width: 80px;*/
+/*    height: 40px;*/
+/*    border-radius: 10px;*/
+/*    color: white;*/
+/*}*/
+
+/*.findPass button{*/
+/*    margin-top: 30px;*/
+/*    margin-left: 725px;*/
+/*    background-color:#9F775F;*/
+/*    width: 80px;*/
+/*    height: 40px;*/
+/*    border-radius: 10px;*/
+/*    color: white;*/
+/*}*/
+
+/*.findPassCheck{*/
+/*    justify-content: center;*/
+/*    margin-top: 30px;*/
+/*    margin-left: 500px;*/
+/*}*/
+
+/*.testBack{*/
+/*    background-color: #0099ff;*/
+/*}*/
+
+/*.signup-center{*/
+/*    margin-left: 150px;*/
+/*}*/
+
+/*.signup-check{*/
+/*    display: flex;*/
+/*}*/
+
+/*!*a{*!*/
+/*!*    background-color:#9F775F;*!*/
+/*!*    color: white;*!*/
+/*!*}*!*/
+
+/*.emailDiv{*/
+/*    display: flex;*/
+/*    justify-content: center;*/
+/*    margin-top: 30px;*/
+/*}*/
+
+/*.signUpEmailDiv{*/
+/*    margin-right: 10px;*/
+/*    !*display: flex;*!*/
+/*    justify-content: center;*/
+/*    margin-top: 30px;*/
+/*    margin-left: 500px;*/
+/*}*/
+
+/*.emailDiv img{*/
+/*    height:30px;*/
+/*    width:30px;*/
+/*}*/
+
+/*.signUpEmailDiv img{*/
+/*    height:30px;*/
+/*    width:30px;*/
+/*}*/
+
+/*.emailDiv input{*/
+/*    background-color: #E7DFD7;*/
+/*    height: 40px; margin-left: 10px;*/
+/*    border-color: white;*/
+/*    outline: none;*/
+/*    border-radius: 5px;*/
+/*}*/
+
+/*.signUpEmailDiv input{*/
+/*    background-color: #E7DFD7;*/
+/*    height: 40px; margin-left: 10px;*/
+/*    border-color: white;*/
+/*    outline: none;*/
+/*    border-radius: 5px;*/
+/*}*/
+
+/*.nicknameDiv{*/
+/*    margin-right: 10px;*/
+/*    !*display: flex;*!*/
+/*    justify-content: center;*/
+/*    margin-top: 20px;*/
+/*    margin-left: 500px;*/
+/*}*/
+
+/*.nicknameDiv img{*/
+/*    height:30px;*/
+/*    width:30px;*/
+/*}*/
+
+/*.nicknameDiv input{*/
+/*    background-color: #E7DFD7;*/
+/*    height: 40px; margin-left: 10px;*/
+/*    border-color: white;*/
+/*    outline: none;*/
+/*    border-radius: 5px;*/
+/*}*/
+
+/*.passwordDiv{*/
+/*    !*display: flex;*!*/
+/*    justify-content: center;*/
+/*    margin-top: 30px;*/
+/*    margin-left: 500px;*/
+/*}*/
+
+/*.passwordDiv img{*/
+/*    height: 30px;*/
+/*    width: 30px;*/
+/*}*/
+
+/*.passwordDiv input{*/
+/*    background-color: #E7DFD7;*/
+/*    height: 40px; margin-left: 10px;*/
+/*    border-color: white;*/
+/*    outline: none;*/
+/*    border-radius: 5px;*/
+/*}*/
+
+/*.loginLogo{*/
+/*    display: flex;*/
+/*    justify-content: center;*/
+/*    margin-top: 50px;*/
+/*    color: #9F775F;*/
+/*}*/
+
+/*.emailLogo{*/
+/*    margin-top: 5px;*/
+/*}*/
+
+/*.loginBtnDiv{*/
+/*    display: flex;*/
+/*    justify-content: center;*/
+/*    margin-bottom: 100px;*/
+/*}*/
+
+/*.loginBtnDiv button{*/
+/*    background-color:#9F775F;*/
+/*    color: white;*/
+/*}*/
+
+/*.loginMenuDiv{*/
+/*    margin-top: 10px;*/
+/*    margin-right: 260px;*/
+/*}*/
+
+/*.loginMenuDiv a{*/
+/*    color: #8B8B8B;*/
+/*    text-decoration: none;*/
+/*}*/
+
+/*.loginMenuDiv a:hover {*/
+/*    color: #E7DFD7;*/
+/*}*/
+
+/*.loginBtn{*/
+/*    margin-top: 20px;*/
+/*}*/
+
+/*.loginBtn:hover{*/
+/*    color: #DAC9B8;*/
+/*}*/
+
+/*.loginMenuDiv{*/
+/*    display: flex;*/
+/*    justify-content: center;*/
+/*}*/
+
+/*.mailDupliCheckBtn{*/
+/*    color: white;*/
+/*    margin-left: 10px;*/
+/*    background-color: #9F775F;*/
+/*    border-radius: 5px;*/
+/*    border-color: white;*/
+/*    border: none;*/
+/*}*/
+
+/*.mailDupliCheckBtn:hover{*/
+/*    color: #E7DFD7;*/
+/*}*/
+
+/*.nicknameDupliCheckBtn{*/
+/*    color: white;*/
+/*    margin-left: 10px;*/
+/*    background-color: #9F775F;*/
+/*    border-radius: 5px;*/
+/*    border-color: white;*/
+/*    border: none;*/
+/*}*/
+
+/*.nicknameDupliCheckBtn:hover{*/
+/*    color: #E7DFD7;*/
+/*}*/
+
+/*.dupliCheckDiv{*/
+/*    display: flex;*/
+/*    justify-content: center;*/
+/*}*/
+
+/*.dupliMail{*/
+/*    color: red;*/
+/*}*/
+
+/*.availableMail{*/
+/*    color: #9F775F;*/
+/*}*/
+
+/*.dupliNickname{*/
+/*    color: red;*/
+/*}*/
+
+/*.availableNickname{*/
+/*    color: #9F775F;*/
+/*}*/
+
+/*.signUpBtnDiv{*/
+/*    display: flex;*/
+/*    justify-content: center;*/
+/*    margin-top: 30px;*/
+/*    margin-bottom: 150px;*/
+/*}*/
+
+/*.signUpBtn:hover{*/
+/*    color: #E7DFD7;;*/
+/*}*/
+
+/*.signUpBtnDiv button{*/
+/*    color: white;*/
+/*    margin-left: 10px;*/
+/*    background-color: #9F775F;*/
+/*    border-radius: 5px;*/
+/*    border-color: white;*/
+/*    border: none;*/
+/*}*/
+
+/*.findPassDiv{*/
+/*    display: flex;*/
+/*    justify-content: center;*/
+/*    margin-top: 30px;*/
+/*}*/
+
+/*.findPassDiv button{*/
+/*    color: white;*/
+/*    margin-left: 10px;*/
+/*    background-color: #9F775F;*/
+/*    border-radius: 5px;*/
+/*    border-color: white;*/
+/*    border: none;*/
+/*    margin-bottom: 110px;*/
+/*}*/
+
+/*.findPassBtn:hover{*/
+/*    color: #E7DFD7;;*/
+/*}*/
+
+/*.terms {*/
+/*    overflow-y: scroll;*/
+/*    width: 1500px;*/
+/*    height: 250px;*/
+/*    background-color: #E7DFD7;*/
+/*    color: #979797;*/
+/*    position: absolute;*/
+/*    left:10%;*/
+/*    display: inline-block;*/
+/*    margin-top: 50px;*/
+/*    border-radius: 5px;*/
+/*}*/
+
+/*!* 스크롤바의 폭 너비 *!*/
+/*.terms::-webkit-scrollbar {*/
+/*    width: 10px;*/
+/*}*/
+
+/*.terms::-webkit-scrollbar-thumb {*/
+/*    background: #B9A89D; !* 스크롤바 색상 *!*/
+/*    border-radius: 10px; !* 스크롤바 둥근 테두리 *!*/
+/*}*/
+
+/*.terms::-webkit-scrollbar-track {*/
+/*    background: #E0D0C6;  !*스크롤바 뒷 배경 색상*!*/
+/*}*/
+
+/*.terms2 {*/
+/*    overflow-y: scroll;*/
+/*    width: 1500px;*/
+/*    height: 130px;*/
+/*    background-color: #E7DFD7;*/
+/*    color: #979797;*/
+/*    position: absolute;*/
+/*    left:10%;*/
+/*    display: inline-block;*/
+/*    margin-top: 350px;*/
+/*    border-radius: 5px;*/
+/*}*/
+
+/*!* 스크롤바의 폭 너비 *!*/
+/*.terms2::-webkit-scrollbar {*/
+/*    width: 10px;*/
+/*}*/
+
+/*.terms2::-webkit-scrollbar-thumb {*/
+/*    background: #B9A89D; !* 스크롤바 색상 *!*/
+/*    border-radius: 10px; !* 스크롤바 둥근 테두리 *!*/
+/*}*/
+
+/*.terms2::-webkit-scrollbar-track {*/
+/*    background: #E0D0C6;  !*스크롤바 뒷 배경 색상*!*/
+/*}*/
+
+/*.termAgreeDiv{*/
+/*    display: flex;*/
+/*    justify-content: center;*/
+/*    margin-top: 500px;*/
+/*}*/
+
+/*.termAgreeDiv button{*/
+/*    color: white;*/
+/*    margin-left: 10px;*/
+/*    background-color: #9F775F;*/
+/*    border-radius: 5px;*/
+/*    border-color: white;*/
+/*    border: none;*/
+/*}*/
+
+
+/*.termAgreeBtn:hover{*/
+/*    color: #E7DFD7;*/
+/*}*/
+
+/*.findPassTag{*/
+/*    margin-left: 15px;*/
+/*}*/
+
+/*.adminPassFind{*/
+/*    margin-right: 70px;*/
+/*}*/
+
+/*.orgNickname{*/
+/*    margin-right: 89px;*/
+/*}*/
+
+/*.inquiryDiv, .inquiryTitleDiv, .inquiryConDiv{*/
+/*    margin-top: 10px;*/
+/*    display: flex;*/
+/*    justify-content: center;*/
+/*}*/
+
+/*.inquiryTitleDiv input{*/
+/*    background-color: #E7DFD7;*/
+/*    width: 500px;*/
+/*    height: 40px; margin-left: 10px;*/
+/*    margin-top: 20px;*/
+/*    border-color: white;*/
+/*    outline: none;*/
+/*    border-radius: 5px;*/
+/*}*/
+
+/*.inquiryConDiv textarea{*/
+/*    margin-top: 20px;*/
+/*    background-color: #E7DFD7;*/
+/*    margin-left: 10px;*/
+/*    width: 500px;*/
+/*    height: 300px;*/
+/*}*/
+
+/*.inquirySuccDiv, .inquirySuccPicDiv{*/
+/*    display: flex;*/
+/*    justify-content: center;*/
+/*    margin-top: 200px;*/
+/*    color: #9F775F;*/
+/*    font-size: 30px;*/
+/*}*/
+
+/*.inquirySuccDiv2{*/
+/*    display: flex;*/
+/*    justify-content: center;*/
+/*    margin-top: 5px;*/
+/*    font-size: 30px;*/
+/*    color: #9F775F;*/
+/*}*/
+
+/*.inquirySuccPicDiv i{*/
+/*    display: flex;*/
+/*    justify-content: center;*/
+/*    font-size: 300px;*/
+/*    margin-top: 100px;*/
+/*}*/
