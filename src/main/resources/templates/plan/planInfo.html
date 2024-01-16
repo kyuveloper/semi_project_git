@@ -5,7 +5,7 @@
 <th:block layout:fragment="content">
     <div th:each="groupedPlan : ${planList}">
         <h3 th:text="${groupedPlan.planTitle}"></h3>
-        <p th:text="${groupedPlan.travelDate}"></p>
+        <p th:text="${#dates.format(groupedPlan.travelDate, 'yyyy-MM-dd')}"></p>
         <ul>
             <li th:each="index : ${#numbers.sequence(0, groupedPlan.companyNames.size()-1)}">
                 <span th:text="${groupedPlan.companyNames[index]}"></span>
